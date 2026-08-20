@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHINOTECH1 Marketplace</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+header {
+  background: #111827;
+  color: white;
+  padding: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-content {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.sell-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sell-btn:hover {
+  background: #15803d;
+}
+
+.hero {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: white;
+  text-align: center;
+  padding: 45px 20px;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: 32px;
+}
+
+.hero p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.search-area {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 10px 15px 50px;
+}
+
+.section-title {
+  margin-top: 30px;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.vehicle-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.vehicle-card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.vehicle-info {
+  padding: 15px;
+}
+
+.vehicle-info h3 {
+  margin: 0 0 8px;
+}
+
+.price {
+  color: #16a34a;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.location {
+  color: #666;
+  margin: 8px 0;
+}
+
+.contact-btn {
+  width: 100%;
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.contact-btn:hover {
+  background: #374151;
+}
+
+.no-results {
+  text-align: center;
+  padding: 30px;
+  display: none;
+}
+
+/* SELL FORM */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  overflow-y: auto;
+}
+
+.modal-box {
+  background: white;
+  width: 92%;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 22px;
+  border-radius: 12px;
+}
+
+.modal-box h2 {
+  margin-top: 0;
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #16a34a;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #15803d;
+}
+
+footer {
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo">CHINOTECH1 Marketplace</div>
+    <button class="sell-btn" onclick="openSellForm()">+ Sell Vehicle</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Buy & Sell Vehicles</h1>
+  <p>Cars, bikes and other vehicles — all in one marketplace.</p>
+</section>
+
+<div class="search-area">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search vehicles, location or price..."
+    onkeyup="searchVehicles()"
+  >
+</div>
+
+<main class="container">
+
+  <h2 class="section-title">Available Vehicles</h2>
+
+  <div id="vehicleGrid" class="vehicle-grid">
+
+    <div class="vehicle-card" data-search="toyota camry 2021 12500000 lagos">
+      <img
+        src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80"
+        alt="Toyota Camry"
+      >
+      <div class="vehicle-info">
+        <h3>Toyota Camry 2021</h3>
+        <div class="price">₦12,500,000</div>
+        <div class="location">📍 Lagos, Nigeria</div>
+        <p>Clean Toyota Camry 2021. Good condition and ready for use.</p>
+        <button class="contact-btn" onclick="contactSeller('Toyota Camry 2021')">
+          Contact Seller
+        </button>
+      </div>
+    </div>
+
+    <div class="vehicle-card" data-search="toyota corolla 2020 10500000 abuja">
+      <img
+        src="https://images.unsplash.com/photo-1623869675781-80aa31012a5a?auto=format&fit=crop&w=800&q=80"
+        alt="Toyota Corolla"
+      >
+      <div class="vehicle-info">
+        <h3>Toyota Corolla 2020</h3>
+        <div class="price">₦10,500,000</div>
+        <div class="location">📍 Abuja, Nigeria</div>
+        <p>Reliable Toyota Corolla with a clean interior.</p>
+        <button class="contact-btn" onclick="contactSeller('Toyota Corolla 2020')">
+          Contact Seller
+        </button>
+      </div>
+    </div>
+
+    <div class="vehicle-card" data-search="honda accord 2019 9500000 anambra">
+      <img
+        src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80"
+        alt="Honda Accord"
+      >
+      <div class="vehicle-info">
+        <h3>Honda Accord 2019</h3>
+        <div class="price">₦9,500,000</div>
+        <div class="location">📍 Anambra, Nigeria</div>
+        <p>Well-maintained Honda Accord in good driving condition.</p>
+        <button class="contact-btn" onclick="contactSeller('Honda Accord 2019')">
+          Contact Seller
+        </button>
+      </div>
+    </div>
+
+    <div class="vehicle-card" data-search="lexus rx 350 2018 18500000 port harcourt">
+      <img
+        src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80"
+        alt="Lexus RX"
+      >
+      <div class="vehicle-info">
+        <h3>Lexus RX 350 2018</h3>
+        <div class="price">₦18,500,000</div>
+        <div class="location">📍 Port Harcourt, Nigeria</div>
+        <p>Luxury SUV with comfortable interior and strong performance.</p>
+        <button class="contact-btn" onclick="contactSeller('Lexus RX 350 2018')">
+          Contact Seller
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="noResults" class="no-results">
+    No vehicle found.
+  </div>
+
+</main>
+
+<!-- SELL VEHICLE MODAL -->
+
+<div id="sellModal" class="modal">
+
+  <div class="modal-box">
+
+    <span class="close" onclick="closeSellForm()">&times;</span>
+
+    <h2>Sell Your Vehicle</h2>
+
+    <form id="sellForm">
+
+      <div class="form-group">
+        <label>Vehicle Name</label>
+        <input
+          type="text"
+          id="vehicleName"
+          placeholder="Example: Toyota Camry 2021"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Price (₦)</label>
+        <input
+          type="number"
+          id="vehiclePrice"
+          placeholder="Example: 12500000"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Location</label>
+        <input
+          type="text"
+          id="vehicleLocation"
+          placeholder="Example: Onitsha, Anambra"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea
+          id="vehicleDescription"
+          placeholder="Describe the vehicle..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Vehicle Image URL</label>
+        <input
+          type="url"
+          id="vehicleImage"
+          placeholder="Paste your image URL here"
+          required
+        >
+      </div>
+
+      <button type="submit" class="submit-btn">
+        Publish Vehicle
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 CHINOTECH1 Marketplace</p>
+  <p>Buy • Sell • Vehicles</p>
+</footer>
+
+<script>
+
+/* =========================
+   SELL BUTTON
+========================= */
+
+function openSellForm() {
+  document.getElementById("sellModal").style.display = "block";
+}
+
+function closeSellForm() {
+  document.getElementById("sellModal").style.display = "none";
+}
+
+
+/* =========================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================= */
+
+window.onclick = function(event) {
+  const modal = document.getElementById("sellModal");
+
+  if (event.target === modal) {
+    closeSellForm();
+  }
+};
+
+
+/* =========================
+   PUBLISH VEHICLE
+========================= */
+
+document.getElementById("sellForm").addEventListener("submit", function(event) {
+
+  event.preventDefault();
+
+  const name = document.getElementById("vehicleName").value;
+  const price = document.getElementById("vehiclePrice").value;
+  const location = document.getElementById("vehicleLocation").value;
+  const description = document.getElementById("vehicleDescription").value;
+  const image = document.getElementById("vehicleImage").value;
+
+  const card = document.createElement("div");
+
+  card.className = "vehicle-card";
+
+  card.setAttribute(
+    "data-search",
+    `${name} ${price} ${location} ${description}`.toLowerCase()
+  );
+
+  card.innerHTML = `
+    <img src="${image}" alt="${name}">
+    <div class="vehicle-info">
+
+      <h3>${name}</h3>
+
+      <div class="price">
+        ₦${Number(price).toLocaleString()}
+      </div>
+
+      <div class="location">
+        📍 ${location}
+      </div>
+
+      <p>${description}</p>
+
+      <button
+        class="contact-btn"
+        onclick="contactSeller('${name.replace(/'/g, "\\'")}')"
+      >
+        Contact Seller
+      </button>
+
+    </div>
+  `;
+
+  document.getElementById("vehicleGrid").prepend(card);
+
+  document.getElementById("sellForm").reset();
+
+  closeSellForm();
+
+  alert("Vehicle published successfully!");
+
+});
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchVehicles() {
+
+  const searchText =
+    document.getElementById("searchInput").value.toLowerCase();
+
+  const cards =
+    document.querySelectorAll(".vehicle-card");
+
+  let found = false;
+
+  cards.forEach(function(card) {
+
+    const text =
+      card.getAttribute("data-search").toLowerCase();
+
+    if (text.includes(searchText)) {
+
+      card.style.display = "block";
+      found = true;
+
+    } else {
+
+      card.style.display = "none";
+
+    }
+
+  });
+
+  document.getElementById("noResults").style.display =
+    found ? "none" : "block";
+}
+
+
+/* =========================
+   CONTACT SELLER
+========================= */
+
+function contactSeller(vehicleName) {
+
+  const phone = "2348000000000";
+
+  const message =
+    "Hello, I am interested in your " +
+    vehicleName +
+    " listed on CHINOTECH1 Marketplace.";
+
+  const whatsappURL =
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.open(whatsappURL, "_blank");
+}
+
+</script>
+
+</body>
+</html>
