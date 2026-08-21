@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>CHINOTECH1: X-CITY</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  background:#02070b;
+  color:white;
+  touch-action:none;
+}
+
+canvas{
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+/* ================= COVER ================= */
+
+#coverScreen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 35%,#17485f 0%,#091722 40%,#020609 100%);
+}
+
+#coverScreen:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.35;
+  background:
+    linear-gradient(90deg,
+      transparent 0 10%,
+      rgba(85,214,255,.12) 11%,
+      transparent 12% 88%,
+      rgba(85,214,255,.12) 89%,
+      transparent 90%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 55px,
+      rgba(255,255,255,.04) 56px
+    );
+  animation:cityMove 8s linear infinite;
+}
+
+.cityGlow{
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  background:rgba(40,190,255,.16);
+  filter:blur(80px);
+  animation:pulse 4s infinite;
+}
+
+.coverContent{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  width:92%;
+  max-width:650px;
+  animation:coverIn 1.2s ease;
+}
+
+.companyLogo{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:8px;
+  color:#55d6ff;
+  margin-bottom:18px;
+  text-shadow:0 0 20px rgba(85,214,255,.8);
+}
+
+.gameTitle{
+  font-size:clamp(55px,15vw,125px);
+  font-weight:1000;
+  letter-spacing:5px;
+  line-height:.85;
+  color:white;
+  text-shadow:
+    0 4px 0 #142631,
+    0 0 15px rgba(85,214,255,.7),
+    0 0 50px rgba(85,214,255,.35);
+}
+
+.gameTitle span{
+  color:#55d6ff;
+}
+
+.gameSubtitle{
+  margin-top:25px;
+  color:#c7d7df;
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.coverButtons{
+  margin:35px auto 0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  width:min(330px,90%);
+}
+
+.coverButtons button{
+  height:55px;
+  border-radius:12px;
+  border:1px solid rgba(85,214,255,.45);
+  background:rgba(7,20,29,.85);
+  color:white;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.coverButtons button:first-child{
+  background:#55d6ff;
+  color:#061018;
+  box-shadow:0 0 25px rgba(85,214,255,.4);
+}
+
+.version{
+  margin-top:28px;
+  color:#687b86;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+@keyframes coverIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(.9);opacity:.5}
+  50%{transform:scale(1.15);opacity:1}
+}
+
+@keyframes cityMove{
+  from{transform:translateY(0)}
+  to{transform:translateY(55px)}
+}
+
+/* ================= HUD ================= */
+
+#hud{
+  position:fixed;
+  top:12px;
+  left:12px;
+  z-index:5;
+  background:rgba(0,0,0,.7);
+  padding:12px;
+  border-radius:14px;
+  min-width:190px;
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.logo{
+  font-size:18px;
+  font-weight:900;
+  color:#55d6ff;
+}
+
+.sub{
+  font-size:10px;
+  color:#aaa;
+  margin-bottom:8px;
+}
+
+.stat{
+  font-size:14px;
+  margin:5px 0;
+}
+
+.bar{
+  height:7px;
+  background:#333;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+#healthBar{
+  height:100%;
+  width:100%;
+  background:#3ee477;
+}
+
+#mission{
+  margin-top:8px;
+  font-size:12px;
+  color:#ffe46b;
+}
+
+/* ================= SHOP ================= */
+
+#shop{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:rgba(0,0,0,.75);
+  align-items:center;
+  justify-content:center;
+}
+
+.panel{
+  width:min(92%,400px);
+  max-height:85vh;
+  overflow:auto;
+  background:#111b24;
+  border:1px solid #355365;
+  border-radius:20px;
+  padding:20px;
+}
+
+.panel h2{
+  color:#55d6ff;
+  margin-bottom:5px;
+}
+
+.panel p{
+  color:#aaa;
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  background:#1a2832;
+  padding:12px;
+  border-radius:12px;
+  margin:8px 0;
+}
+
+.item small{
+  color:#aaa;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:bold;
+}
+
+.buy{
+  background:#55d6ff;
+  color:#061018;
+}
+
+.close{
+  background:#394650;
+  color:white;
+  width:100%;
+  margin-top:10px;
+}
+
+/* ================= CONTROLS ================= */
+
+#controls{
+  position:fixed;
+  bottom:18px;
+  left:18px;
+  right:18px;
+  z-index:10;
+  display:flex;
+  justify-content:space-between;
+  pointer-events:none;
+}
+
+.pad{
+  width:150px;
+  height:150px;
+  position:relative;
+  pointer-events:auto;
+}
+
+.ctrl{
+  position:absolute;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:rgba(255,255,255,.16);
+  color:white;
+  border:1px solid rgba(255,255,255,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  user-select:none;
+}
+
+.up{top:0;left:48px}
+.down{bottom:0;left:48px}
+.left{top:48px;left:0}
+.right{top:48px;right:0}
+
+.actions{
+  display:flex;
+  gap:10px;
+  align-items:flex-end;
+  pointer-events:auto;
+}
+
+.action{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:rgba(85,214,255,.22);
+  border:1px solid rgba(85,214,255,.5);
+  color:white;
+  font-size:11px;
+}
+
+/* ================= MESSAGE ================= */
+
+#message{
+  position:fixed;
+  left:50%;
+  top:18%;
+  transform:translateX(-50%);
+  z-index:80;
+  background:rgba(0,0,0,.85);
+  padding:12px 18px;
+  border-radius:12px;
+  display:none;
+  text-align:center;
+}
+
+/* ================= SETTINGS ================= */
+
+#settings{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:60;
+  background:rgba(0,0,0,.8);
+  align-items:center;
+  justify-content:center;
+}
+
+.settingText{
+  color:#bbb;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.reset{
+  background:#d64545;
+  color:white;
+  width:100%;
+  margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= COVER ================= -->
+
+<div id="coverScreen">
+
+  <div class="cityGlow"></div>
+
+  <div class="coverContent">
+
+    <div class="companyLogo">CHINOTECH1</div>
+
+    <div class="gameTitle">
+      X-<span>CITY</span>
+    </div>
+
+    <div class="gameSubtitle">
+      OPEN WORLD • BUILD YOUR CITY • LIVE YOUR STORY
+    </div>
+
+    <div class="coverButtons">
+
+      <button onclick="startGame()">
+        ▶ PLAY GAME
+      </button>
+
+      <button onclick="openStoreFromCover()">
+        🛒 STORE
+      </button>
+
+      <button onclick="showSettings()">
+        ⚙ SETTINGS
+      </button>
+
+    </div>
+
+    <div class="version">
+      CHINOTECH1 X-CITY • ALPHA 1.0
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================= HUD ================= -->
+
+<div id="hud">
+
+  <div class="logo">CHINOTECH1</div>
+
+  <div class="sub">
+    X-CITY • OPEN WORLD
+  </div>
+
+  <div class="stat">
+    💰 $<span id="money">1000</span>
+  </div>
+
+  <div class="stat">
+    ⭐ Level <span id="level">1</span>
+  </div>
+
+  <div class="stat">
+    🚗 Vehicle: <span id="vehicle">On Foot</span>
+  </div>
+
+  <div class="stat">
+    ❤️ Health
+  </div>
+
+  <div class="bar">
+    <div id="healthBar"></div>
+  </div>
+
+  <div id="mission">
+    Mission: Visit the yellow mission marker.
+  </div>
+
+</div>
+
+
+<!-- ================= MESSAGE ================= -->
+
+<div id="message"></div>
+
+
+<!-- ================= SHOP ================= -->
+
+<div id="shop">
+
+  <div class="panel">
+
+    <h2>🏪 X-CITY MARKET</h2>
+
+    <p>
+      Buy virtual items using your in-game currency.
+    </p>
+
+    <div class="item">
+      <div>
+        <b>🚗 X-Racer</b>
+        <small>Fast city vehicle</small>
+      </div>
+
+      <button class="buy"
+              onclick="buyItem('car',500)">
+        BUY $500
+      </button>
+    </div>
+
+    <div class="item">
+      <div>
+        <b>🏠 City Apartment</b>
+        <small>Virtual home</small>
+      </div>
+
+      <button class="buy"
+              onclick="buyItem('home',800)">
+        BUY $800
+      </button>
+    </div>
+
+    <div class="item">
+      <div>
+        <b>👕 Street Outfit</b>
+        <small>New outfit</small>
+      </div>
+
+      <button class="buy"
+              onclick="buyItem('outfit',250)">
+        BUY $250
+      </button>
+    </div>
+
+    <div class="item">
+      <div>
+        <b>⚡ Speed Upgrade</b>
+        <small>Move faster</small>
+      </div>
+
+      <button class="buy"
+              onclick="buyItem('speed',350)">
+        BUY $350
+      </button>
+    </div>
+
+    <button class="close"
+            onclick="closeShop()">
+      CLOSE
+    </button>
+
+  </div>
+</div>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<div id="settings">
+
+  <div class="panel">
+
+    <h2>⚙ X-CITY SETTINGS</h2>
+
+    <p class="settingText">
+      CHINOTECH1: X-CITY<br><br>
+      Version: Alpha 1.0<br>
+      Controls: Touch / Keyboard<br>
+      Save System: Enabled<br>
+      Platform: Web / Android Browser
+    </p>
+
+    <button class="close"
+            onclick="closeSettings()">
+      CLOSE
+    </button>
+
+    <button class="reset"
+            onclick="resetGame()">
+      RESET GAME DATA
+    </button>
+
+  </div>
+</div>
+
+
+<!-- ================= CONTROLS ================= -->
+
+<div id="controls">
+
+  <div class="pad">
+
+    <div class="ctrl up"
+         data-key="up">▲</div>
+
+    <div class="ctrl down"
+         data-key="down">▼</div>
+
+    <div class="ctrl left"
+         data-key="left">◀</div>
+
+    <div class="ctrl right"
+         data-key="right">▶</div>
+
+  </div>
+
+  <div class="actions">
+
+    <button class="action"
+            id="enterBtn">
+      🚗<br>ENTER
+    </button>
+
+    <button class="action"
+            id="shopBtn">
+      🏪<br>SHOP
+    </button>
+
+    <button class="action"
+            id="missionBtn">
+      🎯<br>MISSION
+    </button>
+
+  </div>
+
+</div>
+
+
+<canvas id="game"></canvas>
+
+
+<script>
+
+/* =====================================================
+   CHINOTECH1: X-CITY
+   SINGLE FILE GAME
+   ===================================================== */
+
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+let W,H;
+
+function resize(){
+  W=canvas.width=innerWidth;
+  H=canvas.height=innerHeight;
+}
+
+addEventListener("resize",resize);
+resize();
+
+
+/* ================= GAME DATA ================= */
+
+let money=1000;
+let level=1;
+let health=100;
+
+let player={
+  x:600,
+  y:600,
+  speed:3.2,
+  color:"#42d9ff"
+};
+
+let vehicle=false;
+
+let owned={
+  car:false,
+  home:false,
+  outfit:false,
+  speed:false
+};
+
+let missionComplete=false;
+
+let camera={
+  x:0,
+  y:0
+};
+
+let keys={
+  up:false,
+  down:false,
+  left:false,
+  right:false
+};
+
+
+/* ================= WORLD ================= */
+
+const world={
+  width:3000,
+  height:2200
+};
+
+const roads=[
+  {x:0,y:480,w:3000,h:150},
+  {x:0,y:1050,w:3000,h:150},
+  {x:700,y:0,w:150,h:2200},
+  {x:1800,y:0,w:150,h:2200}
+];
+
+const buildings=[];
+
+function addBuilding(x,y,w,h,name){
+  buildings.push({
+    x,y,w,h,name
+  });
+}
+
+for(let x=80;x<2900;x+=250){
+
+  addBuilding(
+    x,100,170,280,
+    "Building"
+  );
+
+  addBuilding(
+    x,700,170,260,
+    "Building"
+  );
+
+  addBuilding(
+    x,1280,170,260,
+    "Building"
+  );
+
+  addBuilding(
+    x,1650,170,280,
+    "Building"
+  );
+}
+
+addBuilding(
+  900,680,300,260,
+  "X-CITY MARKET"
+);
+
+addBuilding(
+  2100,680,330,260,
+  "APARTMENT"
+);
+
+const shop={
+  x:1050,
+  y:800
+};
+
+const mission={
+  x:2250,
+  y:800
+};
+
+
+/* ================= INPUT ================= */
+
+addEventListener("keydown",e=>{
+
+  if(e.key==="ArrowUp"||e.key==="w")
+    keys.up=true;
+
+  if(e.key==="ArrowDown"||e.key==="s")
+    keys.down=true;
+
+  if(e.key==="ArrowLeft"||e.key==="a")
+    keys.left=true;
+
+  if(e.key==="ArrowRight"||e.key==="d")
+    keys.right=true;
+
+  if(e.key==="e")
+    enterVehicle();
+
+  if(e.key==="m")
+    openShop();
+
+});
+
+addEventListener("keyup",e=>{
+
+  if(e.key==="ArrowUp"||e.key==="w")
+    keys.up=false;
+
+  if(e.key==="ArrowDown"||e.key==="s")
+    keys.down=false;
+
+  if(e.key==="ArrowLeft"||e.key==="a")
+    keys.left=false;
+
+  if(e.key==="ArrowRight"||e.key==="d")
+    keys.right=false;
+
+});
+
+
+/* ================= TOUCH ================= */
+
+document.querySelectorAll(".ctrl").forEach(btn=>{
+
+  const key=btn.dataset.key;
+
+  function press(e){
+    e.preventDefault();
+    keys[key]=true;
+  }
+
+  function release(e){
+    e.preventDefault();
+    keys[key]=false;
+  }
+
+  btn.addEventListener(
+    "touchstart",
+    press,
+    {passive:false}
+  );
+
+  btn.addEventListener(
+    "touchend",
+    release,
+    {passive:false}
+  );
+
+  btn.addEventListener(
+    "touchcancel",
+    release,
+    {passive:false}
+  );
+
+  btn.addEventListener(
+    "mousedown",
+    press
+  );
+
+  btn.addEventListener(
+    "mouseup",
+    release
+  );
+
+});
+
+
+document.getElementById(
+  "enterBtn"
+).onclick=enterVehicle;
+
+document.getElementById(
+  "shopBtn"
+).onclick=openShop;
+
+document.getElementById(
+  "missionBtn"
+).onclick=missionAction;
+
+
+/* ================= COLLISION ================= */
+
+function circleRectCollision(
+  cx,cy,r,rect
+){
+
+  const closestX=Math.max(
+    rect.x,
+    Math.min(cx,rect.x+rect.w)
+  );
+
+  const closestY=Math.max(
+    rect.y,
+    Math.min(cy,rect.y+rect.h)
+  );
+
+  const dx=cx-closestX;
+  const dy=cy-closestY;
+
+  return dx*dx+dy*dy<r*r;
+}
+
+
+function canMove(nx,ny,r=18){
+
+  if(
+    nx<20 ||
+    ny<20 ||
+    nx>world.width-20 ||
+    ny>world.height-20
+  ){
+    return false;
+  }
+
+  for(const b of buildings){
+
+    if(
+      circleRectCollision(
+        nx,ny,r,b
+      )
+    ){
+      return false;
+    }
+
+  }
+
+  return true;
+}
+
+
+/* ================= PLAYER ================= */
+
+function updatePlayer(){
+
+  let dx=0;
+  let dy=0;
+
+  if(keys.up)dy--;
+
+  if(keys.down)dy++;
+
+  if(keys.left)dx--;
+
+  if(keys.right)dx++;
+
+  if(dx===0&&dy===0)
+    return;
+
+  const length=Math.hypot(dx,dy);
+
+  dx/=length;
+  dy/=length;
+
+  let speed=
+    owned.speed
+    ?5
+    :3.2;
+
+  if(vehicle)
+    speed=6;
+
+  const nx=
+    player.x+dx*speed;
+
+  const ny=
+    player.y+dy*speed;
+
+  const radius=
+    vehicle?25:18;
+
+  if(
+    canMove(
+      nx,
+      player.y,
+      radius
+    )
+  ){
+    player.x=nx;
+  }
+
+  if(
+    canMove(
+      player.x,
+      ny,
+      radius
+    )
+  ){
+    player.y=ny;
+  }
+}
+
+
+/* ================= VEHICLE ================= */
+
+function enterVehicle(){
+
+  if(!owned.car){
+
+    showMessage(
+      "Buy the X-Racer at the market first."
+    );
+
+    return;
+  }
+
+  const distance=
+    Math.hypot(
+      player.x-1050,
+      player.y-1550
+    );
+
+  if(distance<250||vehicle){
+
+    vehicle=!vehicle;
+
+    document.getElementById(
+      "vehicle"
+    ).textContent=
+      vehicle
+      ?"X-Racer"
+      :"On Foot";
+
+    showMessage(
+      vehicle
+      ?"Entered X-Racer 🚗"
+      :"Left vehicle"
+    );
+
+  }else{
+
+    showMessage(
+      "Go near the garage first."
+    );
+
+  }
+}
+
+
+/* ================= SHOP ================= */
+
+function openShop(){
+
+  const distance=
+    Math.hypot(
+      player.x-shop.x,
+      player.y-shop.y
+    );
+
+  if(distance<300){
+
+    document.getElementById(
+      "shop"
+    ).style.display="flex";
+
+  }else{
+
+    showMessage(
+      "Go to the blue X-CITY Market."
+    );
+
+  }
+}
+
+
+function openStoreFromCover(){
+
+  document.getElementById(
+    "coverScreen"
+  ).style.display="none";
+
+  document.getElementById(
+    "shop"
+  ).style.display="flex";
+
+}
+
+
+function closeShop(){
+
+  document.getElementById(
+    "shop"
+  ).style.display="none";
+
+}
+
+
+function buyItem(type,cost){
+
+  if(owned[type]){
+
+    showMessage(
+      "You already own this item."
+    );
+
+    return;
+  }
+
+  if(money<cost){
+
+    showMessage(
+      "Not enough money."
+    );
+
+    return;
+  }
+
+  money-=cost;
+
+  owned[type]=true;
+
+  if(type==="speed")
+    player.speed=5;
+
+  updateHUD();
+  saveGame();
+
+  showMessage(
+    "Purchase successful ✓"
+  );
+
+}
+
+
+/* ================= MISSION ================= */
+
+function missionAction(){
+
+  const distance=
+    Math.hypot(
+      player.x-mission.x,
+      player.y-mission.y
+    );
+
+  if(
+    distance<300 &&
+    !missionComplete
+  ){
+
+    missionComplete=true;
+
+    money+=300;
+
+    level++;
+
+    updateHUD();
+    saveGame();
+
+    showMessage(
+      "MISSION COMPLETE! +$300"
+    );
+
+  }else if(!missionComplete){
+
+    showMessage(
+      "Travel to the yellow M marker."
+    );
+
+  }else{
+
+    showMessage(
+      "Mission completed!"
+    );
+
+  }
+
+}
+
+
+/* ================= HUD ================= */
+
+function updateHUD(){
+
+  document.getElementById(
+    "money"
+  ).textContent=money;
+
+  document.getElementById(
+    "level"
+  ).textContent=level;
+
+  document.getElementById(
+    "healthBar"
+  ).style.width=
+    health+"%";
+
+  document.getElementById(
+    "mission"
+  ).textContent=
+    missionComplete
+    ?"Mission complete ✓"
+    :"Mission: Visit the yellow mission marker.";
+
+}
+
+
+/* ================= SAVE ================= */
+
+function saveGame(){
+
+  localStorage.setItem(
+    "X_CITY_SAVE",
+    JSON.stringify({
+
+      money,
+      level,
+      health,
+      player,
+      owned,
+      missionComplete
+
+    })
+  );
+
+}
+
+
+function loadGame(){
+
+  const saved=
+    localStorage.getItem(
+      "X_CITY_SAVE"
+    );
+
+  if(!saved)
+    return;
+
+  try{
+
+    const data=
+      JSON.parse(saved);
+
+    money=data.money??1000;
+
+    level=data.level??1;
+
+    health=data.health??100;
+
+    owned=data.owned??owned;
+
+    missionComplete=
+      data.missionComplete??false;
+
+    if(data.player)
+      player=data.player;
+
+  }catch(error){
+
+    console.log(
+      "Save data error"
+    );
+
+  }
+
+  updateHUD();
+
+}
+
+
+function resetGame(){
+
+  localStorage.removeItem(
+    "X_CITY_SAVE"
+  );
+
+  location.reload();
+
+}
+
+loadGame();
+
+
+/* ================= CAMERA ================= */
+
+function updateCamera(){
+
+  camera.x=
+    player.x-W/2;
+
+  camera.y=
+    player.y-H/2;
+
+  camera.x=Math.max(
+    0,
+    Math.min(
+      camera.x,
+      world.width-W
+    )
+  );
+
+  camera.y=Math.max(
+    0,
+    Math.min(
+      camera.y,
+      world.height-H
+    )
+  );
+
+}
+
+
+/* ================= WORLD DRAWING ================= */
+
+function drawWorld(){
+
+  ctx.fillStyle="#25412d";
+
+  ctx.fillRect(
+    0,
+    0,
+    W,
+    H
+  );
+
+  ctx.save();
+
+  ctx.translate(
+    -camera.x,
+    -camera.y
+  );
+
+
+  /* Ground */
+
+  ctx.fillStyle="#25412d";
+
+  ctx.fillRect(
+    0,
+    0,
+    world.width,
+    world.height
+  );
+
+
+  /* Roads */
+
+  for(const road of roads){
+
+    ctx.fillStyle="#292d32";
+
+    ctx.fillRect(
+      road.x,
+      road.y,
+      road.w,
+      road.h
+    );
+
+    ctx.strokeStyle="#d4b64b";
+
+    ctx.lineWidth=3;
+
+    ctx.setLineDash(
+      [25,25]
+    );
+
+    ctx.beginPath();
+
+    if(road.w>road.h){
+
+      ctx.moveTo(
+        road.x,
+        road.y+road.h/2
+      );
+
+      ctx.lineTo(
+        road.x+road.w,
+        road.y+road.h/2
+      );
+
+    }else{
+
+      ctx.moveTo(
+        road.x+road.w/2,
+        road.y
+      );
+
+      ctx.lineTo(
+        road.x+road.w/2,
+        road.y+road.h
+      );
+
+    }
+
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+  }
+
+
+  /* Buildings */
+
+  for(const b of buildings){
+
+    ctx.fillStyle="#394957";
+
+    ctx.fillRect(
+      b.x,
+      b.y,
+      b.w,
+      b.h
+    );
+
+    ctx.fillStyle="#25323b";
+
+    ctx.fillRect(
+      b.x+12,
+      b.y+12,
+      b.w-24,
+      b.h-24
+    );
+
+    ctx.fillStyle="#75d9ff";
+
+    for(
+      let xx=b.x+30;
+      xx<b.x+b.w-20;
+      xx+=45
+    ){
+
+      for(
+        let yy=b.y+30;
+        yy<b.y+b.h-20;
+        yy+=45
+      ){
+
+        ctx.fillRect(
+          xx,
+          yy,
+          16,
+          12
+        );
+
+      }
+
+    }
+
+    ctx.fillStyle="white";
+
+    ctx.font="12px Arial";
+
+    ctx.fillText(
+      b.name,
+      b.x+10,
+      b.y+b.h-10
+    );
+
+  }
+
+
+  /* Shop */
+
+  ctx.beginPath();
+
+  ctx.arc(
+    shop.x,
+    shop.y,
+    42,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fillStyle="#168cff";
+
+  ctx.fill();
+
+  ctx.fillStyle="white";
+
+  ctx.font="bold 18px Arial";
+
+  ctx.textAlign="center";
+
+  ctx.fillText(
+    "SHOP",
+    shop.x,
+    shop.y+6
+  );
+
+
+  /* Mission */
+
+  if(!missionComplete){
+
+    ctx.beginPath();
+
+    ctx.arc(
+      mission.x,
+      mission.y,
+      38,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle="#ffd84d";
+
+    ctx.fill();
+
+    ctx.fillStyle="#111";
+
+    ctx.font="bold 17px Arial";
+
+    ctx.fillText(
+      "M",
+      mission.x,
+      mission.y+6
+    );
+
+  }
+
+
+  /* Garage */
+
+  ctx.fillStyle="#9b44ff";
+
+  ctx.fillRect(
+    1000,
+    1450,
+    230,
+    180
+  );
+
+  ctx.fillStyle="white";
+
+  ctx.font="bold 22px Arial";
+
+  ctx.fillText(
+    "GARAGE",
+    1115,
+    1540
+  );
+
+
+  /* Player / Car */
+
+  if(vehicle){
+
+    ctx.fillStyle="#ff3b30";
+
+    ctx.fillRect(
+      player.x-30,
+      player.y-18,
+      60,
+      36
+    );
+
+    ctx.fillStyle="#111";
+
+    ctx.fillRect(
+      player.x-18,
+      player.y-12,
+      36,
+      15
+    );
+
+    ctx.fillStyle="#111";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      player.x-20,
+      player.y+18,
+      8,
+      0,
+      Math.PI*2
+    );
+
+    ctx.arc(
+      player.x+20,
+      player.y+18,
+      8,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }else{
+
+    ctx.fillStyle="rgba(0,0,0,.3)";
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+      player.x,
+      player.y+17,
+      18,
+      8,
+      0,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle=player.color;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      player.x,
+      player.y,
+      17,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle="white";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      player.x-5,
+      player.y-4,
+      3,
+      0,
+      Math.PI*2
+    );
+
+    ctx.arc(
+      player.x+5,
+      player.y-4,
+      3,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+  ctx.restore();
+
+  ctx.textAlign="left";
+
+}
+
+
+/* ================= MINI MAP ================= */
+
+function drawMiniMap(){
+
+  const mw=150;
+  const mh=110;
+
+  const x=W-mw-15;
+  const y=15;
+
+  ctx.fillStyle="rgba(0,0,0,.65)";
+
+  ctx.fillRect(
+    x,
+    y,
+    mw,
+    mh
+  );
+
+  ctx.strokeStyle=
+    "rgba(255,255,255,.25)";
+
+  ctx.strokeRect(
+    x,
+    y,
+    mw,
+    mh
+  );
+
+
+  ctx.strokeStyle="#555";
+
+  ctx.lineWidth=7;
+
+  for(const road of roads){
+
+    if(road.w>road.h){
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        x+(road.x/world.width)*mw,
+        y+(road.y/world.height)*mh
+      );
+
+      ctx.lineTo(
+        x+((road.x+road.w)/world.width)*mw,
+        y+((road.y+road.h)/world.height)*mh
+      );
+
+      ctx.stroke();
+
+    }
+
+  }
+
+
+  ctx.fillStyle="#55d6ff";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    x+(player.x/world.width)*mw,
+    y+(player.y/world.height)*mh,
+    4,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  if(!missionComplete){
+
+    ctx.fillStyle="#ffd84d";
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x+(mission.x/world.width)*mw,
+      y+(mission.y/world.height)*mh,
+      4,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+}
+
+
+/* ================= MESSAGE ================= */
+
+let messageTimer;
+
+function showMessage(text){
+
+  const box=
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent=text;
+
+  box.style.display="block";
+
+  clearTimeout(
+    messageTimer
+  );
+
+  messageTimer=setTimeout(
+    ()=>{
+      box.style.display="none";
+    },
+    2200
+  );
+
+}
+
+
+/* ================= COVER ================= */
+
+function startGame(){
+
+  const cover=
+    document.getElementById(
+      "coverScreen"
+    );
+
+  cover.style.transition=
+    "opacity .7s ease";
+
+  cover.style.opacity="0";
+
+  setTimeout(
+    ()=>{
+      cover.style.display="none";
+    },
+    700
+  );
+
+  showMessage(
+    "Welcome to CHINOTECH1: X-CITY 🚀"
+  );
+
+}
+
+
+function showSettings(){
+
+  document.getElementById(
+    "settings"
+  ).style.display="flex";
+
+}
+
+
+function closeSettings(){
+
+  document.getElementById(
+    "settings"
+  ).style.display="none";
+
+}
+
+
+/* ================= GAME LOOP ================= */
+
+function gameLoop(){
+
+  updatePlayer();
+
+  updateCamera();
+
+  drawWorld();
+
+  drawMiniMap();
+
+  requestAnimationFrame(
+    gameLoop
+  );
+
+}
+
+updateHUD();
+
+gameLoop();
+
+
+/* ================= AUTO SAVE ================= */
+
+setInterval(
+  saveGame,
+  5000
+);
+
+</script>
+
+</body>
+</html>
