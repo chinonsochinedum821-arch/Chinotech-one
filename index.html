@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>CHINOTECH1 Marketplace</title>
+
+<style>
+:root{
+  --bg:#050505;
+  --panel:#101010;
+  --panel2:#171717;
+  --line:#282828;
+  --text:#fff;
+  --muted:#8b8b8b;
+  --accent:#00e5ff;
+  --danger:#ff4d5f;
+  --success:#31e981;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+}
+
+button,input,textarea,select{font:inherit}
+
+button{cursor:pointer}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(5,5,5,.95);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--line);
+}
+
+.top{
+  max-width:1250px;
+  margin:auto;
+  padding:13px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:1000;
+  letter-spacing:1.5px;
+  white-space:nowrap;
+}
+
+.logo span{color:var(--accent)}
+
+.searchBox{
+  flex:1;
+  display:flex;
+  gap:7px;
+}
+
+.searchBox input{
+  width:100%;
+  background:#111;
+  color:white;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:12px 14px;
+  outline:none;
+}
+
+.searchBox input:focus{
+  border-color:var(--accent);
+}
+
+.searchBox button{
+  background:var(--accent);
+  color:#001014;
+  border:0;
+  border-radius:11px;
+  padding:0 16px;
+  font-weight:900;
+}
+
+.headerButtons{
+  display:flex;
+  gap:6px;
+}
+
+.iconBtn{
+  background:var(--panel2);
+  color:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 11px;
+}
+
+.iconBtn:hover{border-color:var(--accent)}
+
+main{
+  max-width:1250px;
+  margin:auto;
+}
+
+.hero{
+  margin:18px 16px;
+  min-height:310px;
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:35px 27px;
+  display:flex;
+  align-items:center;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(0,229,255,.2),transparent 30%),
+    radial-gradient(circle at 20% 100%,rgba(255,255,255,.08),transparent 35%),
+    #0c0c0c;
+}
+
+.hero small{
+  color:var(--accent);
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.hero h1{
+  font-size:clamp(42px,8vw,80px);
+  line-height:.9;
+  margin:15px 0;
+}
+
+.hero h1 span{color:var(--accent)}
+
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.primary,.secondary{
+  border-radius:11px;
+  padding:12px 17px;
+  font-weight:900;
+}
+
+.primary{
+  background:var(--accent);
+  color:#001014;
+  border:1px solid var(--accent);
+}
+
+.secondary{
+  background:#161616;
+  color:white;
+  border:1px solid #333;
+}
+
+.primary:hover{filter:brightness(1.1)}
+
+.section{
+  padding:12px 16px;
+}
+
+.sectionTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.sectionTitle h2{font-size:23px}
+
+.muted{color:var(--muted)}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:8px;
+}
+
+.category{
+  flex:0 0 auto;
+  padding:10px 15px;
+  border-radius:25px;
+  background:#111;
+  border:1px solid var(--line);
+  color:#bbb;
+}
+
+.category.active,
+.category:hover{
+  color:#001014;
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  margin:10px 0 15px;
+  flex-wrap:wrap;
+}
+
+.filters select{
+  background:#111;
+  color:white;
+  border:1px solid var(--line);
+  padding:10px;
+  border-radius:9px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:17px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  border-color:#00aabd;
+}
+
+.pic{
+  height:170px;
+  background:#191919;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:70px;
+  overflow:hidden;
+}
+
+.pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.cardBody{padding:13px}
+
+.tag{
+  display:inline-block;
+  color:var(--accent);
+  background:#0c2024;
+  border:1px solid #123d44;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:10px;
+  margin-bottom:7px;
+}
+
+.name{
+  font-size:17px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.desc{
+  color:#858585;
+  font-size:13px;
+  line-height:1.4;
+  min-height:38px;
+}
+
+.price{
+  color:var(--accent);
+  font-weight:1000;
+  font-size:20px;
+  margin:11px 0;
+}
+
+.seller{
+  color:#777;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.cardBtns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.cardBtns button{
+  padding:9px 4px;
+  border-radius:9px;
+  background:#171717;
+  color:white;
+  border:1px solid #2c2c2c;
+}
+
+.cardBtns .buy{
+  background:var(--accent);
+  color:#001014;
+  border-color:var(--accent);
+  font-weight:900;
+}
+
+.engine{
+  width:100%;
+  margin-top:7px;
+  padding:8px;
+  border-radius:9px;
+  background:#0d2226!important;
+  color:var(--accent)!important;
+  border-color:#164c55!important;
+}
+
+.navBottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(10,10,10,.96);
+  border-top:1px solid var(--line);
+  z-index:900;
+  display:flex;
+  justify-content:center;
+}
+
+.navInner{
+  width:min(700px,100%);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+}
+
+.navItem{
+  border:0;
+  background:transparent;
+  color:#888;
+  padding:10px 4px;
+  font-size:11px;
+}
+
+.navItem.active,
+.navItem:hover{
+  color:var(--accent);
+}
+
+.navItem div{
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+footer{
+  margin-top:60px;
+  padding:35px 16px 100px;
+  border-top:1px solid var(--line);
+  color:#666;
+  text-align:center;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,.8);
+  padding:15px;
+  overflow:auto;
+}
+
+.modal.show{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modalBox{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#111;
+  border:1px solid #333;
+  border-radius:19px;
+  padding:20px;
+}
+
+.modalHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
+}
+
+.close{
+  border:0;
+  background:#252525;
+  color:white;
+  padding:8px 11px;
+  border-radius:8px;
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field label{
+  display:block;
+  color:#aaa;
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  padding:12px;
+  border-radius:9px;
+  border:1px solid #2d2d2d;
+  background:#070707;
+  color:white;
+  outline:none;
+}
+
+.field textarea{
+  min-height:100px;
+}
+
+.formBtns{
+  display:flex;
+  gap:8px;
+}
+
+.formBtns button{flex:1}
+
+.notice{
+  background:#102126;
+  border:1px solid #16454d;
+  color:#9eefff;
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:14px;
+}
+
+.listItem{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #242424;
+}
+
+.listItem small{color:#777}
+
+.remove{
+  background:#2a1114;
+  color:#ff8490;
+  border:1px solid #512026;
+  border-radius:7px;
+  padding:7px;
+}
+
+.total{
+  font-size:23px;
+  color:var(--accent);
+  font-weight:1000;
+  margin-top:17px;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:75px;
+  transform:translate(-50%,120px);
+  background:var(--accent);
+  color:#001014;
+  padding:11px 17px;
+  border-radius:10px;
+  font-weight:900;
+  z-index:5000;
+  transition:.25s;
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+}
+
+.empty{
+  text-align:center;
+  color:#666;
+  padding:35px;
+  grid-column:1/-1;
+}
+
+@media(max-width:650px){
+
+  .top{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    width:100%;
+  }
+
+  .searchBox{
+    order:3;
+    width:100%;
+  }
+
+  .headerButtons{
+    position:absolute;
+    right:10px;
+    top:9px;
+  }
+
+  .hero{
+    margin:12px;
+    padding:27px 20px;
+  }
+
+  .section{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .pic{
+    height:125px;
+    font-size:52px;
+  }
+
+  .cardBody{padding:9px}
+
+  .name{font-size:14px}
+
+  .price{font-size:17px}
+
+  .cardBtns{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="top">
+
+<div class="logo">
+CHINO<span>TECH1</span>
+</div>
+
+<div class="searchBox">
+<input
+id="search"
+type="search"
+placeholder="Search anything..."
+oninput="render()">
+<button onclick="render()">Search</button>
+</div>
+
+<div class="headerButtons">
+
+<button class="iconBtn" onclick="openCart()">
+🛒 <span id="cartCount">0</span>
+</button>
+
+<button class="iconBtn" onclick="openMessages()">
+💬
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+<div>
+
+<small>CHINOTECH1 MARKETPLACE</small>
+
+<h1>
+BUY.<br>
+<span>SELL.</span><br>
+CONNECT.
+</h1>
+
+<p>
+A modern marketplace where buyers discover products,
+sellers build businesses and people connect directly.
+Cars, electronics, phones, fashion, parts, services and more.
+</p>
+
+<div class="actions">
+
+<button class="primary" onclick="scrollToMarket()">
+🛍️ Browse Marketplace
+</button>
+
+<button class="secondary" onclick="openSell()">
+＋ Sell Something
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="sectionTitle">
+<h2>Explore Categories</h2>
+</div>
+
+<div class="categories">
+
+<button class="category active"
+onclick="setCategory('All',this)">
+All
+</button>
+
+<button class="category"
+onclick="setCategory('Cars',this)">
+🚗 Cars
+</button>
+
+<button class="category"
+onclick="setCategory('Electronics',this)">
+📱 Electronics
+</button>
+
+<button class="category"
+onclick="setCategory('Phones',this)">
+📲 Phones
+</button>
+
+<button class="category"
+onclick="setCategory('Fashion',this)">
+👕 Fashion
+</button>
+
+<button class="category"
+onclick="setCategory('Parts',this)">
+⚙️ Parts
+</button>
+
+<button class="category"
+onclick="setCategory('Services',this)">
+🛠️ Services
+</button>
+
+<button class="category"
+onclick="setCategory('Other',this)">
+📦 Other
+</button>
+
+</div>
+
+</section>
+
+<section class="section" id="market">
+
+<div class="sectionTitle">
+
+<h2>Marketplace</h2>
+
+<span class="muted" id="count"></span>
+
+</div>
+
+<div class="filters">
+
+<select id="sort" onchange="render()">
+<option value="new">Newest</option>
+<option value="low">Price: Low to High</option>
+<option value="high">Price: High to Low</option>
+</select>
+
+<select id="condition" onchange="render()">
+<option value="all">All Conditions</option>
+<option value="New">New</option>
+<option value="Used">Used</option>
+</select>
+
+</div>
+
+<div class="grid" id="products"></div>
+
+</section>
+
+</main>
+
+<footer>
+
+<strong style="color:white;font-size:20px">
+CHINOTECH1 MARKETPLACE
+</strong>
+
+<p>
+Buy • Sell • Connect • Grow
+</p>
+
+<p style="margin-top:8px">
+© 2026 CHINOTECH1
+</p>
+
+</footer>
+
+<!-- BOTTOM NAV -->
+
+<nav class="navBottom">
+
+<div class="navInner">
+
+<button class="navItem active"
+onclick="scrollToMarket()">
+<div>🏠</div>
+Home
+</button>
+
+<button class="navItem"
+onclick="scrollToMarket()">
+<div>🔎</div>
+Browse
+</button>
+
+<button class="navItem"
+onclick="openSell()">
+<div>＋</div>
+Sell
+</button>
+
+<button class="navItem"
+onclick="openCart()">
+<div>🛒</div>
+Cart
+</button>
+
+<button class="navItem"
+onclick="openProfile()">
+<div>👤</div>
+Profile
+</button>
+
+</div>
+
+</nav>
+
+<!-- SELL MODAL -->
+
+<div class="modal" id="sellModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+<h2>Sell on CHINOTECH1</h2>
+<button class="close" onclick="closeModal('sellModal')">✕</button>
+</div>
+
+<div class="notice">
+Create a product listing. It will be saved locally in this
+version. A real database can be connected later.
+</div>
+
+<form id="sellForm">
+
+<div class="field">
+<label>Product name</label>
+<input id="sellName" required placeholder="Example: iPhone 15">
+</div>
+
+<div class="field">
+<label>Category</label>
+<select id="sellCategory">
+<option>Cars</option>
+<option>Electronics</option>
+<option>Phones</option>
+<option>Fashion</option>
+<option>Parts</option>
+<option>Services</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="field">
+<label>Price in ₦</label>
+<input id="sellPrice" type="number" min="0" required>
+</div>
+
+<div class="field">
+<label>Condition</label>
+<select id="sellCondition">
+<option>New</option>
+<option>Used</option>
+</select>
+</div>
+
+<div class="field">
+<label>Description</label>
+<textarea id="sellDescription" required></textarea>
+</div>
+
+<div class="field">
+<label>Seller / Business name</label>
+<input id="sellSeller" required>
+</div>
+
+<div class="field">
+<label>Image URL</label>
+<input id="sellImage" placeholder="https://...">
+</div>
+
+<div class="formBtns">
+
+<button
+type="button"
+class="secondary"
+onclick="closeModal('sellModal')">
+Cancel
+</button>
+
+<button
+class="primary"
+type="submit">
+Publish Listing
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- CART -->
+
+<div class="modal" id="cartModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+
+<h2>Shopping Cart</h2>
+
+<button class="close"
+onclick="closeModal('cartModal')">
+✕
+</button>
+
+</div>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Total: ₦<span id="total">0</span>
+</div>
+
+<button
+class="primary"
+style="width:100%;margin-top:15px"
+onclick="checkout()">
+💳 Checkout
+</button>
+
+</div>
+
+</div>
+
+<!-- MESSAGES -->
+
+<div class="modal" id="messagesModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+<h2>Messages</h2>
+
+<button class="close"
+onclick="closeModal('messagesModal')">
+✕
+</button>
+
+</div>
+
+<div class="notice">
+Buyer and seller messaging interface.
+Real-time messaging requires a connected backend.
+</div>
+
+<div class="listItem">
+<div>
+<strong>CHINOTECH1 Motors</strong>
+<br>
+<small>Hello, is the vehicle still available?</small>
+</div>
+<button class="primary"
+onclick="showToast('Messaging backend ready to connect')">
+Open
+</button>
+</div>
+
+<div class="listItem">
+<div>
+<strong>Tech Store</strong>
+<br>
+<small>Your order is being prepared.</small>
+</div>
+<button class="primary"
+onclick="showToast('Messaging backend ready to connect')">
+Open
+</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="modal" id="profileModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+
+<h2>My Profile</h2>
+
+<button class="close"
+onclick="closeModal('profileModal')">
+✕
+</button>
+
+</div>
+
+<div class="notice">
+Account system interface. Connect authentication to create
+real buyer and seller accounts.
+</div>
+
+<div class="field">
+<label>Name</label>
+<input id="profileName" placeholder="Your name">
+</div>
+
+<div class="field">
+<label>Email</label>
+<input id="profileEmail" placeholder="you@example.com">
+</div>
+
+<button
+class="primary"
+style="width:100%"
+onclick="saveProfile()">
+Save Profile
+</button>
+
+</div>
+
+</div>
+
+<!-- CHECKOUT -->
+
+<div class="modal" id="checkoutModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+
+<h2>Checkout</h2>
+
+<button class="close"
+onclick="closeModal('checkoutModal')">
+✕
+</button>
+
+</div>
+
+<div class="notice">
+
+The checkout interface is prepared for Paystack.
+Do not place a secret Paystack key in this HTML file.
+
+</div>
+
+<div class="field">
+<label>Full name</label>
+<input id="customerName">
+</div>
+
+<div class="field">
+<label>Email</label>
+<input id="customerEmail" type="email">
+</div>
+
+<div class="field">
+<label>Phone number</label>
+<input id="customerPhone">
+</div>
+
+<div class="total">
+Pay: ₦<span id="checkoutAmount">0</span>
+</div>
+
+<button
+class="primary"
+style="width:100%;margin-top:15px"
+onclick="pay()">
+💳 Continue to Payment
+</button>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =========================================================
+   CHINOTECH1 ALPHA 6
+   ========================================================= */
+
+const PRODUCTS_KEY="chinotech1_alpha6_products";
+const CART_KEY="chinotech1_alpha6_cart";
+const PROFILE_KEY="chinotech1_alpha6_profile";
+
+let category="All";
+
+const defaultProducts=[
+
+{
+id:"x1",
+name:"CHINOTECH1 X-1",
+category:"Cars",
+price:15000000,
+condition:"New",
+seller:"CHINOTECH1 Motors",
+description:"Exclusive CHINOTECH1 performance concept vehicle.",
+emoji:"🏎️"
+},
+
+{
+id:"x2",
+name:"Premium Used Car",
+category:"Cars",
+price:7800000,
+condition:"Used",
+seller:"Auto Hub NG",
+description:"Premium pre-owned vehicle.",
+emoji:"🚘"
+},
+
+{
+id:"x3",
+name:"Smartphone Pro",
+category:"Phones",
+price:650000,
+condition:"New",
+seller:"Tech World",
+description:"Modern smartphone with premium performance.",
+emoji:"📱"
+},
+
+{
+id:"x4",
+name:"Gaming Laptop",
+category:"Electronics",
+price:1250000,
+condition:"Used",
+seller:"Digital Store",
+description:"High-performance laptop for work and gaming.",
+emoji:"💻"
+},
+
+{
+id:"x5",
+name:"Engine Assembly",
+category:"Parts",
+price:2300000,
+condition:"Used",
+seller:"Auto Parts NG",
+description:"Automotive engine assembly.",
+emoji:"⚙️"
+},
+
+{
+id:"x6",
+name:"CHINOTECH1 Hoodie",
+category:"Fashion",
+price:35000,
+condition:"New",
+seller:"CHINOTECH1",
+description:"Premium marketplace streetwear.",
+emoji:"👕"
+},
+
+{
+id:"x7",
+name:"Arduino Programming",
+category:"Services",
+price:25000,
+condition:"New",
+seller:"CHINOTECH1 Tech",
+description:"Online Arduino programming service.",
+emoji:"🤖"
+},
+
+{
+id:"x8",
+name:"Motorcycle",
+category:"Other",
+price:1500000,
+condition:"Used",
+seller:"Moto Dealer",
+description:"Reliable motorcycle.",
+emoji:"🏍️"
+}
+
+];
+
+/* STORAGE */
+
+function products(){
+
+let x=localStorage.getItem(PRODUCTS_KEY);
+
+if(!x){
+localStorage.setItem(
+PRODUCTS_KEY,
+JSON.stringify(defaultProducts)
+);
+return defaultProducts;
+}
+
+try{
+return JSON.parse(x);
+}catch{
+return defaultProducts;
+}
+
+}
+
+function cart(){
+
+try{
+return JSON.parse(
+localStorage.getItem(CART_KEY)
+)||[];
+}catch{
+return [];
+}
+
+}
+
+function saveCart(x){
+localStorage.setItem(CART_KEY,JSON.stringify(x));
+}
+
+function saveProducts(x){
+localStorage.setItem(
+PRODUCTS_KEY,
+JSON.stringify(x)
+);
+}
+
+/* RENDER */
+
+function render(){
+
+let list=[...products()];
+
+let q=document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+let condition=document
+.getElementById("condition")
+.value;
+
+let sort=document
+.getElementById("sort")
+.value;
+
+if(category!=="All"){
+list=list.filter(
+p=>p.category===category
+);
+}
+
+if(condition!=="all"){
+list=list.filter(
+p=>p.condition===condition
+);
+}
+
+if(q){
+
+list=list.filter(p=>
+(
+p.name+" "+
+p.description+" "+
+p.category+" "+
+p.seller
+)
+.toLowerCase()
+.includes(q)
+);
+
+}
+
+if(sort==="low"){
+list.sort((a,b)=>a.price-b.price);
+}
+
+if(sort==="high"){
+list.sort((a,b)=>b.price-a.price);
+}
+
+document.getElementById("count")
+.textContent=list.length+" listings";
+
+const box=document.getElementById("products");
+
+if(!list.length){
+
+box.innerHTML=
+`<div class="empty">
+No matching products found.
+</div>`;
+
+return;
+
+}
+
+box.innerHTML=list.map(p=>{
+
+let image=p.image
+?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`
+:`<span>${p.emoji||"📦"}</span>`;
+
+return`
+
+<article class="card">
+
+<div class="pic">
+${image}
+</div>
+
+<div class="cardBody">
+
+<span class="tag">
+${esc(p.category)}
+</span>
+
+<div class="name">
+${esc(p.name)}
+</div>
+
+<div class="desc">
+${esc(p.description)}
+</div>
+
+<div class="price">
+₦${Number(p.price).toLocaleString()}
+</div>
+
+<div class="seller">
+👤 ${esc(p.seller)} • ${esc(p.condition)}
+</div>
+
+<div class="cardBtns">
+
+<button class="buy"
+onclick="addCart('${p.id}')">
+🛒 Buy
+</button>
+
+<button onclick="contactSeller('${p.id}')">
+💬 Seller
+</button>
+
+</div>
+
+${
+p.category==="Cars"||p.category==="Parts"
+?
+`<button
+class="engine"
+onclick="engineSound()">
+🔊 Engine Sound
+</button>`
+:""
+}
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+updateCart();
+
+}
+
+/* CATEGORY */
+
+function setCategory(c,button){
+
+category=c;
+
+document
+.querySelectorAll(".category")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+render();
+
+}
+
+/* CART */
+
+function addCart(id){
+
+let c=cart();
+
+c.push(id);
+
+saveCart(c);
+
+updateCart();
+
+showToast("Added to cart");
+
+}
+
+function updateCart(){
+
+document.getElementById("cartCount")
+.textContent=cart().length;
+
+}
+
+function openCart(){
+
+renderCart();
+
+openModal("cartModal");
+
+}
+
+function renderCart(){
+
+let c=cart();
+
+let ps=products();
+
+let box=document.getElementById("cartItems");
+
+if(!c.length){
+
+box.innerHTML=
+`<div class="empty">Your cart is empty.</div>`;
+
+document.getElementById("total")
+.textContent="0";
+
+return;
+
+}
+
+let total=0;
+
+box.innerHTML=c.map((id,i)=>{
+
+let p=ps.find(x=>x.id===id);
+
+if(!p)return "";
+
+total+=Number(p.price);
+
+return`
+
+<div class="listItem">
+
+<div>
+<strong>${esc(p.name)}</strong>
+<br>
+<small>₦${Number(p.price).toLocaleString()}</small>
+</div>
+
+<button
+class="remove"
+onclick="removeCart(${i})">
+Remove
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+document.getElementById("total")
+.textContent=total.toLocaleString();
+
+}
+
+function removeCart(i){
+
+let c=cart();
+
+c.splice(i,1);
+
+saveCart(c);
+
+updateCart();
+
+renderCart();
+
+}
+
+/* CHECKOUT */
+
+function checkout(){
+
+if(!cart().length){
+
+showToast("Your cart is empty");
+
+return;
+
+}
+
+let total=0;
+
+cart().forEach(id=>{
+
+let p=products().find(x=>x.id===id);
+
+if(p)total+=Number(p.price);
+
+});
+
+document.getElementById("checkoutAmount")
+.textContent=total.toLocaleString();
+
+closeModal("cartModal");
+
+openModal("checkoutModal");
+
+}
+
+function pay(){
+
+let name=
+document.getElementById("customerName")
+.value.trim();
+
+let email=
+document.getElementById("customerEmail")
+.value.trim();
+
+let phone=
+document.getElementById("customerPhone")
+.value.trim();
+
+if(!name||!email||!phone){
+
+showToast("Complete your details first");
+
+return;
+
+}
+
+/*
+ REAL PAYSTACK INTEGRATION GOES HERE.
+
+ Never put your Paystack SECRET KEY in this file.
+*/
+
+showToast(
+"Payment gateway ready for secure Paystack connection"
+);
+
+}
+
+/* SELL */
+
+function openSell(){
+
+openModal("sellModal");
+
+}
+
+document
+.getElementById("sellForm")
+.addEventListener("submit",e=>{
+
+e.preventDefault();
+
+let p={
+
+id:"user_"+Date.now(),
+
+name:document.getElementById("sellName").value,
+
+category:document.getElementById("sellCategory").value,
+
+price:Number(
+document.getElementById("sellPrice").value
+),
+
+condition:
+document.getElementById("sellCondition").value,
+
+description:
+document.getElementById("sellDescription").value,
+
+seller:
+document.getElementById("sellSeller").value,
+
+image:
+document.getElementById("sellImage").value,
+
+emoji:"📦"
+
+};
+
+let list=products();
+
+list.unshift(p);
+
+saveProducts(list);
+
+e.target.reset();
+
+closeModal("sellModal");
+
+render();
+
+showToast("Listing published!");
+
+});
+
+/* MESSAGES */
+
+function openMessages(){
+
+openModal("messagesModal");
+
+}
+
+function contactSeller(id){
+
+let p=products().find(x=>x.id===id);
+
+showToast(
+"Message "+p.seller+" feature opened"
+);
+
+openMessages();
+
+}
+
+/* PROFILE */
+
+function openProfile(){
+
+let p=JSON.parse(
+localStorage.getItem(PROFILE_KEY)||"{}"
+);
+
+document.getElementById("profileName")
+.value=p.name||"";
+
+document.getElementById("profileEmail")
+.value=p.email||"";
+
+openModal("profileModal");
+
+}
+
+function saveProfile(){
+
+let p={
+
+name:document.getElementById("profileName").value,
+
+email:document.getElementById("profileEmail").value
+
+};
+
+localStorage.setItem(
+PROFILE_KEY,
+JSON.stringify(p)
+);
+
+showToast("Profile saved");
+
+closeModal("profileModal");
+
+}
+
+/* MODALS */
+
+function openModal(id){
+
+document.getElementById(id)
+.classList.add("show");
+
+}
+
+function closeModal(id){
+
+document.getElementById(id)
+.classList.remove("show");
+
+}
+
+document
+.querySelectorAll(".modal")
+.forEach(m=>{
+
+m.addEventListener("click",e=>{
+
+if(e.target===m)
+m.classList.remove("show");
+
+});
+
+});
+
+/* SOUND */
+
+let audio;
+
+function engineSound(){
+
+try{
+
+if(!audio){
+
+audio=new(
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+}
+
+if(audio.state==="suspended")
+audio.resume();
+
+let now=audio.currentTime;
+
+let gain=audio.createGain();
+
+gain.gain.setValueAtTime(.0001,now);
+
+gain.gain.exponentialRampToValueAtTime(
+.35,now+.08
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.16,now+1.2
+);
+
+gain.gain.exponentialRampToValueAtTime(
+.0001,now+2
+);
+
+gain.connect(audio.destination);
+
+let osc=audio.createOscillator();
+
+osc.type="sawtooth";
+
+osc.frequency.setValueAtTime(
+55,now
+);
+
+osc.frequency.exponentialRampToValueAtTime(
+180,now+.45
+);
+
+osc.frequency.exponentialRampToValueAtTime(
+85,now+1.1
+);
+
+osc.frequency.exponentialRampToValueAtTime(
+50,now+1.9
+);
+
+osc.connect(gain);
+
+osc.start(now);
+
+osc.stop(now+2);
+
+showToast("🏎️ Engine started");
+
+}catch(e){
+
+showToast("Tap again to enable sound");
+
+}
+
+}
+
+/* UTILITIES */
+
+function scrollToMarket(){
+
+document
+.getElementById("market")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function showToast(text){
+
+let t=document.getElementById("toast");
+
+t.textContent=text;
+
+t.classList.add("show");
+
+setTimeout(
+()=>t.classList.remove("show"),
+2200
+);
+
+}
+
+function esc(x){
+
+return String(x??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+/* START */
+
+render();
+
+</script>
+
+</body>
+</html>
