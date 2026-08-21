@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0f">
+<title>CHINOTECH1 Marketplace</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f5;
+  color:#161616;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+.top{
+  background:#080808;
+  color:white;
+  padding:10px 4%;
+  font-size:13px;
+  text-align:center;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#111;
+  color:#fff;
+  box-shadow:0 2px 15px #0005;
+}
+
+.nav{
+  max-width:1400px;
+  margin:auto;
+  padding:14px 3%;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:1000;
+  white-space:nowrap;
+}
+.logo b{color:#ff5a00}
+
+.search{
+  flex:1;
+  display:flex;
+  background:#fff;
+  border-radius:7px;
+  overflow:hidden;
+}
+.search input{
+  width:100%;
+  border:0;
+  outline:0;
+  padding:14px;
+}
+.search button{
+  border:0;
+  background:#ff5a00;
+  color:#fff;
+  padding:0 22px;
+  font-weight:bold;
+}
+
+.navBtn{
+  background:#1e1e1e;
+  border:1px solid #333;
+  color:#fff;
+  padding:11px 14px;
+  border-radius:7px;
+}
+
+.hero{
+  background:
+    linear-gradient(90deg,#050505ee,#05050566),
+    url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+  color:white;
+  min-height:420px;
+  display:flex;
+  align-items:center;
+}
+
+.heroInner{
+  width:min(1400px,92%);
+  margin:auto;
+}
+
+.heroTag{
+  display:inline-block;
+  background:#ff5a00;
+  padding:7px 12px;
+  border-radius:4px;
+  font-weight:bold;
+}
+
+.hero h1{
+  font-size:clamp(42px,7vw,82px);
+  max-width:800px;
+  line-height:.95;
+  margin:20px 0;
+}
+
+.hero p{
+  max-width:650px;
+  color:#ddd;
+  line-height:1.7;
+}
+
+.heroButtons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.orange{
+  background:#ff5a00;
+  color:white;
+  border:0;
+  padding:13px 20px;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+.dark{
+  background:#111;
+  color:white;
+  border:1px solid #555;
+  padding:13px 20px;
+  border-radius:6px;
+}
+
+.container{
+  width:min(1400px,94%);
+  margin:auto;
+}
+
+.section{
+  padding:28px 0;
+}
+
+.title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.title h2{
+  margin:0 0 16px;
+}
+
+.categories{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  padding-bottom:8px;
+}
+
+.cat{
+  flex:0 0 auto;
+  background:white;
+  border:1px solid #ddd;
+  border-radius:30px;
+  padding:11px 17px;
+}
+
+.cat.active{
+  background:#ff5a00;
+  color:#fff;
+  border-color:#ff5a00;
+}
+
+.brands{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+}
+
+.brand{
+  background:white;
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:13px 8px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.brand:hover{
+  border-color:#ff5a00;
+}
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:15px 0;
+}
+
+.filters select{
+  padding:11px;
+  border:1px solid #ccc;
+  background:white;
+  border-radius:6px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+}
+
+.card{
+  background:white;
+  border-radius:9px;
+  overflow:hidden;
+  box-shadow:0 2px 8px #00000012;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px #0002;
+}
+
+.photo{
+  height:220px;
+  position:relative;
+  background:#eee;
+  overflow:hidden;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.fav{
+  position:absolute;
+  right:9px;
+  top:9px;
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  font-size:18px;
+}
+
+.cardBody{
+  padding:12px;
+}
+
+.brandName{
+  color:#777;
+  font-size:12px;
+}
+
+.productName{
+  font-weight:bold;
+  margin:5px 0;
+  min-height:38px;
+}
+
+.stars{
+  color:#ff9800;
+  font-size:13px;
+}
+
+.price{
+  color:#111;
+  font-size:20px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.seller{
+  font-size:11px;
+  color:#777;
+}
+
+.cardActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+
+.cardActions button{
+  padding:9px;
+  border-radius:5px;
+  border:1px solid #ddd;
+  background:white;
+}
+
+.cardActions .buy{
+  background:#ff5a00;
+  color:white;
+  border-color:#ff5a00;
+}
+
+.deals{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.deal{
+  min-height:150px;
+  border-radius:10px;
+  padding:20px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  background-size:cover;
+  background-position:center;
+}
+
+.deal h3{
+  margin:0;
+}
+
+.sellBanner{
+  margin:30px 0;
+  background:#111;
+  color:white;
+  border-radius:12px;
+  padding:35px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.sellBanner h2{
+  margin:0;
+  font-size:30px;
+}
+
+footer{
+  background:#090909;
+  color:#aaa;
+  padding:45px 4% 100px;
+  margin-top:40px;
+}
+
+.footerGrid{
+  max-width:1400px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:30px;
+}
+
+footer h3{
+  color:white;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:5000;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal.show{display:flex}
+
+.box{
+  width:min(720px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:white;
+  border-radius:12px;
+  padding:20px;
+}
+
+.modalHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.close{
+  border:0;
+  background:#eee;
+  padding:9px 12px;
+  border-radius:6px;
+}
+
+.field{
+  margin:12px 0;
+}
+
+.field label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+.field textarea{
+  min-height:100px;
+}
+
+.full{width:100%}
+
+.detailImage{
+  width:100%;
+  max-height:400px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.cartRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
+}
+
+.empty{
+  text-align:center;
+  padding:50px;
+  color:#777;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:80px;
+  transform:translate(-50%,120px);
+  background:#111;
+  color:white;
+  padding:13px 20px;
+  border-radius:7px;
+  z-index:9000;
+  transition:.25s;
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+}
+
+.bottom{
+  display:none;
+}
+
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(4,1fr)}
+}
+
+@media(max-width:800px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .deals{grid-template-columns:repeat(2,1fr)}
+  .footerGrid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:600px){
+  .nav{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    width:auto;
+  }
+
+  .search{
+    order:3;
+    width:100%;
+    flex-basis:100%;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+  }
+
+  .photo{
+    height:155px;
+  }
+
+  .cardBody{
+    padding:9px;
+  }
+
+  .productName{
+    font-size:14px;
+  }
+
+  .price{
+    font-size:17px;
+  }
+
+  .deals{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footerGrid{
+    grid-template-columns:1fr;
+  }
+
+  .bottom{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    bottom:0;
+    left:0;
+    right:0;
+    height:65px;
+    background:#111;
+    z-index:3000;
+  }
+
+  .bottom button{
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:11px;
+  }
+
+  .bottom span{
+    display:block;
+    font-size:20px;
+    margin-bottom:3px;
+  }
+
+  footer{
+    padding-bottom:90px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+🚚 CHINOTECH1 MARKETPLACE — BUY • SELL • CONNECT
+</div>
+
+<header>
+<div class="nav">
+
+<div class="logo">
+CHINO<b>TECH1</b>
+</div>
+
+<div class="search">
+<input id="search"
+placeholder="Search cars, iPhones, shoes, laptops..."
+oninput="render()">
+<button onclick="render()">SEARCH</button>
+</div>
+
+<button class="navBtn" onclick="openCart()">
+🛒 <span id="cartCount">0</span>
+</button>
+
+<button class="navBtn" onclick="openSell()">
+SELL
+</button>
+
+</div>
+</header>
+
+
+<section class="hero">
+<div class="heroInner">
+
+<span class="heroTag">
+CHINOTECH1 MARKETPLACE
+</span>
+
+<h1>
+Everything you need.<br>
+All in one marketplace.
+</h1>
+
+<p>
+Discover vehicles, phones, computers, fashion,
+electronics, accessories and thousands of other
+legitimate products from sellers.
+</p>
+
+<div class="heroButtons">
+
+<button class="orange" onclick="market()">
+SHOP NOW
+</button>
+
+<button class="dark" onclick="openSell()">
+START SELLING
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<div class="container">
+
+<section class="section">
+
+<div class="title">
+<h2>Shop by Category</h2>
+</div>
+
+<div class="categories" id="categories"></div>
+
+</section>
+
+
+<section class="section">
+
+<div class="title">
+<h2>Popular Brands</h2>
+</div>
+
+<div class="brands" id="brands"></div>
+
+</section>
+
+
+<section class="section">
+
+<h2>Explore CHINOTECH1</h2>
+
+<div class="deals">
+
+<div class="deal"
+style="background-image:
+linear-gradient(#0000,#000b),
+url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80')">
+
+<h3>Cars</h3>
+<small>Vehicles & car parts</small>
+
+</div>
+
+<div class="deal"
+style="background-image:
+linear-gradient(#0000,#000b),
+url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80')">
+
+<h3>Phones</h3>
+<small>Smartphones & accessories</small>
+
+</div>
+
+<div class="deal"
+style="background-image:
+linear-gradient(#0000,#000b),
+url('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80')">
+
+<h3>Laptops</h3>
+<small>Computers & technology</small>
+
+</div>
+
+<div class="deal"
+style="background-image:
+linear-gradient(#0000,#000b),
+url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80')">
+
+<h3>Fashion</h3>
+<small>Clothing & accessories</small>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section" id="market">
+
+<div class="title">
+
+<h2>Featured Products</h2>
+
+<span id="count"></span>
+
+</div>
+
+<div class="filters">
+
+<select id="brandFilter" onchange="render()">
+<option value="all">All Brands</option>
+</select>
+
+<select id="condition" onchange="render()">
+<option value="all">All Conditions</option>
+<option>New</option>
+<option>Used</option>
+</select>
+
+<select id="sort" onchange="render()">
+<option value="latest">Latest</option>
+<option value="low">Lowest Price</option>
+<option value="high">Highest Price</option>
+</select>
+
+</div>
+
+<div class="grid" id="products"></div>
+
+</section>
+
+
+<section class="sellBanner">
+
+<div>
+<h2>Have something to sell?</h2>
+<p>
+Create a CHINOTECH1 listing and reach buyers.
+</p>
+</div>
+
+<button class="orange" onclick="openSell()">
+＋ LIST YOUR PRODUCT
+</button>
+
+</section>
+
+</div>
+
+
+<footer>
+
+<div class="footerGrid">
+
+<div>
+<h3>CHINOTECH1</h3>
+<p>
+A marketplace where buyers and sellers can
+discover products, communicate and trade.
+</p>
+</div>
+
+<div>
+<h3>Marketplace</h3>
+<p>Cars</p>
+<p>Phones</p>
+<p>Computers</p>
+<p>Fashion</p>
+</div>
+
+<div>
+<h3>Support</h3>
+<p>Help Center</p>
+<p>Buyer Protection</p>
+<p>Seller Help</p>
+</div>
+
+<div>
+<h3>Company</h3>
+<p>About CHINOTECH1</p>
+<p>Terms</p>
+<p>Privacy</p>
+</div>
+
+</div>
+
+<p style="text-align:center;margin-top:35px">
+© 2026 CHINOTECH1 Marketplace
+</p>
+
+</footer>
+
+
+<!-- SELL MODAL -->
+
+<div class="modal" id="sellModal">
+
+<div class="box">
+
+<div class="modalHead">
+
+<h2>Sell on CHINOTECH1</h2>
+
+<button class="close"
+onclick="closeModal('sellModal')">
+✕
+</button>
+
+</div>
+
+<form id="sellForm">
+
+<div class="field">
+<label>Brand</label>
+<input id="sBrand" list="brandOptions" required>
+</div>
+
+<datalist id="brandOptions"></datalist>
+
+<div class="field">
+<label>Product Name</label>
+<input id="sName" required>
+</div>
+
+<div class="field">
+<label>Category</label>
+<select id="sCategory"></select>
+</div>
+
+<div class="field">
+<label>Price (₦)</label>
+<input id="sPrice" type="number" required>
+</div>
+
+<div class="field">
+<label>Condition</label>
+<select id="sCondition">
+<option>New</option>
+<option>Used</option>
+</select>
+</div>
+
+<div class="field">
+<label>Seller Name</label>
+<input id="sSeller" required>
+</div>
+
+<div class="field">
+<label>Description</label>
+<textarea id="sDescription" required></textarea>
+</div>
+
+<div class="field">
+<label>Product Image</label>
+<input id="sImage"
+type="file"
+accept="image/*"
+required>
+</div>
+
+<button class="orange full">
+PUBLISH PRODUCT
+</button>
+
+</form>
+
+</div>
+</div>
+
+
+<!-- PRODUCT MODAL -->
+
+<div class="modal" id="productModal">
+
+<div class="box">
+
+<div class="modalHead">
+
+<h2 id="detailName"></h2>
+
+<button class="close"
+onclick="closeModal('productModal')">
+✕
+</button>
+
+</div>
+
+<div id="details"></div>
+
+</div>
+</div>
+
+
+<!-- CART -->
+
+<div class="modal" id="cartModal">
+
+<div class="box">
+
+<div class="modalHead">
+
+<h2>Your Cart</h2>
+
+<button class="close"
+onclick="closeModal('cartModal')">
+✕
+</button>
+
+</div>
+
+<div id="cart"></div>
+
+<h2>
+Total: ₦<span id="total">0</span>
+</h2>
+
+<button class="orange full"
+onclick="checkout()">
+CONTINUE TO CHECKOUT
+</button>
+
+</div>
+</div>
+
+
+<!-- CHECKOUT -->
+
+<div class="modal" id="checkoutModal">
+
+<div class="box">
+
+<div class="modalHead">
+
+<h2>Checkout</h2>
+
+<button class="close"
+onclick="closeModal('checkoutModal')">
+✕
+</button>
+
+</div>
+
+<div class="field">
+<label>Full Name</label>
+<input id="buyerName">
+</div>
+
+<div class="field">
+<label>Email</label>
+<input id="buyerEmail" type="email">
+</div>
+
+<div class="field">
+<label>Phone</label>
+<input id="buyerPhone">
+</div>
+
+<div class="field">
+<label>Delivery Address</label>
+<textarea id="address"></textarea>
+</div>
+
+<button class="orange full"
+onclick="placeOrder()">
+PLACE ORDER
+</button>
+
+</div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<div class="bottom">
+
+<button onclick="market()">
+<span>🏠</span>Home
+</button>
+
+<button onclick="document.getElementById('search').focus()">
+<span>🔎</span>Search
+</button>
+
+<button onclick="openSell()">
+<span>＋</span>Sell
+</button>
+
+<button onclick="openCart()">
+<span>🛒</span>Cart
+</button>
+
+<button onclick="alert('Account system will be connected to the marketplace backend.')">
+<span>👤</span>Account
+</button>
+
+</div>
+
+
+<script>
+
+/* ===================================
+   CHINOTECH1 MARKETPLACE
+=================================== */
+
+const categories=[
+"All",
+"Cars",
+"Car Parts",
+"Phones",
+"Laptops",
+"Tablets",
+"Headphones",
+"Earbuds",
+"Shoes",
+"Clothing",
+"Glasses",
+"Watches",
+"Cameras",
+"Electronics",
+"Home",
+"Tools",
+"Gaming",
+"Aircraft",
+"Other"
+];
+
+const brands=[
+
+"Toyota",
+"Honda",
+"Lexus",
+"Lamborghini",
+"BMW",
+"Mercedes-Benz",
+"Audi",
+"Ford",
+"Nissan",
+"Hyundai",
+"Kia",
+"Volkswagen",
+"Tesla",
+"Porsche",
+
+"Apple",
+"Samsung",
+"TECNO",
+"Infinix",
+"Xiaomi",
+"OPPO",
+"vivo",
+"Nokia",
+"Motorola",
+"OnePlus",
+"Google",
+"Huawei",
+"Honor",
+
+"Dell",
+"HP",
+"Lenovo",
+"ASUS",
+"Acer",
+"MSI",
+"Razer",
+"Microsoft",
+
+"Nike",
+"adidas",
+"Puma",
+"Reebok",
+"New Balance",
+"Converse",
+"Vans",
+
+"Sony",
+"JBL",
+"Bose",
+"Beats",
+"Marshall",
+"Sennheiser",
+"Jabra",
+"Anker",
+
+"Gucci",
+"Prada",
+"Versace",
+"Armani",
+"Zara",
+"H&M",
+"Levi's",
+
+"Canon",
+"Nikon",
+"Fujifilm",
+"GoPro",
+"DJI",
+
+"LG",
+"Hisense",
+"Haier",
+"Bosch",
+"Philips",
+
+"PlayStation",
+"Xbox",
+"Nintendo",
+
+"Boeing",
+"Airbus",
+"Embraer",
+"Bombardier",
+"Cessna"
+
+];
+
+
+const photos={
+
+car:
+"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=85",
+
+car2:
+"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85",
+
+phone:
+"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=85",
+
+phone2:
+"https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=1000&q=85",
+
+laptop:
+"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1000&q=85",
+
+shoes:
+"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=85",
+
+clothes:
+"https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85",
+
+headphones:
+"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=85",
+
+glasses:
+"https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=85",
+
+watch:
+"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=85",
+
+camera:
+"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85",
+
+home:
+"https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1000&q=85",
+
+gaming:
+"https://images.unsplash.com/photo-1605901309584-818e25960a8f?auto=format&fit=crop&w=1000&q=85",
+
+aircraft:
+"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=85"
+
+};
+
+
+const demo=[
+
+{
+id:1,
+brand:"Toyota",
+name:"Toyota Corolla",
+category:"Cars",
+price:8500000,
+condition:"Used",
+seller:"CHINOTECH1 Auto",
+image:photos.car,
+rating:4.8
+},
+
+{
+id:2,
+brand:"Lamborghini",
+name:"Performance Supercar",
+category:"Cars",
+price:150000000,
+condition:"Used",
+seller:"Premium Motors",
+image:photos.car2,
+rating:4.9
+},
+
+{
+id:3,
+brand:"Apple",
+name:"iPhone 15",
+category:"Phones",
+price:850000,
+condition:"New",
+seller:"Mobile Hub",
+image:photos.phone,
+rating:4.8
+},
+
+{
+id:4,
+brand:"Samsung",
+name:"Galaxy Smartphone",
+category:"Phones",
+price:720000,
+condition:"New",
+seller:"SmartTech",
+image:photos.phone2,
+rating:4.7
+},
+
+{
+id:5,
+brand:"Apple",
+name:"MacBook Laptop",
+category:"Laptops",
+price:1850000,
+condition:"New",
+seller:"Computer Store",
+image:photos.laptop,
+rating:4.9
+},
+
+{
+id:6,
+brand:"Nike",
+name:"Air Running Shoes",
+category:"Shoes",
+price:180000,
+condition:"New",
+seller:"Sneaker House",
+image:photos.shoes,
+rating:4.8
+},
+
+{
+id:7,
+brand:"Fashion",
+name:"Premium Clothing",
+category:"Clothing",
+price:85000,
+condition:"New",
+seller:"Fashion Store",
+image:photos.clothes,
+rating:4.6
+},
+
+{
+id:8,
+brand:"Sony",
+name:"Wireless Headphones",
+category:"Headphones",
+price:240000,
+condition:"New",
+seller:"Audio World",
+image:photos.headphones,
+rating:4.7
+},
+
+{
+id:9,
+brand:"Premium",
+name:"Fashion Glasses",
+category:"Glasses",
+price:70000,
+condition:"New",
+seller:"Style Shop",
+image:photos.glasses,
+rating:4.6
+},
+
+{
+id:10,
+brand:"Watch",
+name:"Classic Wrist Watch",
+category:"Watches",
+price:150000,
+condition:"New",
+seller:"Time Store",
+image:photos.watch,
+rating:4.7
+},
+
+{
+id:11,
+brand:"Canon",
+name:"Digital Camera",
+category:"Cameras",
+price:950000,
+condition:"New",
+seller:"Camera World",
+image:photos.camera,
+rating:4.8
+},
+
+{
+id:12,
+brand:"LG",
+name:"Home Appliance",
+category:"Home",
+price:450000,
+condition:"New",
+seller:"Home Store",
+image:photos.home,
+rating:4.5
+},
+
+{
+id:13,
+brand:"Sony",
+name:"Gaming Console",
+category:"Gaming",
+price:850000,
+condition:"New",
+seller:"Game Store",
+image:photos.gaming,
+rating:4.8
+},
+
+{
+id:14,
+brand:"Boeing",
+name:"Commercial Aircraft",
+category:"Aircraft",
+price:0,
+condition:"Used",
+seller:"Aircraft Marketplace",
+image:photos.aircraft,
+rating:4.8
+}
+
+];
+
+
+let products=
+JSON.parse(localStorage.getItem("ct_products"))
+||demo;
+
+let cart=
+JSON.parse(localStorage.getItem("ct_cart"))
+||[];
+
+let activeCategory="All";
+
+
+function save(){
+localStorage.setItem(
+"ct_products",
+JSON.stringify(products)
+);
+
+localStorage.setItem(
+"ct_cart",
+JSON.stringify(cart)
+);
+}
+
+
+/* CATEGORIES */
+
+document.getElementById("categories").innerHTML=
+categories.map(c=>`
+<button class="cat ${c==="All"?"active":""}"
+onclick="chooseCategory('${c}',this)">
+${c}
+</button>
+`).join("");
+
+
+function chooseCategory(c,el){
+
+activeCategory=c;
+
+document
+.querySelectorAll(".cat")
+.forEach(x=>x.classList.remove("active"));
+
+el.classList.add("active");
+
+render();
+
+market();
+}
+
+
+/* BRANDS */
+
+document.getElementById("brands").innerHTML=
+brands.map(b=>`
+<button class="brand"
+onclick="brand('${b}')">
+${b}
+</button>
+`).join("");
+
+
+document.getElementById("brandFilter").innerHTML=
+`<option value="all">All Brands</option>`+
+brands.map(b=>`
+<option value="${b}">${b}</option>
+`).join("");
+
+
+document.getElementById("brandOptions").innerHTML=
+brands.map(b=>`
+<option value="${b}">
+`).join("");
+
+
+document.getElementById("sCategory").innerHTML=
+categories
+.filter(c=>c!=="All")
+.map(c=>`<option>${c}</option>`)
+.join("");
+
+
+function brand(b){
+
+document.getElementById("brandFilter").value=b;
+
+market();
+
+render();
+
+}
+
+
+/* RENDER */
+
+function render(){
+
+let list=[...products];
+
+const q=
+document.getElementById("search")
+.value
+.toLowerCase();
+
+const b=
+document.getElementById("brandFilter")
+.value;
+
+const condition=
+document.getElementById("condition")
+.value;
+
+const sort=
+document.getElementById("sort")
+.value;
+
+
+if(activeCategory!=="All"){
+list=list.filter(
+p=>p.category===activeCategory
+);
+}
+
+
+if(b!=="all"){
+list=list.filter(
+p=>p.brand===b
+);
+}
+
+
+if(condition!=="all"){
+list=list.filter(
+p=>p.condition===condition
+);
+}
+
+
+if(q){
+
+list=list.filter(p=>
+
+(
+p.brand+" "+
+p.name+" "+
+p.category+" "+
+p.seller
+)
+.toLowerCase()
+.includes(q)
+
+);
+
+}
+
+
+if(sort==="low"){
+list.sort(
+(a,b)=>a.price-b.price
+);
+}
+
+if(sort==="high"){
+list.sort(
+(a,b)=>b.price-a.price
+);
+}
+
+
+document.getElementById("count")
+.textContent=
+list.length+" items";
+
+
+const box=
+document.getElementById("products");
+
+
+if(!list.length){
+
+box.innerHTML=
+`<div class="empty">
+No products found.
+</div>`;
+
+return;
+}
+
+
+box.innerHTML=
+list.map(card).join("");
+
+}
+
+
+function card(p){
+
+return `
+
+<div class="card">
+
+<div class="photo">
+
+<img
+src="${escape(p.image)}"
+alt="${escape(p.name)}"
+loading="lazy"
+onerror="this.src='${photos.car}'">
+
+<button class="fav"
+onclick="favorite(this)">
+♡
+</button>
+
+</div>
+
+<div class="cardBody">
+
+<div class="brandName">
+${escape(p.brand)}
+</div>
+
+<div class="productName">
+${escape(p.name)}
+</div>
+
+<div class="stars">
+★★★★★
+<span style="color:#777">
+${p.rating||4.5}
+</span>
+</div>
+
+<div class="price">
+${p.price
+?"₦"+Number(p.price).toLocaleString()
+:"Contact seller"}
+</div>
+
+<div class="seller">
+Sold by ${escape(p.seller)}
+</div>
+
+<div class="cardActions">
+
+<button
+class="buy"
+onclick="addCart(${p.id})">
+🛒 Add
+</button>
+
+<button
+onclick="details(${p.id})">
+View
+</button>
+
+</div>
+
+</div>
+</div>
+
+`;
+
+}
+
+
+/* DETAILS */
+
+function details(id){
+
+const p=
+products.find(x=>x.id==id);
+
+if(!p)return;
+
+document.getElementById("detailName")
+.textContent=
+p.brand+" "+p.name;
+
+document.getElementById("details")
+.innerHTML=`
+
+<img
+class="detailImage"
+src="${escape(p.image)}">
+
+<h2>
+${p.price
+?"₦"+Number(p.price).toLocaleString()
+:"Contact seller"}
+</h2>
+
+<p>
+<strong>Brand:</strong>
+${escape(p.brand)}
+</p>
+
+<p>
+<strong>Category:</strong>
+${escape(p.category)}
+</p>
+
+<p>
+<strong>Condition:</strong>
+${escape(p.condition)}
+</p>
+
+<p>
+<strong>Seller:</strong>
+${escape(p.seller)}
+</p>
+
+<p>
+This is a marketplace listing.
+Contact the seller through the marketplace
+before completing a transaction.
+</p>
+
+<button
+class="orange"
+onclick="addCart(${p.id});closeModal('productModal')">
+🛒 ADD TO CART
+</button>
+
+`;
+
+openModal("productModal");
+
+}
+
+
+/* CART */
+
+function addCart(id){
+
+cart.push(id);
+
+save();
+
+updateCart();
+
+toast("Product added to cart");
+
+}
+
+
+function updateCart(){
+
+document.getElementById("cartCount")
+.textContent=cart.length;
+
+}
+
+
+function openCart(){
+
+let total=0;
+
+const box=
+document.getElementById("cart");
+
+if(!cart.length){
+
+box.innerHTML=
+`<div class="empty">
+Your cart is empty.
+</div>`;
+
+document.getElementById("total")
+.textContent="0";
+
+openModal("cartModal");
+
+return;
+}
+
+
+box.innerHTML=
+cart.map((id,index)=>{
+
+const p=
+products.find(x=>x.id==id);
+
+if(!p)return "";
+
+total+=Number(p.price||0);
+
+return `
+
+<div class="cartRow">
+
+<div>
+
+<strong>
+${escape(p.brand)}
+${escape(p.name)}
+</strong>
+
+<br>
+
+₦${Number(p.price||0).toLocaleString()}
+
+</div>
+
+<button
+onclick="removeCart(${index})">
+Remove
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+
+document.getElementById("total")
+.textContent=
+total.toLocaleString();
+
+openModal("cartModal");
+
+}
+
+
+function removeCart(i){
+
+cart.splice(i,1);
+
+save();
+
+updateCart();
+
+openCart();
+
+}
+
+
+/* SELL */
+
+function openSell(){
+
+openModal("sellModal");
+
+}
+
+
+document.getElementById("sellForm")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const file=
+document.getElementById("sImage")
+.files[0];
+
+if(!file){
+
+toast("Choose a product image");
+
+return;
+}
+
+
+const reader=
+new FileReader();
+
+
+reader.onload=function(){
+
+const p={
+
+id:Date.now(),
+
+brand:
+document.getElementById("sBrand").value,
+
+name:
+document.getElementById("sName").value,
+
+category:
+document.getElementById("sCategory").value,
+
+price:
+Number(
+document.getElementById("sPrice").value
+),
+
+condition:
+document.getElementById("sCondition").value,
+
+seller:
+document.getElementById("sSeller").value,
+
+description:
+document.getElementById("sDescription").value,
+
+image:reader.result,
+
+rating:5,
+
+userListing:true
+
+};
+
+
+products.unshift(p);
+
+save();
+
+render();
+
+closeModal("sellModal");
+
+this.reset();
+
+toast("Your product is now listed!");
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+
+/* CHECKOUT */
+
+function checkout(){
+
+if(!cart.length){
+
+toast("Your cart is empty");
+
+return;
+}
+
+closeModal("
