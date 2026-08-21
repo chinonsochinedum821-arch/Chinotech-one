@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>CHINOTECH1: X-CITY 3D</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#071018;font-family:Arial}
+canvas{display:block}
+
+#title{
+ position:fixed;top:18px;left:18px;z-index:5;
+ color:#55d6ff;font-weight:900;letter-spacing:3px;
+ text-shadow:0 0 15px #159dcc;
+}
+#info{
+ position:fixed;top:55px;left:18px;z-index:5;
+ color:white;background:#0009;padding:10px;border-radius:10px;
+ font-size:13px;line-height:1.6;
+}
+#message{
+ position:fixed;top:20%;left:50%;transform:translateX(-50%);
+ z-index:10;background:#000c;color:white;padding:15px 25px;
+ border-radius:12px;display:none;
+}
+#start{
+ position:fixed;inset:0;z-index:20;
+ display:flex;align-items:center;justify-content:center;
+ flex-direction:column;
+ background:radial-gradient(circle,#17485f,#02070b 70%);
+ color:white;text-align:center;
+}
+#start h1{font-size:clamp(45px,12vw,100px);margin:5px}
+#start h1 span{color:#55d6ff}
+#start p{letter-spacing:3px;color:#b8cbd3}
+button{
+ padding:15px 35px;border:0;border-radius:12px;
+ background:#55d6ff;color:#061018;font-weight:900;
+ font-size:16px;margin-top:20px;
+}
+
+#mobile{
+ position:fixed;bottom:20px;left:20px;right:20px;
+ z-index:8;display:flex;justify-content:space-between;
+ pointer-events:none;
+}
+.pad{position:relative;width:155px;height:155px;pointer-events:auto}
+.key{
+ position:absolute;width:52px;height:52px;border-radius:50%;
+ background:#ffffff22;border:1px solid #ffffff44;color:white;
+ display:flex;align-items:center;justify-content:center;
+ font-size:20px;user-select:none;
+}
+.up{left:51px;top:0}.down{left:51px;bottom:0}
+.left{left:0;top:51px}.right{right:0;top:51px}
+.actions{display:flex;gap:10px;align-items:flex-end;pointer-events:auto}
+.action{width:65px;height:65px;padding:0;margin:0;background:#55d6ff33;color:white}
+</style>
+</head>
+
+<body>
+
+<div id="start">
+  <div style="letter-spacing:8px;color:#55d6ff;font-weight:bold">CHINOTECH1</div>
+  <h1>X-<span>CITY</span></h1>
+  <p>3D OPEN-WORLD ALPHA</p>
+  <button onclick="startGame()">▶ START GAME</button>
+</div>
+
+<div id="title">CHINOTECH1 • X-CITY</div>
+
+<div id="info">
+  W A S D — Move<br>
+  E — Enter / Exit car<br>
+  R — Reset position<br>
+  Vehicle: <span id="vehicle">On Foot</span>
+</div>
+
+<div id="message"></div>
+
+<div id="mobile">
+  <div class="pad">
+    <div class="key up" data-key="w">▲</div>
+    <div class="key down" data-key="s">▼</div>
+    <div class="key left" data-key="a">◀</div>
+    <div class="key right" data-key="d">▶</div>
+  </div>
+
+  <div class="actions">
+    <button class="action" onclick="enterExit()">🚗</button>
+    <button class="action" onclick="resetPlayer()">↻</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+
+<script>
+/* =====================================================
+   CHINOTECH1: X-CITY 3D ALPHA 1
+   ===================================================== */
+
+let scene,camera,renderer;
+let player;
+let car;
+let driving=false;
+let started=false;
+
+const keys={w:false,a:false,s:false,d:false};
+
+const clock=new THREE.Clock();
+
+/* ---------- START ---------- */
+
+function startGame(){
+  document.getElementById("start").style.display="none";
+  started=true;
+  init();
+}
+
+/* ---------- THREE.JS ---------- */
+
+function init(){
+
+  scene=new THREE.Scene();
+
+  scene.background=new THREE.Color(0x8fc9e6);
+
+  scene.fog=new THREE.Fog(0x8fc9e6,100,900);
+
+  camera=new THREE.PerspectiveCamera(
+    65,
+    innerWidth/innerHeight,
+    .1,
+    1500
+  );
+
+  renderer=new THREE.WebGLRenderer({
+    antialias:true,
+    powerPreference:"high-performance"
+  });
+
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+  document.body.appendChild(renderer.domElement);
+
+  /* LIGHT */
+
+  const hemi=new THREE.HemisphereLight(
+    0xbfeaff,
+    0x304030,
+    2
+  );
+
+  scene.add(hemi);
+
+  const sun=new THREE.DirectionalLight(
+    0xffffff,
+    3
+  );
+
+  sun.position.set(200,400,150);
+  sun.castShadow=true;
+
+  sun.shadow.mapSize.width=2048;
+  sun.shadow.mapSize.height=2048;
+
+  scene.add(sun);
+
+  createCity();
+  createPlayer();
+  createCar();
+  createNPCs();
+
+  camera.position.set(
+    player.position.x+8,
+    player.position.y+6,
+    player.position.z+10
+  );
+
+  addEventListener("resize",resize);
+
+  animate();
+}
+
+/* ---------- GROUND ---------- */
+
+function createCity(){
+
+  const groundMat=new THREE.MeshStandardMaterial({
+    color:0x35543c
+  });
+
+  const ground=new THREE.Mesh(
+    new THREE.PlaneGeometry(1400,1400),
+    groundMat
+  );
+
+  ground.rotation.x=-Math.PI/2;
+  ground.receiveShadow=true;
+
+  scene.add(ground);
+
+  /* CITY GRID */
+
+  for(let x=-600;x<=600;x+=100){
+
+    createRoad(
+      x,
+      0,
+      30,
+      1300
+    );
+
+  }
+
+  for(let z=-600;z<=600;z+=100){
+
+    createRoad(
+      0,
+      z,
+      1300,
+      30
+    );
+
+  }
+
+  /* BUILDINGS */
+
+  for(let x=-550;x<=550;x+=100){
+
+    for(let z=-550;z<=550;z+=100){
+
+      if(Math.random()<.18)continue;
+
+      const height=
+        20+Math.random()*80;
+
+      createBuilding(
+        x+25,
+        z+25,
+        55+Math.random()*25,
+        height,
+        55+Math.random()*25
+      );
+    }
+  }
+
+  /* SPECIAL LOCATIONS */
+
+  createLargeBuilding(
+    -300,
+    -300,
+    100,
+    120,
+    100,
+    0x182b3a,
+    "HOTEL"
+  );
+
+  createLargeBuilding(
+    300,
+    -300,
+    100,
+    90,
+    100,
+    0x263238,
+    "BANK"
+  );
+
+  createLargeBuilding(
+    300,
+    300,
+    120,
+    55,
+    100,
+    0x183b45,
+    "X-MALL"
+  );
+
+}
+
+/* ---------- ROAD ---------- */
+
+function createRoad(x,z,w,d){
+
+  const mat=new THREE.MeshStandardMaterial({
+    color:0x24282c
+  });
+
+  const road=new THREE.Mesh(
+    new THREE.BoxGeometry(w,.08,d),
+    mat
+  );
+
+  road.position.set(x,.04,z);
+
+  scene.add(road);
+
+}
+
+/* ---------- BUILDING ---------- */
+
+function createBuilding(x,z,w,h,d){
+
+  const colors=[
+    0x33434d,
+    0x455a64,
+    0x263238,
+    0x37474f,
+    0x50646e
+  ];
+
+  const mat=new THREE.MeshStandardMaterial({
+    color:colors[
+      Math.floor(Math.random()*colors.length)
+    ]
+  });
+
+  const building=new THREE.Mesh(
+    new THREE.BoxGeometry(w,h,d),
+    mat
+  );
+
+  building.position.set(
+    x,
+    h/2,
+    z
+  );
+
+  building.castShadow=true;
+  building.receiveShadow=true;
+
+  scene.add(building);
+
+  /* WINDOWS */
+
+  const windowMat=
+    new THREE.MeshStandardMaterial({
+      color:0x75dfff,
+      emissive:0x164e65,
+      emissiveIntensity:1
+    });
+
+  for(let y=12;y<h-5;y+=14){
+
+    const window=new THREE.Mesh(
+      new THREE.BoxGeometry(
+        w*.65,
+        4,
+        .4
+      ),
+      windowMat
+    );
+
+    window.position.set(
+      x,
+      y,
+      z-d/2-.2
+    );
+
+    scene.add(window);
+  }
+}
+
+/* ---------- SPECIAL BUILDING ---------- */
+
+function createLargeBuilding(
+  x,z,w,h,d,color,name
+){
+
+  const mat=new THREE.MeshStandardMaterial({
+    color:color,
+    metalness:.3,
+    roughness:.35
+  });
+
+  const building=new THREE.Mesh(
+    new THREE.BoxGeometry(w,h,d),
+    mat
+  );
+
+  building.position.set(x,h/2,z);
+
+  building.castShadow=true;
+  building.receiveShadow=true;
+
+  scene.add(building);
+
+  const label=createText(name);
+
+  label.position.set(
+    x,
+    h+10,
+    z
+  );
+
+  scene.add(label);
+}
+
+/* ---------- TEXT LABEL ---------- */
+
+function createText(text){
+
+  const canvas=document.createElement("canvas");
+
+  canvas.width=512;
+  canvas.height=128;
+
+  const c=canvas.getContext("2d");
+
+  c.fillStyle="#55d6ff";
+  c.font="bold 55px Arial";
+  c.textAlign="center";
+  c.fillText(text,256,75);
+
+  const texture=
+    new THREE.CanvasTexture(canvas);
+
+  const material=
+    new THREE.SpriteMaterial({
+      map:texture,
+      transparent:true
+    });
+
+  const sprite=
+    new THREE.Sprite(material);
+
+  sprite.scale.set(50,12.5,1);
+
+  return sprite;
+}
+
+/* ---------- HUMAN ---------- */
+
+function createHuman(color=0x2266aa){
+
+  const group=new THREE.Group();
+
+  const body=new THREE.Mesh(
+    new THREE.CapsuleGeometry(1.2,3,6,12),
+    new THREE.MeshStandardMaterial({
+      color:color
+    })
+  );
+
+  body.position.y=3;
+
+  body.castShadow=true;
+
+  group.add(body);
+
+  const head=new THREE.Mesh(
+    new THREE.SphereGeometry(1.15,16,16),
+    new THREE.MeshStandardMaterial({
+      color:0xc58b68
+    })
+  );
+
+  head.position.y=6;
+
+  head.castShadow=true;
+
+  group.add(head);
+
+  return group;
+}
+
+/* ---------- PLAYER ---------- */
+
+function createPlayer(){
+
+  player=createHuman(0x168dcc);
+
+  player.position.set(
+    0,
+    0,
+    80
+  );
+
+  scene.add(player);
+
+}
+
+/* ---------- NPCs ---------- */
+
+const npcs=[];
+
+function createNPCs(){
+
+  for(let i=0;i<45;i++){
+
+    const npc=
+      createHuman(
+        Math.random()*0xffffff
+      );
+
+    npc.position.set(
+      (Math.random()-.5)*1100,
+      0,
+      (Math.random()-.5)*1100
+    );
+
+    npc.userData={
+      direction:
+        Math.random()*Math.PI*2,
+      speed:
+        .02+Math.random()*.04
+    };
+
+    scene.add(npc);
+    npcs.push(npc);
+  }
+}
+
+function updateNPCs(){
+
+  for(const npc of npcs){
+
+    npc.position.x+=
+      Math.sin(npc.userData.direction)*
+      npc.userData.speed;
+
+    npc.position.z+=
+      Math.cos(npc.userData.direction)*
+      npc.userData.speed;
+
+    if(Math.abs(npc.position.x)>650)
+      npc.userData.direction+=Math.PI;
+
+    if(Math.abs(npc.position.z)>650)
+      npc.userData.direction+=Math.PI;
+  }
+}
+
+/* ---------- CAR ---------- */
+
+function createCar(){
+
+  car=new THREE.Group();
+
+  const body=new THREE.Mesh(
+    new THREE.BoxGeometry(7,1.5,13),
+    new THREE.MeshStandardMaterial({
+      color:0xd4142e,
+      metalness:.7,
+      roughness:.2
+    })
+  );
+
+  body.position.y=2;
+
+  body.castShadow=true;
+
+  car.add(body);
+
+  const cabin=new THREE.Mesh(
+    new THREE.BoxGeometry(5.5,2.2,6),
+    new THREE.MeshStandardMaterial({
+      color:0x101820,
+      metalness:.4,
+      roughness:.1
+    })
+  );
+
+  cabin.position.y=3.5;
+
+  cabin.castShadow=true;
+
+  car.add(cabin);
+
+  /* wheels */
+
+  for(const x of [-3.2,3.2]){
+
+    for(const z of [-4.2,4.2]){
+
+      const wheel=new THREE.Mesh(
+        new THREE.CylinderGeometry(
+          1.3,1.3,1,16
+        ),
+        new THREE.MeshStandardMaterial({
+          color:0x101010
+        })
+      );
+
+      wheel.rotation.z=Math.PI/2;
+
+      wheel.position.set(
+        x,
+        1.2,
+        z
+      );
+
+      car.add(wheel);
+    }
+  }
+
+  car.position.set(
+    0,
+    0,
+    45
+  );
+
+  scene.add(car);
+}
+
+/* ---------- ENTER / EXIT ---------- */
+
+function enterExit(){
+
+  const distance=
+    player.position.distanceTo(
+      car.position
+    );
+
+  if(!driving && distance<20){
+
+    driving=true;
+
+    player.visible=false;
+
+    document.getElementById(
+      "vehicle"
+    ).textContent="X-RACER";
+
+    showMessage(
+      "Entered X-Racer 🚗"
+    );
+
+  }else if(driving){
+
+    driving=false;
+
+    player.visible=true;
+
+    player.position.set(
+      car.position.x+10,
+      0,
+      car.position.z
+    );
+
+    document.getElementById(
+      "vehicle"
+    ).textContent="On Foot";
+
+    showMessage(
+      "Exited vehicle"
+    );
+  }
+}
+
+/* ---------- MOVEMENT ---------- */
+
+function updateMovement(){
+
+  let dx=0;
+  let dz=0;
+
+  if(keys.w)dz-=1;
+  if(keys.s)dz+=1;
+  if(keys.a)dx-=1;
+  if(keys.d)dx+=1;
+
+  if(dx===0&&dz===0)return;
+
+  const len=Math.hypot(dx,dz);
+
+  dx/=len;
+  dz/=len;
+
+  const speed=
+    driving?0.8:0.35;
+
+  if(driving){
+
+    car.position.x+=dx*speed;
+    car.position.z+=dz*speed;
+
+    car.rotation.y=
+      Math.atan2(dx,dz);
+
+  }else{
+
+    player.position.x+=dx*speed;
+    player.position.z+=dz*speed;
+
+    player.rotation.y=
+      Math.atan2(dx,dz);
+  }
+}
+
+/* ---------- CAMERA ---------- */
+
+function updateCamera(){
+
+  const target=
+    driving?car:player;
+
+  const desired=
+    new THREE.Vector3(
+      target.position.x+15,
+      target.position.y+10,
+      target.position.z+18
+    );
+
+  camera.position.lerp(
+    desired,
+    .08
+  );
+
+  camera.lookAt(
+    target.position.x,
+    target.position.y+3,
+    target.position.z
+  );
+}
+
+/* ---------- MESSAGE ---------- */
+
+let timer;
+
+function showMessage(text){
+
+  const box=
+    document.getElementById("message");
+
+  box.textContent=text;
+
+  box.style.display="block";
+
+  clearTimeout(timer);
+
+  timer=setTimeout(()=>{
+    box.style.display="none";
+  },2200);
+}
+
+/* ---------- RESET ---------- */
+
+function resetPlayer(){
+
+  driving=false;
+
+  player.visible=true;
+
+  player.position.set(
+    0,0,80
+  );
+
+  car.position.set(
+    0,0,45
+  );
+
+  document.getElementById(
+    "vehicle"
+  ).textContent="On Foot";
+
+  showMessage("Position reset.");
+}
+
+/* ---------- KEYBOARD ---------- */
+
+addEventListener("keydown",e=>{
+
+  const k=e.key.toLowerCase();
+
+  if(k in keys)
+    keys[k]=true;
+
+  if(k==="e")
+    enterExit();
+
+  if(k==="r")
+    resetPlayer();
+
+});
+
+addEventListener("keyup",e=>{
+
+  const k=e.key.toLowerCase();
+
+  if(k in keys)
+    keys[k]=false;
+
+});
+
+/* ---------- MOBILE ---------- */
+
+document.querySelectorAll(".key")
+.forEach(button=>{
+
+  const key=
+    button.dataset.key;
+
+  button.addEventListener(
+    "touchstart",
+    e=>{
+      e.preventDefault();
+      keys[key]=true;
+    },
+    {passive:false}
+  );
+
+  button.addEventListener(
+    "touchend",
+    e=>{
+      e.preventDefault();
+      keys[key]=false;
+    },
+    {passive:false}
+  );
+});
+
+/* ---------- RESIZE ---------- */
+
+function resize(){
+
+  camera.aspect=
+    innerWidth/innerHeight;
+
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(
+    innerWidth,
+    innerHeight
+  );
+}
+
+/* ---------- LOOP ---------- */
+
+function animate(){
+
+  requestAnimationFrame(animate);
+
+  if(!started)return;
+
+  const delta=clock.getDelta();
+
+  updateMovement();
+  updateNPCs();
+  updateCamera();
+
+  renderer.render(
+    scene,
+    camera
+  );
+}
+
+</script>
+
+</body>
+</html>
