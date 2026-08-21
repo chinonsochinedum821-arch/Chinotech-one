@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>CHINOTECH1 Marketplace</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#070707;
+  color:#fff;
+  min-height:100vh;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(5,5,5,.96);
+  border-bottom:1px solid #222;
+  backdrop-filter:blur(12px);
+}
+
+.topbar{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.logo{
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:2px;
+}
+
+.logo span{
+  color:#00e5ff;
+}
+
+.nav-actions{
+  display:flex;
+  gap:7px;
+}
+
+.icon-btn{
+  background:#151515;
+  border:1px solid #292929;
+  color:white;
+  border-radius:10px;
+  padding:9px 11px;
+}
+
+.icon-btn:hover{
+  border-color:#00e5ff;
+}
+
+.search-area{
+  max-width:1200px;
+  margin:auto;
+  padding:0 18px 14px;
+  display:flex;
+  gap:8px;
+}
+
+.search{
+  flex:1;
+  background:#111;
+  color:#fff;
+  border:1px solid #292929;
+  padding:13px 15px;
+  border-radius:12px;
+  outline:none;
+}
+
+.search:focus{
+  border-color:#00e5ff;
+}
+
+.search-btn{
+  background:#00e5ff;
+  color:#001014;
+  border:0;
+  border-radius:12px;
+  padding:0 18px;
+  font-weight:800;
+}
+
+.hero{
+  max-width:1200px;
+  margin:20px auto;
+  padding:18px;
+}
+
+.hero-box{
+  min-height:280px;
+  border:1px solid #242424;
+  border-radius:24px;
+  padding:35px 25px;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(0,229,255,.18),transparent 35%),
+    radial-gradient(circle at 10% 90%,rgba(255,255,255,.08),transparent 30%),
+    #0d0d0d;
+  display:flex;
+  align-items:center;
+}
+
+.hero h1{
+  font-size:clamp(36px,7vw,72px);
+  line-height:.95;
+  margin-bottom:18px;
+}
+
+.hero h1 span{
+  color:#00e5ff;
+}
+
+.hero p{
+  color:#aaa;
+  max-width:620px;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.primary{
+  background:#00e5ff;
+  border:0;
+  padding:13px 20px;
+  border-radius:11px;
+  font-weight:900;
+  color:#001014;
+}
+
+.secondary{
+  background:#171717;
+  color:#fff;
+  border:1px solid #303030;
+  padding:13px 20px;
+  border-radius:11px;
+  font-weight:700;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.categories{
+  max-width:1200px;
+  margin:auto;
+  padding:0 18px 10px;
+}
+
+.category-list{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:8px 0 14px;
+}
+
+.category-list::-webkit-scrollbar{
+  height:3px;
+}
+
+.cat{
+  white-space:nowrap;
+  background:#111;
+  border:1px solid #292929;
+  color:#bbb;
+  padding:10px 15px;
+  border-radius:30px;
+}
+
+.cat.active,
+.cat:hover{
+  background:#00e5ff;
+  color:#001014;
+  border-color:#00e5ff;
+}
+
+.section{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 18px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.section-head h2{
+  font-size:24px;
+}
+
+.section-head small{
+  color:#777;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+}
+
+.card{
+  background:#101010;
+  border:1px solid #242424;
+  border-radius:18px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  border-color:#00e5ff;
+}
+
+.product-image{
+  height:170px;
+  background:#171717;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:75px;
+  overflow:hidden;
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.card-body{
+  padding:14px;
+}
+
+.product-name{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.product-description{
+  color:#888;
+  font-size:13px;
+  min-height:36px;
+}
+
+.price{
+  color:#00e5ff;
+  font-size:20px;
+  font-weight:900;
+  margin:12px 0;
+}
+
+.seller{
+  color:#777;
+  font-size:12px;
+  margin-bottom:12px;
+}
+
+.card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.card-actions button{
+  padding:10px 5px;
+  border-radius:9px;
+  border:1px solid #292929;
+  background:#171717;
+  color:#fff;
+}
+
+.card-actions .buy{
+  background:#00e5ff;
+  color:#001014;
+  border-color:#00e5ff;
+  font-weight:800;
+}
+
+.sound-btn{
+  width:100%;
+  margin-top:8px;
+  background:#0b2024!important;
+  border-color:#07515c!important;
+  color:#00e5ff!important;
+}
+
+.empty{
+  color:#777;
+  padding:30px 5px;
+  text-align:center;
+}
+
+footer{
+  margin-top:50px;
+  border-top:1px solid #222;
+  background:#050505;
+  padding:35px 18px;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+  color:#777;
+  line-height:1.7;
+}
+
+.footer-brand{
+  color:white;
+  font-size:20px;
+  font-weight:900;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:rgba(0,0,0,.78);
+  padding:15px;
+  overflow-y:auto;
+}
+
+.modal.show{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  width:min(650px,100%);
+  background:#101010;
+  border:1px solid #303030;
+  border-radius:20px;
+  padding:20px;
+  max-height:90vh;
+  overflow-y:auto;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.close{
+  background:#222;
+  border:0;
+  color:#fff;
+  border-radius:9px;
+  padding:8px 11px;
+}
+
+.form-group{
+  margin-bottom:13px;
+}
+
+.form-group label{
+  display:block;
+  color:#aaa;
+  margin-bottom:6px;
+  font-size:13px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  background:#080808;
+  border:1px solid #292929;
+  color:#fff;
+  padding:12px;
+  border-radius:10px;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.form-actions{
+  display:flex;
+  gap:8px;
+  margin-top:16px;
+}
+
+.form-actions button{
+  flex:1;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #222;
+}
+
+.cart-item strong{
+  display:block;
+}
+
+.cart-item small{
+  color:#777;
+}
+
+.remove{
+  background:#251010;
+  color:#ff7777;
+  border:1px solid #4a2020;
+  border-radius:8px;
+  padding:7px;
+}
+
+.total{
+  font-size:23px;
+  font-weight:900;
+  margin-top:18px;
+  color:#00e5ff;
+}
+
+.notice{
+  padding:12px;
+  border-radius:10px;
+  background:#102026;
+  border:1px solid #164651;
+  color:#8defff;
+  margin-bottom:14px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.toast{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:#00e5ff;
+  color:#001014;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:800;
+  z-index:5000;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+}
+
+.sound-control{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  z-index:1500;
+  background:#101010;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:50px;
+  padding:11px 15px;
+}
+
+.badge{
+  display:inline-block;
+  background:#15252a;
+  color:#00e5ff;
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+@media(max-width:600px){
+  .topbar{
+    padding:12px;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .search-area{
+    padding:0 12px 12px;
+  }
+
+  .hero{
+    padding:12px;
+  }
+
+  .hero-box{
+    padding:28px 20px;
+  }
+
+  .section,
+  .categories{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .product-image{
+    height:125px;
+    font-size:55px;
+  }
+
+  .card-body{
+    padding:10px;
+  }
+
+  .product-name{
+    font-size:15px;
+  }
+
+  .price{
+    font-size:17px;
+  }
+
+  .card-actions{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo">CHINO<span>TECH1</span></div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openCart()">🛒 <span id="cartCount">0</span></button>
+      <button class="icon-btn" onclick="openFavorites()">❤️</button>
+      <button class="icon-btn" onclick="openSell()">＋ Sell</button>
+    </div>
+  </div>
+
+  <div class="search-area">
+    <input
+      id="searchInput"
+      class="search"
+      type="search"
+      placeholder="Search cars, electronics, parts..."
+      oninput="searchProducts()"
+    >
+    <button class="search-btn" onclick="searchProducts()">Search</button>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="hero-box">
+    <div>
+      <div class="badge">THE NEXT-GENERATION MARKETPLACE</div>
+      <h1>BUY.<br><span>SELL.</span><br>DISCOVER.</h1>
+      <p>
+        Welcome to CHINOTECH1 Marketplace — a modern marketplace
+        for discovering products, vehicles, technology, parts and more.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="primary" onclick="scrollToProducts()">Browse Marketplace</button>
+        <button class="secondary" onclick="openSell()">Sell Your Product</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="section-head">
+    <h2>Categories</h2>
+  </div>
+
+  <div class="category-list">
+    <button class="cat active" onclick="filterCategory('All',this)">All</button>
+    <button class="cat" onclick="filterCategory('Cars',this)">🚗 Cars</button>
+    <button class="cat" onclick="filterCategory('Motorcycles',this)">🏍️ Motorcycles</button>
+    <button class="cat" onclick="filterCategory('Electronics',this)">📱 Electronics</button>
+    <button class="cat" onclick="filterCategory('Parts',this)">⚙️ Parts</button>
+    <button class="cat" onclick="filterCategory('Fashion',this)">👕 Fashion</button>
+    <button class="cat" onclick="filterCategory('Other',this)">📦 Other</button>
+  </div>
+</section>
+
+<section class="section" id="marketplace">
+  <div class="section-head">
+    <h2>Marketplace</h2>
+    <small id="resultCount"></small>
+  </div>
+
+  <div id="products" class="products"></div>
+</section>
+
+</main>
+
+<button class="sound-control" id="soundControl" onclick="toggleSound()">🔊 Sound ON</button>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">CHINOTECH1 MARKETPLACE</div>
+    <p>Technology • Cars • Electronics • Parts • Marketplace</p>
+    <p>© 2026 CHINOTECH1. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- SELL MODAL -->
+<div class="modal" id="sellModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Sell on CHINOTECH1</h2>
+      <button class="close" onclick="closeModal('sellModal')">✕</button>
+    </div>
+
+    <div class="notice">
+      Add your product below. Products created here are saved in this
+      browser using local storage. Connect a real database/backend
+      later for public multi-user listings.
+    </div>
+
+    <form id="sellForm">
+
+      <div class="form-group">
+        <label>Product name</label>
+        <input id="productName" required placeholder="Example: Toyota Camry 2020">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select id="productCategory" required>
+          <option value="Cars">Cars</option>
+          <option value="Motorcycles">Motorcycles</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Parts">Parts</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Price (₦)</label>
+        <input id="productPrice" type="number" min="0" required placeholder="2500000">
+      </div>
+
+      <div class="form-group">
+        <label>Product description</label>
+        <textarea id="productDescription" required placeholder="Describe your product..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Seller name</label>
+        <input id="sellerName" required placeholder="Your name or business name">
+      </div>
+
+      <div class="form-group">
+        <label>Image URL (optional)</label>
+        <input id="productImage" placeholder="https://example.com/image.jpg">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="secondary" onclick="closeModal('sellModal')">Cancel</button>
+        <button type="submit" class="primary">Publish Product</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- CART MODAL -->
+<div class="modal" id="cartModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Your Cart</h2>
+      <button class="close" onclick="closeModal('cartModal')">✕</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="total">
+      Total: ₦<span id="cartTotal">0</span>
+    </div>
+
+    <button
+      class="primary"
+      style="width:100%;margin-top:15px"
+      onclick="checkout()"
+    >
+      Proceed to Checkout
+    </button>
+
+  </div>
+</div>
+
+<!-- FAVORITES MODAL -->
+<div class="modal" id="favoritesModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Favorites</h2>
+      <button class="close" onclick="closeModal('favoritesModal')">✕</button>
+    </div>
+
+    <div id="favoriteItems"></div>
+
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Checkout</h2>
+      <button class="close" onclick="closeModal('checkoutModal')">✕</button>
+    </div>
+
+    <div class="notice">
+      This is the checkout interface. Before accepting real payments,
+      connect your verified Paystack account and implement server-side
+      payment verification.
+    </div>
+
+    <div class="form-group">
+      <label>Customer name</label>
+      <input id="customerName" placeholder="Your name">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input id="customerEmail" type="email" placeholder="you@example.com">
+    </div>
+
+    <div class="form-group">
+      <label>Phone</label>
+      <input id="customerPhone" placeholder="08000000000">
+    </div>
+
+    <div class="total">
+      Amount: ₦<span id="checkoutTotal">0</span>
+    </div>
+
+    <button class="primary" style="width:100%;margin-top:15px" onclick="startPayment()">
+      💳 Continue to Payment
+    </button>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* ============================================================
+   CHINOTECH1 MARKETPLACE
+   SINGLE-FILE APPLICATION
+   ============================================================ */
+
+const STORAGE_PRODUCTS = "chinotech1_products";
+const STORAGE_CART = "chinotech1_cart";
+const STORAGE_FAV = "chinotech1_favorites";
+
+let currentCategory = "All";
+let soundEnabled = true;
+let audioContext = null;
+let engineOscillator = null;
+let engineGain = null;
+
+/* ============================================================
+   DEFAULT PRODUCTS
+   ============================================================ */
+
+const defaultProducts = [
+
+  {
+    id:"car001",
+    name:"CHINOTECH1 X-1",
+    category:"Cars",
+    price:15000000,
+    description:"Exclusive CHINOTECH1 performance concept vehicle.",
+    seller:"CHINOTECH1",
+    image:"",
+    emoji:"🏎️"
+  },
+
+  {
+    id:"car002",
+    name:"Premium Sports Car",
+    category:"Cars",
+    price:8500000,
+    description:"Premium performance-inspired sports vehicle.",
+    seller:"CHINOTECH1 Motors",
+    image:"",
+    emoji:"🚘"
+  },
+
+  {
+    id:"bike001",
+    name:"Performance Motorcycle",
+    category:"Motorcycles",
+    price:1800000,
+    description:"Sport-style motorcycle for city and highway riding.",
+    seller:"CHINOTECH1 Motors",
+    image:"",
+    emoji:"🏍️"
+  },
+
+  {
+    id:"phone001",
+    name:"Premium Smartphone",
+    category:"Electronics",
+    price:450000,
+    description:"Modern smartphone with large display and strong performance.",
+    seller:"Tech Store",
+    image:"",
+    emoji:"📱"
+  },
+
+  {
+    id:"part001",
+    name:"Performance Engine",
+    category:"Parts",
+    price:2500000,
+    description:"Automotive engine suitable for project builds.",
+    seller:"Auto Parts NG",
+    image:"",
+    emoji:"⚙️"
+  },
+
+  {
+    id:"part002",
+    name:"Car Alloy Wheels",
+    category:"Parts",
+    price:550000,
+    description:"Premium alloy wheel set.",
+    seller:"Wheel Hub",
+    image:"",
+    emoji:"🛞"
+  },
+
+  {
+    id:"fashion001",
+    name:"CHINOTECH1 Hoodie",
+    category:"Fashion",
+    price:35000,
+    description:"Official-style CHINOTECH1 streetwear.",
+    seller:"CHINOTECH1",
+    image:"",
+    emoji:"👕"
+  }
+
+];
+
+/* ============================================================
+   STORAGE
+   ============================================================ */
+
+function getProducts(){
+
+  let saved = localStorage.getItem(STORAGE_PRODUCTS);
+
+  if(!saved){
+    localStorage.setItem(
+      STORAGE_PRODUCTS,
+      JSON.stringify(defaultProducts)
+    );
+
+    return defaultProducts;
+  }
+
+  try{
+    return JSON.parse(saved);
+  }catch(e){
+    return defaultProducts;
+  }
+}
+
+function saveProducts(products){
+  localStorage.setItem(
+    STORAGE_PRODUCTS,
+    JSON.stringify(products)
+  );
+}
+
+function getCart(){
+  try{
+    return JSON.parse(localStorage.getItem(STORAGE_CART)) || [];
+  }catch(e){
+    return [];
+  }
+}
+
+function saveCart(cart){
+  localStorage.setItem(STORAGE_CART,JSON.stringify(cart));
+}
+
+function getFavorites(){
+  try{
+    return JSON.parse(localStorage.getItem(STORAGE_FAV)) || [];
+  }catch(e){
+    return [];
+  }
+}
+
+function saveFavorites(favs){
+  localStorage.setItem(STORAGE_FAV,JSON.stringify(favs));
+}
+
+/* ============================================================
+   DISPLAY PRODUCTS
+   ============================================================ */
+
+function renderProducts(){
+
+  const container = document.getElementById("products");
+
+  let products = getProducts();
+
+  const query =
+    document.getElementById("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+  if(currentCategory !== "All"){
+    products = products.filter(
+      p => p.category === currentCategory
+    );
+  }
+
+  if(query){
+    products = products.filter(p =>
+      (
+        p.name + " " +
+        p.description + " " +
+        p.category + " " +
+        p.seller
+      ).toLowerCase().includes(query)
+    );
+  }
+
+  document.getElementById("resultCount").textContent =
+    products.length + " products";
+
+  if(products.length === 0){
+
+    container.innerHTML =
+      `<div class="empty" style="grid-column:1/-1">
+        No products found.
+      </div>`;
+
+    return;
+  }
+
+  container.innerHTML = products.map(product => {
+
+    const image = product.image
+      ? `<img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}">`
+      : `<span>${product.emoji || "📦"}</span>`;
+
+    return `
+
+      <article class="card">
+
+        <div class="product-image">
+          ${image}
+        </div>
+
+        <div class="card-body">
+
+          <div class="badge">
+            ${escapeHTML(product.category)}
+          </div>
+
+          <div class="product-name">
+            ${escapeHTML(product.name)}
+          </div>
+
+          <div class="product-description">
+            ${escapeHTML(product.description)}
+          </div>
+
+          <div class="price">
+            ₦${Number(product.price).toLocaleString()}
+          </div>
+
+          <div class="seller">
+            Seller: ${escapeHTML(product.seller)}
+          </div>
+
+          <div class="card-actions">
+
+            <button class="buy"
+              onclick="addToCart('${product.id}')">
+              🛒 Add to Cart
+            </button>
+
+            <button
+              onclick="toggleFavorite('${product.id}')">
+              ❤️ Save
+            </button>
+
+          </div>
+
+          ${
+            product.category === "Cars" ||
+            product.category === "Motorcycles"
+            ?
+            `<button
+              class="sound-btn"
+              onclick="playCarSound('${product.id}')">
+              🔊 Start Engine
+            </button>`
+            : ""
+          }
+
+        </div>
+
+      </article>
+
+    `;
+
+  }).join("");
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+
+function searchProducts(){
+  renderProducts();
+}
+
+/* ============================================================
+   CATEGORY
+   ============================================================ */
+
+function filterCategory(category,button){
+
+  currentCategory = category;
+
+  document
+    .querySelectorAll(".cat")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  renderProducts();
+}
+
+/* ============================================================
+   CART
+   ============================================================ */
+
+function addToCart(id){
+
+  const products = getProducts();
+  const product = products.find(p => p.id === id);
+
+  if(!product) return;
+
+  let cart = getCart();
+
+  cart.push(id);
+
+  saveCart(cart);
+
+  updateCartCount();
+
+  showToast(product.name + " added to cart");
+
+}
+
+function removeFromCart(index){
+
+  let cart = getCart();
+
+  cart.splice(index,1);
+
+  saveCart(cart);
+
+  updateCartCount();
+
+  renderCart();
+
+}
+
+function updateCartCount(){
+
+  document.getElementById("cartCount").textContent =
+    getCart().length;
+}
+
+function renderCart(){
+
+  const container =
+    document.getElementById("cartItems");
+
+  const cart = getCart();
+
+  const products = getProducts();
+
+  if(cart.length === 0){
+
+    container.innerHTML =
+      `<div class="empty">Your cart is empty.</div>`;
+
+    document.getElementById("cartTotal").textContent =
+      "0";
+
+    return;
+  }
+
+  let total = 0;
+
+  container.innerHTML = cart.map((id,index) => {
+
+    const product =
+      products.find(p => p.id === id);
+
+    if(!product) return "";
+
+    total += Number(product.price);
+
+    return `
+      <div class="cart-item">
+
+        <div>
+          <strong>${escapeHTML(product.name)}</strong>
+          <small>
+            ₦${Number(product.price).toLocaleString()}
+          </small>
+        </div>
+
+        <button
+          class="remove"
+          onclick="removeFromCart(${index})">
+          Remove
+        </button>
+
+      </div>
+    `;
+
+  }).join("");
+
+  document.getElementById("cartTotal").textContent =
+    total.toLocaleString();
+}
+
+function openCart(){
+
+  renderCart();
+
+  openModal("cartModal");
+
+}
+
+/* ============================================================
+   FAVORITES
+   ============================================================ */
+
+function toggleFavorite(id){
+
+  let favs = getFavorites();
+
+  if(favs.includes(id)){
+
+    favs = favs.filter(x => x !== id);
+
+    showToast("Removed from favorites");
+
+  }else{
+
+    favs.push(id);
+
+    showToast("Added to favorites");
+
+  }
+
+  saveFavorites(favs);
+
+}
+
+function openFavorites(){
+
+  const container =
+    document.getElementById("favoriteItems");
+
+  const favs = getFavorites();
+
+  const products = getProducts();
+
+  const favorites =
+    products.filter(p => favs.includes(p.id));
+
+  if(favorites.length === 0){
+
+    container.innerHTML =
+      `<div class="empty">No favorite products yet.</div>`;
+
+  }else{
+
+    container.innerHTML =
+      favorites.map(p => `
+
+        <div class="cart-item">
+
+          <div>
+            <strong>${escapeHTML(p.name)}</strong>
+            <small>
+              ₦${Number(p.price).toLocaleString()}
+            </small>
+          </div>
+
+          <button
+            class="primary"
+            onclick="addToCart('${p.id}')">
+            Add
+          </button>
+
+        </div>
+
+      `).join("");
+
+  }
+
+  openModal("favoritesModal");
+
+}
+
+/* ============================================================
+   SELL PRODUCT
+   ============================================================ */
+
+function openSell(){
+  openModal("sellModal");
+}
+
+document
+  .getElementById("sellForm")
+  .addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const product = {
+
+      id:
+        "user_" +
+        Date.now() +
+        "_" +
+        Math.random()
+          .toString(36)
+          .substring(2,8),
+
+      name:
+        document.getElementById("productName").value.trim(),
+
+      category:
+        document.getElementById("productCategory").value,
+
+      price:
+        Number(
+          document.getElementById("productPrice").value
+        ),
+
+      description:
+        document.getElementById("productDescription").value.trim(),
+
+      seller:
+        document.getElementById("sellerName").value.trim(),
+
+      image:
+        document.getElementById("productImage").value.trim(),
+
+      emoji:"📦"
+
+    };
+
+    let products = getProducts();
+
+    products.unshift(product);
+
+    saveProducts(products);
+
+    this.reset();
+
+    closeModal("sellModal");
+
+    renderProducts();
+
+    showToast("Product published successfully!");
+
+  });
+
+/* ============================================================
+   CHECKOUT
+   ============================================================ */
+
+function checkout(){
+
+  const cart = getCart();
+
+  if(cart.length === 0){
+
+    showToast("Your cart is empty.");
+
+    return;
+
+  }
+
+  const products = getProducts();
+
+  let total = 0;
+
+  cart.forEach(id => {
+
+    const p = products.find(x => x.id === id);
+
+    if(p){
+      total += Number(p.price);
+    }
+
+  });
+
+  document.getElementById("checkoutTotal")
+    .textContent = total.toLocaleString();
+
+  closeModal("cartModal");
+
+  openModal("checkoutModal");
+
+}
+
+function startPayment(){
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const email =
+    document.getElementById("customerEmail").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  if(!name || !email || !phone){
+
+    showToast("Please complete your details.");
+
+    return;
+
+  }
+
+  /*
+    PAYSTACK CONNECTION POINT
+
+    Replace this section with your Paystack integration.
+
+    NEVER put a Paystack SECRET KEY inside this HTML file.
+
+    Your secret key belongs on your secure server/backend.
+  */
+
+  showToast(
+    "Checkout is ready for Paystack integration."
+  );
+
+}
+
+/* ============================================================
+   CAR SOUND ENGINE
+   ============================================================ */
+
+function getAudio(){
+
+  if(!audioContext){
+
+    audioContext =
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+
+  }
+
+  if(audioContext.state === "suspended"){
+    audioContext.resume();
+  }
+
+  return audioContext;
+
+}
+
+function playCarSound(id){
+
+  if(!soundEnabled){
+
+    showToast("Sound is OFF");
+
+    return;
+
+  }
+
+  const audio = getAudio();
+
+  const now = audio.currentTime;
+
+  /*
+    Create synthetic engine sound.
+    No external audio file is required.
+  */
+
+  const master =
+    audio.createGain();
+
+  master.gain.setValueAtTime(
+    0.0001,
+    now
+  );
+
+  master.gain.exponentialRampToValueAtTime(
+    0.35,
+    now + 0.08
+  );
+
+  master.gain.exponentialRampToValueAtTime(
+    0.18,
+    now + 1.3
+  );
+
+  master.gain.exponentialRampToValueAtTime(
+    0.0001,
+    now + 2.3
+  );
+
+  master.connect(audio.destination);
+
+  const oscillator =
+    audio.createOscillator();
+
+  oscillator.type = "sawtooth";
+
+  oscillator.frequency.setValueAtTime(
+    65,
+    now
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    150,
+    now + 0.4
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    90,
+    now + 1.2
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    55,
+    now + 2.1
+  );
+
+  oscillator.connect(master);
+
+  oscillator.start(now);
+
+  oscillator.stop(now + 2.3);
+
+  /*
+    Add second harmonic for deeper engine character.
+  */
+
+  const harmonic =
+    audio.createOscillator();
+
+  harmonic.type = "square";
+
+  harmonic.frequency.setValueAtTime(
+    110,
+    now
+  );
+
+  harmonic.frequency.exponentialRampToValueAtTime(
+    260,
+    now + 0.45
+  );
+
+  harmonic.frequency.exponentialRampToValueAtTime(
+    120,
+    now + 1.3
+  );
+
+  const harmonicGain =
+    audio.createGain();
+
+  harmonicGain.gain.setValueAtTime(
+    0.04,
+    now
+  );
+
+  harmonicGain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    now + 2.1
+  );
+
+  harmonic.connect(harmonicGain);
+
+  harmonicGain.connect(audio.destination);
+
+  harmonic.start(now);
+
+  harmonic.stop(now + 2.2);
+
+  showToast("🏎️ Engine started!");
+
+}
+
+/* ============================================================
+   SOUND TOGGLE
+   ============================================================ */
+
+function toggleSound(){
+
+  soundEnabled = !soundEnabled;
+
+  const control =
+    document.getElementById("soundControl");
+
+  if(soundEnabled){
+
+    control.textContent =
+      "🔊 Sound ON";
+
+    showToast("Sound enabled");
+
+  }else{
+
+    control.textContent =
+      "🔇 Sound OFF";
+
+    showToast("Sound disabled");
+
+  }
+
+}
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList.add("show");
+
+}
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("show");
+
+}
+
+document
+  .querySelectorAll(".modal")
+  .forEach(modal => {
+
+    modal.addEventListener("click",function(e){
+
+      if(e.target === modal){
+        modal.classList.remove("show");
+      }
+
+    });
+
+  });
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    },2500);
+
+}
+
+/* ============================================================
+   SCROLL
+   ============================================================ */
+
+function scrollToProducts(){
+
+  document
+    .getElementById("marketplace")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+/* ============================================================
+   SECURITY / HTML ESCAPING
+   ============================================================ */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+
+renderProducts();
+updateCartCount();
+
+/* ============================================================
+   KEYBOARD SHORTCUT
+   ============================================================ */
+
+document.addEventListener("keydown",function(e){
+
+  if(e.key === "/" &&
+     document.activeElement.tagName !== "INPUT"){
+
+    e.preventDefault();
+
+    document
+      .getElementById("searchInput")
+      .focus();
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
