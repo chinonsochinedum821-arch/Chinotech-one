@@ -1,0 +1,14 @@
+<button
+  id="installAppButton"
+  onclick="installCHINOTECH1()"
+  style="
+    display:none;
+    background:#f97316;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    font-weight:bold;
+  "
+>
+  📲 Install CHINOTECH1
+</button>
