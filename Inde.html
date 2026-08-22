@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHINOTECH1 Marketplace</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f5f7;
+  color: #222;
+}
+
+header {
+  background: #111;
+  color: white;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #ff9800;
+}
+
+.search {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.search input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.search button {
+  border: none;
+  background: #ff9800;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 14px;
+  background: white;
+}
+
+.categories button {
+  white-space: nowrap;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
+.categories button.active {
+  background: #111;
+  color: white;
+}
+
+.hero {
+  margin: 15px;
+  padding: 25px;
+  border-radius: 15px;
+  background: linear-gradient(135deg,#111,#333);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.hero p {
+  color: #ddd;
+}
+
+.section-title {
+  padding: 15px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 12px 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.price {
+  color: #008000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.location {
+  color: #777;
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.card button {
+  width: 100%;
+  border: none;
+  background: #111;
+  color: white;
+  padding: 9px;
+  border-radius: 7px;
+  margin-top: 5px;
+}
+
+footer {
+  background: #111;
+  color: white;
+  padding: 30px 15px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.sell {
+  position: fixed;
+  right: 18px;
+  bottom: 20px;
+  background: #ff9800;
+  color: #111;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,.3);
+}
+
+@media (min-width:700px) {
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">CHINOTECH<span>1</span></div>
+
+  <div class="search">
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search cars, phones, electronics..."
+      onkeyup="searchProducts()"
+    >
+    <button>Search</button>
+  </div>
+</header>
+
+<div class="categories">
+  <button class="active" onclick="filterProducts('all',this)">All</button>
+  <button onclick="filterProducts('cars',this)">🚗 Cars</button>
+  <button onclick="filterProducts('phones',this)">📱 Phones</button>
+  <button onclick="filterProducts('electronics',this)">🔌 Electronics</button>
+  <button onclick="filterProducts('fashion',this)">👕 Fashion</button>
+  <button onclick="filterProducts('home',this)">🏠 Home</button>
+  <button onclick="filterProducts('parts',this)">🔧 Spare Parts</button>
+</div>
+
+<section class="hero">
+  <h1>Welcome to CHINOTECH1</h1>
+  <p>Buy and sell cars, electronics, phones, fashion, spare parts and many more products.</p>
+</section>
+
+<h2 class="section-title">🔥 Featured Products</h2>
+
+<div class="products" id="products">
+
+  <div class="card" data-category="cars" data-name="Toyota Camry 2020">
+    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Toyota Camry 2020</h3>
+      <div class="price">₦18,500,000</div>
+      <div class="location">📍 Anambra</div>
+      <button onclick="contactSeller('Toyota Camry 2020')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="cars" data-name="Mercedes Benz C-Class">
+    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Mercedes-Benz C-Class</h3>
+      <div class="price">₦32,000,000</div>
+      <div class="location">📍 Lagos</div>
+      <button onclick="contactSeller('Mercedes-Benz C-Class')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="cars" data-name="Lexus RX 350">
+    <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Lexus RX 350</h3>
+      <div class="price">₦28,000,000</div>
+      <div class="location">📍 Abuja</div>
+      <button onclick="contactSeller('Lexus RX 350')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="phones" data-name="Smartphone">
+    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Premium Smartphone</h3>
+      <div class="price">₦450,000</div>
+      <div class="location">📍 Onitsha</div>
+      <button onclick="contactSeller('Premium Smartphone')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="electronics" data-name="Laptop Computer">
+    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Business Laptop</h3>
+      <div class="price">₦850,000</div>
+      <div class="location">📍 Awka</div>
+      <button onclick="contactSeller('Business Laptop')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="electronics" data-name="Headphones">
+    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Wireless Headphones</h3>
+      <div class="price">₦75,000</div>
+      <div class="location">📍 Enugu</div>
+      <button onclick="contactSeller('Wireless Headphones')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="fashion" data-name="Sneakers">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Premium Sneakers</h3>
+      <div class="price">₦65,000</div>
+      <div class="location">📍 Onitsha</div>
+      <button onclick="contactSeller('Premium Sneakers')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="home" data-name="Modern Chair">
+    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Modern Sofa</h3>
+      <div class="price">₦320,000</div>
+      <div class="location">📍 Awka</div>
+      <button onclick="contactSeller('Modern Sofa')">Contact Seller</button>
+    </div>
+  </div>
+
+  <div class="card" data-category="parts" data-name="Car Engine">
+    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80">
+    <div class="card-content">
+      <h3>Car Engine</h3>
+      <div class="price">₦1,200,000</div>
+      <div class="location">📍 Nnewi</div>
+      <button onclick="contactSeller('Car Engine')">Contact Seller</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <h2>CHINOTECH1 Marketplace</h2>
+  <p>Buy • Sell • Discover</p>
+  <p>© 2026 CHINOTECH1</p>
+</footer>
+
+<button class="sell" onclick="sellProduct()">＋ Sell Product</button>
+
+<script>
+
+function filterProducts(category, button) {
+
+  document.querySelectorAll(".categories button")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    if(category === "all" ||
+       card.dataset.category === category) {
+
+      card.style.display = "block";
+
+    } else {
+
+      card.style.display = "none";
+
+    }
+
+  });
+}
+
+function searchProducts() {
+
+  const search =
+    document.getElementById("searchInput")
+    .value.toLowerCase();
+
+  document.querySelectorAll(".card")
+    .forEach(card => {
+
+      const name =
+        card.dataset.name.toLowerCase();
+
+      if(name.includes(search)) {
+
+        card.style.display = "block";
+
+      } else {
+
+        card.style.display = "none";
+
+      }
+
+    });
+}
+
+function contactSeller(product) {
+
+  const phone = "2348000000000";
+
+  const message =
+    "Hello, I am interested in buying " +
+    product +
+    " from CHINOTECH1 Marketplace.";
+
+  window.open(
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
+}
+
+function sellProduct() {
+
+  alert(
+    "Seller registration coming next. " +
+    "You will be able to upload your product, " +
+    "price, photos and contact information."
+  );
+
+}
+
+</script>
+
+</body>
+</html>
