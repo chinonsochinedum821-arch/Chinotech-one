@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CHINOTECH1 Supermarket Marketplace</title>
+<link rel="icon" href="app-icon.svg">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f5f7;
+  color:#111827
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#111827;
+  color:white;
+  padding:12px
+}
+.bar{
+  max-width:1400px;
+  margin:auto;
+  display:flex;
+  gap:10px;
+  align-items:center
+}
+.logo{
+  font-size:22px;
+  font-weight:900;
+  white-space:nowrap
+}
+.search{
+  display:flex;
+  flex:1
+}
+.search input{
+  flex:1;
+  padding:13px;
+  border:0;
+  border-radius:10px 0 0 10px;
+  font-size:15px
+}
+.search button{
+  border:0;
+  background:#ff5a1f;
+  color:white;
+  padding:0 18px;
+  border-radius:0 10px 10px 0;
+  font-weight:800
+}
+.cats{
+  max-width:1400px;
+  margin:10px auto 0;
+  display:flex;
+  gap:7px;
+  overflow:auto
+}
+.cats button{
+  border:1px solid #ffffff33;
+  background:#ffffff12;
+  color:white;
+  border-radius:20px;
+  padding:8px 12px;
+  white-space:nowrap
+}
+main{
+  max-width:1400px;
+  margin:auto;
+  padding:18px
+}
+.hero{
+  background:linear-gradient(120deg,#111827,#374151);
+  color:white;
+  padding:28px;
+  border-radius:18px;
+  margin-bottom:18px
+}
+.hero h1{margin:0 0 8px}
+.hero p{line-height:1.5}
+.filters{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  margin-bottom:16px
+}
+.filters button{
+  border:0;
+  background:white;
+  padding:10px 14px;
+  border-radius:10px;
+  box-shadow:0 2px 8px #0001;
+  white-space:nowrap
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(205px,1fr));
+  gap:15px
+}
+.card{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 3px 12px #0001
+}
+.pic{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#eee
+}
+.info{padding:12px}
+.small{
+  font-size:12px;
+  color:#6b7280
+}
+.name{
+  font-weight:800;
+  margin:5px 0
+}
+.price{
+  font-weight:900;
+  font-size:18px;
+  color:#d94801;
+  margin:7px 0
+}
+.actions{
+  display:flex;
+  gap:7px
+}
+.actions button{
+  flex:1;
+  padding:10px;
+  border:0;
+  border-radius:9px;
+  font-weight:800;
+  cursor:pointer
+}
+.buy{
+  background:#111827;
+  color:white
+}
+.pay{
+  background:#ff5a1f;
+  color:white
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0009;
+  z-index:30;
+  align-items:center;
+  justify-content:center;
+  padding:16px
+}
+.modal.open{display:flex}
+.box{
+  background:white;
+  width:min(500px,100%);
+  border-radius:18px;
+  padding:20px
+}
+.close{
+  float:right;
+  border:0;
+  border-radius:50%;
+  width:34px;
+  height:34px
+}
+.field{margin:10px 0}
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:5px
+}
+.field input,
+.field select{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:9px
+}
+.confirm{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#111827;
+  color:white;
+  font-weight:800
+}
+.notice{
+  margin-top:10px;
+  background:#fff7ed;
+  padding:10px;
+  border-radius:9px;
+  font-size:12px;
+  color:#9a3412
+}
+.empty{
+  text-align:center;
+  padding:40px;
+  color:#6b7280
+}
+footer{
+  margin-top:30px;
+  background:#111827;
+  color:#cbd5e1;
+  text-align:center;
+  padding:25px
+}
+@media(max-width:520px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:9px
+  }
+  .pic{height:145px}
+  .info{padding:9px}
+  .name{font-size:14px}
+  .price{font-size:15px}
+  .bar{flex-wrap:wrap}
+  .logo{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="bar">
+
+<div class="logo">
+CHINOTECH1
+</div>
+
+<div class="search">
+
+<input
+id="q"
+placeholder="Search cars, phones, fridge, clothes, makeup..."
+>
+
+<button onclick="render()">
+Search
+</button>
+
+</div>
+
+</div>
+
+<div class="cats" id="topcats"></div>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+<h1>CHINOTECH1 Supermarket Marketplace</h1>
+
+<p>
+Cars • Phones • Laptops • Electronics • Home Appliances •
+Fashion • Beauty • Watches • Motorcycles • Supermarket
+</p>
+
+</section>
+
+
+<div class="filters" id="filters"></div>
+
+<div class="grid" id="grid"></div>
+
+<div class="empty" id="empty" hidden>
+No products found.
+</div>
+
+</main>
+
+
+<div class="modal" id="modal">
+
+<div class="box">
+
+<button class="close" onclick="closePay()">×</button>
+
+<h2>Checkout</h2>
+
+<div class="field">
+
+<label>Product</label>
+
+<input id="pname" readonly>
+
+</div>
+
+
+<div class="field">
+
+<label>Amount</label>
+
+<input
+id="amount"
+type="number"
+min="1"
+placeholder="Enter amount in ₦"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Email</label>
+
+<input
+id="email"
+type="email"
+placeholder="customer@email.com"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Name</label>
+
+<input
+id="customer"
+placeholder="Your name"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>Payment</label>
+
+<select id="method">
+
+<option>Paystack</option>
+<option>Bank transfer</option>
+<option>Cash on delivery</option>
+
+</select>
+
+</div>
+
+
+<button class="confirm" onclick="checkout()">
+Pay with Paystack
+</button>
+
+<div class="notice">
+Never put your Paystack secret key inside this HTML file.
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+© 2026 CHINOTECH1 Marketplace
+</footer>
+
+
+<script>
+
+const PAYSTACK_URL =
+'https://paystack.shop/pay/-b57cnxu3v';
+
+
+const P = [
+
+/* CARS */
+
+{
+cat:"Cars",
+name:"Lamborghini Revuelto",
+price:950000,
+image:"https://loremflickr.com/800/600/lamborghini?lock=1"
+},
+
+{
+cat:"Cars",
+name:"Lamborghini Huracan",
+price:780000,
+image:"https://loremflickr.com/800/600/lamborghini,car?lock=2"
+},
+
+{
+cat:"Cars",
+name:"Ferrari 296 GTB",
+price:900000,
+image:"https://loremflickr.com/800/600/ferrari?lock=3"
+},
+
+{
+cat:"Cars",
+name:"Ferrari Roma",
+price:850000,
+image:"https://loremflickr.com/800/600/ferrari,roma?lock=4"
+},
+
+{
+cat:"Cars",
+name:"Lexus LX 600",
+price:750000,
+image:"https://loremflickr.com/800/600/lexus?lock=5"
+},
+
+{
+cat:"Cars",
+name:"Lexus RX",
+price:620000,
+image:"https://loremflickr.com/800/600/lexus,suv?lock=6"
+},
+
+{
+cat:"Cars",
+name:"Honda CR-V",
+price:520000,
+image:"https://loremflickr.com/800/600/honda,crv?lock=7"
+},
+
+{
+cat:"Cars",
+name:"Honda Civic",
+price:450000,
+image:"https://loremflickr.com/800/600/honda,civic?lock=8"
+},
+
+{
+cat:"Cars",
+name:"Toyota Camry",
+price:420000,
+image:"https://loremflickr.com/800/600/toyota,camry?lock=9"
+},
+
+{
+cat:"Cars",
+name:"Toyota Corolla",
+price:350000,
+image:"https://loremflickr.com/800/600/toyota,corolla?lock=10"
+},
+
+{
+cat:"Cars",
+name:"Mercedes-Benz C300",
+price:600000,
+image:"https://loremflickr.com/800/600/mercedes,car?lock=11"
+},
+
+{
+cat:"Cars",
+name:"BMW X5",
+price:720000,
+image:"https://loremflickr.com/800/600/bmw,suv?lock=12"
+},
+
+{
+cat:"Cars",
+name:"Audi A6",
+price:560000,
+image:"https://loremflickr.com/800/600/audi,car?lock=13"
+},
+
+{
+cat:"Cars",
+name:"Range Rover Sport",
+price:780000,
+image:"https://loremflickr.com/800/600/range,rover?lock=14"
+},
+
+/* PHONES */
+
+{
+cat:"Phones",
+name:"iPhone 13",
+price:
