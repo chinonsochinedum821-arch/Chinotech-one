@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="CHINOTECH ONE MARKETPLACE - Shop everything in one place">
+<title>CHINOTECH ONE MARKETPLACE</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f4f6;
+  color:#111827;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  background:#111827;
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 3px 15px #0004;
+}
+
+.top{
+  max-width:1450px;
+  margin:auto;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:220px;
+}
+
+.logoIcon{
+  width:45px;
+  height:45px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#facc15,#f97316,#ef4444);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#111827;
+  font-weight:900;
+}
+
+.logo strong{
+  font-size:19px;
+}
+
+.logo small{
+  display:block;
+  color:#facc15;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.search{
+  flex:1;
+  display:flex;
+  max-width:700px;
+  margin:auto;
+}
+
+.search input{
+  width:100%;
+  padding:13px;
+  border:0;
+  outline:0;
+  border-radius:8px 0 0 8px;
+}
+
+.search button{
+  border:0;
+  background:#facc15;
+  padding:0 18px;
+  border-radius:0 8px 8px 0;
+}
+
+.headBtns{
+  display:flex;
+  gap:7px;
+}
+
+.headBtn{
+  background:#1f2937;
+  border:1px solid #374151;
+  color:white;
+  padding:10px 12px;
+  border-radius:8px;
+}
+
+.nav{
+  overflow-x:auto;
+  white-space:nowrap;
+  background:#1f2937;
+}
+
+.navInner{
+  max-width:1450px;
+  margin:auto;
+  display:flex;
+}
+
+.nav button{
+  border:0;
+  background:none;
+  color:#fff;
+  padding:11px 13px;
+  font-size:12px;
+}
+
+.nav button:hover{
+  background:#374151;
+}
+
+.hero{
+  max-width:1450px;
+  margin:18px auto;
+  padding:0 12px;
+}
+
+.heroBox{
+  min-height:330px;
+  border-radius:18px;
+  padding:40px;
+  display:flex;
+  align-items:center;
+  color:white;
+  background:
+    linear-gradient(90deg,#111827ee,#11182766),
+    url("https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1600&q=85")
+    center/cover;
+}
+
+.hero h1{
+  font-size:46px;
+  max-width:700px;
+  margin-bottom:14px;
+}
+
+.hero p{
+  max-width:650px;
+  line-height:1.7;
+  color:#e5e7eb;
+  margin-bottom:20px;
+}
+
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:12px 18px;
+  font-weight:bold;
+}
+
+.yellow{
+  background:#facc15;
+  color:#111827;
+}
+
+.dark{
+  background:#111827;
+  color:#fff;
+}
+
+.white{
+  background:#fff;
+  color:#111827;
+}
+
+.section{
+  max-width:1450px;
+  margin:25px auto;
+  padding:0 12px;
+}
+
+.title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.title h2{
+  font-size:25px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+  gap:10px;
+}
+
+.category{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:15px 8px;
+  text-align:center;
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px #0001;
+}
+
+.category .emoji{
+  font-size:31px;
+  margin-bottom:7px;
+}
+
+.category button{
+  border:0;
+  background:none;
+  font-weight:bold;
+  font-size:12px;
+}
+
+.filters{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.filters input,
+.filters select{
+  padding:10px;
+  border:1px solid #d1d5db;
+  border-radius:7px;
+  outline:0;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px #0002;
+}
+
+.pic{
+  height:190px;
+  position:relative;
+  background:#eee;
+}
+
+.pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.sale{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:#ef4444;
+  color:white;
+  padding:5px 7px;
+  border-radius:5px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.cardBody{
+  padding:11px;
+}
+
+.cat{
+  color:#6b7280;
+  font-size:10px;
+  margin-bottom:5px;
+}
+
+.name{
+  font-weight:bold;
+  min-height:37px;
+  font-size:14px;
+}
+
+.stars{
+  color:#f59e0b;
+  margin:6px 0;
+  font-size:12px;
+}
+
+.price{
+  font-size:18px;
+  font-weight:900;
+}
+
+.old{
+  color:#9ca3af;
+  text-decoration:line-through;
+  font-size:11px;
+  margin-left:4px;
+}
+
+.cardBtns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-top:10px;
+}
+
+.cardBtns button{
+  padding:8px 4px;
+  border:0;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.cart{
+  background:#facc15;
+}
+
+.view{
+  background:#111827;
+  color:#fff;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:#fff;
+  border-radius:12px;
+  padding:18px;
+  border:1px solid #e5e7eb;
+}
+
+.stat span{
+  color:#6b7280;
+  font-size:12px;
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-top:5px;
+}
+
+.chart{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.chartBars{
+  height:220px;
+  display:flex;
+  align-items:end;
+  gap:10px;
+  padding:15px 5px 0;
+}
+
+.bar{
+  flex:1;
+  background:#facc15;
+  border-radius:5px 5px 0 0;
+  position:relative;
+  min-height:20px;
+}
+
+.bar span{
+  position:absolute;
+  bottom:-22px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+}
+
+/* DRAWER */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:3000;
+  display:none;
+}
+
+.overlay.show{
+  display:block;
+}
+
+.drawer{
+  width:min(450px,95%);
+  height:100%;
+  background:white;
+  margin-left:auto;
+  padding:20px;
+  overflow:auto;
+}
+
+.drawerHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:15px;
+  border-bottom:1px solid #ddd;
+}
+
+.close{
+  width:32px;
+  height:32px;
+  border:0;
+  background:#ef4444;
+  color:white;
+  border-radius:6px;
+}
+
+.cartItem{
+  display:flex;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cartItem img{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:7px;
+}
+
+.cartInfo{
+  flex:1;
+}
+
+.qty{
+  display:flex;
+  gap:7px;
+  align-items:center;
+  margin-top:7px;
+}
+
+.qty button{
+  width:25px;
+  height:25px;
+  border:1px solid #ddd;
+  background:white;
+  border-radius:4px;
+}
+
+.total{
+  font-size:22px;
+  font-weight:900;
+  margin-top:20px;
+}
+
+.pay{
+  width:100%;
+  padding:15px;
+  border:0;
+  background:#00c853;
+  color:white;
+  border-radius:8px;
+  font-weight:900;
+  margin-top:15px;
+}
+
+/* MODALS */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0009;
+  z-index:4000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modalBox{
+  width:min(620px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+}
+
+.modalHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.modalBox input,
+.modalBox select,
+.modalBox textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #d1d5db;
+  border-radius:7px;
+  margin:5px 0 13px;
+}
+
+.modalBox textarea{
+  min-height:100px;
+}
+
+.detailImg{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+footer{
+  background:#111827;
+  color:white;
+  padding:40px 15px;
+  margin-top:40px;
+}
+
+.footerGrid{
+  max-width:1450px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+}
+
+footer h3{
+  color:#facc15;
+  margin-bottom:10px;
+}
+
+footer p,
+footer li{
+  color:#d1d5db;
+  font-size:13px;
+  line-height:1.8;
+}
+
+footer ul{
+  list-style:none;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translate(-50%,100px);
+  background:#111827;
+  color:#fff;
+  padding:13px 18px;
+  border-radius:8px;
+  z-index:5000;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+}
+
+@media(max-width:1100px){
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+
+@media(max-width:800px){
+  .top{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    width:100%;
+  }
+
+  .search{
+    order:3;
+    width:100%;
+  }
+
+  .heroBox{
+    padding:28px 20px;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .dashboard{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footerGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:520px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .pic{
+    height:145px;
+  }
+
+  .name{
+    font-size:12px;
+  }
+
+  .price{
+    font-size:15px;
+  }
+
+  .dashboard{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footerGrid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="top">
+
+  <div class="logo">
+
+    <div class="logoIcon">C1</div>
+
+    <div>
+      <strong>CHINOTECH ONE</strong>
+      <small>MARKETPLACE</small>
+    </div>
+
+  </div>
+
+  <div class="search">
+
+    <input
+      id="search"
+      placeholder="Search phones, cars, TVs, shoes, wigs..."
+      oninput="searchProducts()"
+    >
+
+    <button onclick="searchProducts()">🔍</button>
+
+  </div>
+
+  <div class="headBtns">
+
+    <button class="headBtn" onclick="openCart()">
+      🛒 <span id="cartCount">0</span>
+    </button>
+
+    <button class="headBtn" onclick="openSell()">
+      SELL
+    </button>
+
+  </div>
+
+</div>
+
+<div class="nav">
+
+  <div class="navInner" id="nav"></div>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="heroBox">
+
+<div>
+
+<h1>
+Everything You Need.
+One Marketplace.
+</h1>
+
+<p>
+Shop electronics, phones, vehicles, fashion,
+beauty, jewelry, home appliances, gadgets,
+supermarket products and much more.
+</p>
+
+<button
+class="btn yellow"
+onclick="scrollProducts()"
+>
+SHOP NOW
+</button>
+
+<button
+class="btn white"
+onclick="openSell()"
+>
+SELL YOUR PRODUCT
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<div class="title">
+
+<h2>Marketplace Categories</h2>
+
+</div>
+
+<div
+class="categories"
+id="categories"
+></div>
+
+</section>
+
+
+<section class="section">
+
+<div class="title">
+
+<h2>Marketplace Overview</h2>
+
+</div>
+
+<div class="dashboard">
+
+<div class="stat">
+<span>Products</span>
+<strong id="statProducts">0</strong>
+</div>
+
+<div class="stat">
+<span>Categories</span>
+<strong id="statCategories">0</strong>
+</div>
+
+<div class="stat">
+<span>Cart Items</span>
+<strong id="statCart">0</strong>
+</div>
+
+<div class="stat">
+<span>Marketplace Status</span>
+<strong>ONLINE</strong>
+</div>
+
+</div>
+
+<div class="chart">
+
+<h3>Popular Marketplace Categories</h3>
+
+<div class="chartBars">
+
+<div class="bar" style="height:95%">
+<span>Phones</span>
+</div>
+
+<div class="bar" style="height:80%">
+<span>Fashion</span>
+</div>
+
+<div class="bar" style="height:72%">
+<span>Cars</span>
+</div>
+
+<div class="bar" style="height:65%">
+<span>Electronics</span>
+</div>
+
+<div class="bar" style="height:57%">
+<span>Beauty</span>
+</div>
+
+<div class="bar" style="height:48%">
+<span>Home</span>
+</div>
+
+<div class="bar" style="height:40%">
+<span>Jewelry</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section
+class="section"
+id="productsSection"
+>
+
+<div class="title">
+
+<h2 id="heading">
+All Products
+</h2>
+
+</div>
+
+<div class="filters">
+
+<input
+id="filterSearch"
+placeholder="Search products..."
+oninput="searchProducts()"
+>
+
+<select
+id="categoryFilter"
+onchange="filterProducts()"
+>
+
+<option value="all">
+All Categories
+</option>
+
+</select>
+
+<select
+id="sort"
+onchange="filterProducts()"
+>
+
+<option value="recommended">
+Recommended
+</option>
+
+<option value="low">
+Price: Low to High
+</option>
+
+<option value="high">
+Price: High to Low
+</option>
+
+<option value="name">
+Name A-Z
+</option>
+
+</select>
+
+</div>
+
+<div
+class="products"
+id="products"
+></div>
+
+</section>
+
+
+<!-- CART -->
+
+<div
+class="overlay"
+id="cartOverlay"
+>
+
+<div class="drawer">
+
+<div class="drawerHead">
+
+<h2>Shopping Cart</h2>
+
+<button
+class="close"
+onclick="closeCart()"
+>
+×
+</button>
+
+</div>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Total: ₦<span id="total">0</span>
+</div>
+
+<button
+class="pay"
+onclick="checkout()"
+>
+💳 PAY WITH PAYSTACK
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT DETAIL -->
+
+<div
+class="modal"
+id="productModal"
+>
+
+<div class="modalBox">
+
+<div class="modalHead">
+
+<h2 id="detailName"></h2>
+
+<button
+class="close"
+onclick="closeProduct()"
+>
+×
+</button>
+
+</div>
+
+<img
+id="detailImage"
+class="detailImg"
+>
+
+<p
+id="detailDescription"
+style="line-height:1.7;margin-bottom:15px"
+></p>
+
+<h2>
+₦<span id="detailPrice"></span>
+</h2>
+
+<br>
+
+<button
+class="btn yellow"
+onclick="detailCart()"
+>
+🛒 ADD TO CART
+</button>
+
+<button
+class="btn dark"
+onclick="detailPay()"
+>
+💳 PAY NOW
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SELL -->
+
+<div
+class="modal"
+id="sellModal"
+>
+
+<div class="modalBox">
+
+<div class="modalHead">
+
+<h2>Sell on CHINOTECH ONE</h2>
+
+<button
+class="close"
+onclick="closeSell()"
+>
+×
+</button>
+
+</div>
+
+<form onsubmit="sellProduct(event)">
+
+<label>Product Name</label>
+
+<input
+id="sellName"
+required
+>
+
+<label>Category</label>
+
+<select id="sellCategory"></select>
+
+<label>Price ₦</label>
+
+<input
+id="sellPrice"
+type="number"
+required
+>
+
+<label>Real Product Image URL</label>
+
+<input
+id="sellImage"
+placeholder="Paste your product image URL"
+>
+
+<label>Description</label>
+
+<textarea id="sellDescription"></textarea>
+
+<button
+class="btn yellow"
+type="submit"
+>
+PUBLISH PRODUCT
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<div
+class="toast"
+id="toast"
+></div>
+
+
+<footer>
+
+<div class="footerGrid">
+
+<div>
+
+<h3>CHINOTECH ONE</h3>
+
+<p>
+A large marketplace for electronics,
+vehicles, fashion, beauty, jewelry,
+home products, gadgets and more.
+</p>
+
+</div>
+
+<div>
+
+<h3>Shop</h3>
+
+<ul>
+
+<li>Phones</li>
+<li>Cars</li>
+<li>Fashion</li>
+<li>Electronics</li>
+<li>Beauty</li>
+<li>Home Appliances</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>Customer</h3>
+
+<ul>
+
+<li>Shopping Cart</li>
+<li>Checkout</li>
+<li>Sell Products</li>
+<li>Product Search</li>
+<li>Categories</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>CHINOTECH1</h3>
+
+<p>
+© 2026 CHINOTECH ONE MARKETPLACE
+</p>
+
+<p>
+All marketplace prices are displayed
+in Nigerian Naira.
+</p>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   YOUR EXACT PAYSTACK PAYMENT PAGE
+===================================================== */
+
+const PAYSTACK_LINK =
+"https://paystack.shop/pay/-lx13gxkac";
+
+
+/* =====================================================
+   MARKETPLACE CATEGORIES
+===================================================== */
+
+const categories = [
+
+["Phones","📱"],
+["Televisions","📺"],
+["Fans","🌀"],
+["Laptops","💻"],
+["Cars","🚗"],
+["Motorcycles","🏍️"],
+["Clippers","✂️"],
+["Watches","⌚"],
+["Smart Watches","⌚"],
+["Jewelry","💎"],
+["Gold","🥇"],
+["Silver","🥈"],
+["Diamond","💎"],
+["Necklaces","📿"],
+["Beads","📿"],
+["Eyeglasses","👓"],
+["Shoes","👟"],
+["Boots","🥾"],
+["Men Fashion","👔"],
+["Women Fashion","👗"],
+["Kids Fashion","🧒"],
+["Wigs","💇"],
+["Weave-on","💇"],
+["Nails","💅"],
+["Hand Gloves","🧤"],
+["Drones","🚁"],
+["Lights","💡"],
+["Bulbs","💡"],
+["Home Appliances","🏠"],
+["Refrigerators","❄️"],
+["Air Conditioners","❄️"],
+["Washing Machines","🧺"],
+["Kitchen","🍳"],
+["Speakers","🔊"],
+["Headphones","🎧"],
+["Cameras","📷"],
+["Gaming","🎮"],
+["Tablets","📱"],
+["Power Banks","🔋"],
+["Chargers","🔌"],
+["Bags","🎒"],
+["Perfumes","🌸"],
+["Beauty","💄"],
+["Sports","⚽"],
+["Tools","🔧"],
+["Supermarket","🛒"]
+
+];
+
+
+/* =====================================================
+   PRODUCT FACTORY
+===================================================== */
+
+const products=[];
+
+let id=1;
+
+
+/*
+ Each product gets a different photo URL.
+
+ These are real-photo search sources.
+ The lock number makes each card use
+ a separate image request.
+*/
+
+function image(keyword){
+
+return "https://loremflickr.com/700/500/"
++
+encodeURIComponent(keyword)
++
+"?lock="
++
+(id+100);
+
+}
+
+
+function add(
+category,
+name,
+price,
+keyword,
+description
+){
+
+products.push({
+
+id:id++,
+
+category:category,
+
+name:name,
+
+price:Number(price),
+
+image:image(keyword),
+
+description:
+description ||
+name+" available at CHINOTECH ONE MARKETPLACE.",
+
+rating:(4+(Math.random()*0.9)).toFixed(1),
+
+stock:Math.floor(Math.random()*25)+5
+
+});
+
+}
+
+
+/* =====================================================
+   PHONES
+===================================================== */
+
+add("Phones","Apple iPhone 13",350000,"iphone smartphone");
+add("Phones","Apple iPhone 14",420000,"iphone smartphone");
+add("Phones","Apple iPhone 15",600000,"iphone smartphone");
+add("Phones","Apple iPhone 16",780000,"iphone smartphone");
+add("Phones","Apple iPhone 17",950000,"iphone smartphone");
+
+add("Phones","Samsung Galaxy S23",520000,"samsung smartphone");
+add("Phones","Samsung Galaxy S24",690000,"samsung smartphone");
+add("Phones","Samsung Galaxy S25",850000,"samsung smartphone");
+
+add("Phones","Tecno Spark",180000,"android smartphone");
+add("Phones","Tecno Camon",240000,"android smartphone");
+add("Phones","Tecno Phantom",450000,"android smartphone");
+
+add("Phones","Infinix Hot",170000,"android smartphone");
+add("Phones","Infinix Note",220000,"android smartphone");
+add("Phones","Infinix Zero",350000,"android smartphone");
+
+add("Phones","Redmi Note",210000,"xiaomi smartphone");
+add("Phones","Google Pixel",550000,"google pixel smartphone");
+add("Phones","OnePlus Phone",430000,"android smartphone");
+
+
+/* =====================================================
+   TELEVISIONS
+===================================================== */
+
+add("Televisions","Samsung 32-inch Smart TV",250000,"smart television");
+add("Televisions","Samsung 43-inch Smart TV",480000,"smart television");
+add("Televisions","Samsung 55-inch Smart TV",720000,"smart television");
+add("Televisions","LG 43-inch Smart TV",450000,"smart television");
+add("Televisions","LG 55-inch OLED TV",1100000,"oled television");
+add("Televisions","Hisense 43-inch TV",380000,"smart television");
+add("Televisions","TCL 50-inch TV",460000,"smart television");
+add("Televisions","Sony Bravia TV",800000,"sony television");
+
+
+/* =====================================================
+   FANS
+===================================================== */
+
+add("Fans","Standing Fan",55000,"standing fan");
+add("Fans","Rechargeable Fan",65000,"electric fan");
+add("Fans","Ceiling Fan",80000,"ceiling fan");
+add("Fans","Wall Fan",60000,"wall fan");
+add("Fans","Industrial Fan",150000,"industrial fan");
+add("Fans","Table Fan",35000,"table fan");
+add("Fans","USB Mini Fan",12000,"mini fan");
+
+
+/* =====================================================
+   LAPTOPS
+===================================================== */
+
+add("Laptops","MacBook Air",850000,"macbook laptop");
+add("Laptops","MacBook Pro",1300000,"macbook laptop");
+add("Laptops","HP Laptop",450000,"hp laptop");
+add("Laptops","Dell Inspiron",480000,"dell laptop");
+add("Laptops","Lenovo ThinkPad",500000,"lenovo laptop");
+add("Laptops","ASUS Laptop",520000,"asus laptop");
+add("Laptops","Acer Laptop",430000,"acer laptop");
+add("Laptops","Gaming Laptop",950000,"gaming laptop");
+
+
+/* =====================================================
+   CARS
+===================================================== */
+
+add("Cars","Lamborghini Aventador",85000000,"lamborghini car");
+add("Cars","Lamborghini Huracan",70000000,"lamborghini car");
+add("Cars","Lamborghini Urus",90000000,"lamborghini suv");
+
+add("Cars","Ferrari Roma",65000000,"ferrari car");
+add("Cars","Ferrari 488",72000000,"ferrari car");
+
+add("Cars","Lexus RX",30000000,"lexus suv");
+add("Cars","Lexus ES",28000000,"lexus car");
+add("Cars","Lexus LX",60000000,"lexus suv");
+
+add("Cars","Toyota Camry",18000000,"toyota car");
+add("Cars","Toyota Corolla",15000000,"toyota car");
+add("Cars","Toyota Hilux",28000000,"toyota pickup");
+
+add("Cars","Honda Accord",17000000,"honda car");
+add("Cars","Honda CR-V",22000000,"honda suv");
+
+add("Cars","Mercedes-Benz Sedan",45000000,"mercedes car");
+add("Cars","BMW Sedan",42000000,"bmw car");
+add("Cars","Range Rover",65000000,"range rover suv");
+
+
+/* =====================================================
+   MOTORCYCLES
+===================================================== */
+
+add("Motorcycles","Honda Motorcycle",850000,"motorcycle");
+add("Motorcycles","Yamaha Motorcycle",1200000,"motorcycle");
+add("Motorcycles","Sport Bike",2500000,"sport motorcycle");
+add("Motorcycles","Electric Bike",900000,"electric motorcycle");
+
+
+/* =====================================================
+   CLIPPERS
+===================================================== */
+
+add("Clippers","Professional Hair Clipper",45000,"hair clipper");
+add("Clippers","Rechargeable Clipper",55000,"hair clipper");
+add("Clippers","Barber Clipper",70000,"barber clipper");
+add("Clippers","Hair Trimmer",35000,"hair trimmer");
+add("Clippers","Cordless Clipper",50000,"hair clipper");
+
+
+/* =====================================================
+   WATCHES
+===================================================== */
+
+add("Watches","Luxury Wrist Watch",120000,"wrist watch");
+add("Watches","Men Watch",70000,"men watch");
+add("Watches","Women Watch",65000,"women watch");
+add("Watches","Classic Watch",55000,"wrist watch");
+add("Smart Watches","Apple Watch",550000,"smart watch");
+add("Smart Watches","Samsung Galaxy Watch",400000,"smart watch");
+add("Smart Watches","Fitness Smart Watch",85000,"smart watch");
+add("Smart Watches","Phone Watch",120000,"smart watch");
+
+
+/* =====================================================
+   JEWELRY
+===================================================== */
+
+add("Jewelry","Gold Ring",250000,"gold ring");
+add("Jewelry","Gold Necklace",600000,"gold necklace");
+add("Jewelry","Gold Bracelet",400000,"gold bracelet");
+add("Jewelry","Silver Ring",80000,"silver ring");
+add("Jewelry","Silver Necklace",120000,"silver necklace");
+add("Jewelry","Diamond Ring",1500000,"diamond ring");
+add("Jewelry","Diamond Necklace",2500000,"diamond necklace");
+
+add("Necklaces","Beaded Necklace",25000,"beaded necklace");
+add("Necklaces","Gold Necklace",600000,"gold necklace");
+add("Necklaces","Silver Necklace",120000,"silver necklace");
+
+add("Beads","African Beads",30000,"african beads");
+add("Beads","Fashion Beads",15000,"beads jewelry");
+
+
+/* =====================================================
+   EYEGLASSES
+===================================================== */
+
+add("Eyeglasses","Fashion Glasses",25000,"eyeglasses");
+add("Eyeglasses","Sun Glasses",30000,"sunglasses");
+add("Eyeglasses","Designer Glasses",85000,"designer glasses");
+add("Eyeglasses","Reading Glasses",18000,"reading glasses");
+
+
+/* =====================================================
+   SHOES
+===================================================== */
+
+add("Shoes","Nike Sneakers",85000,"nike shoes");
+add("Shoes","Adidas Sneakers",80000,"adidas shoes");
+add("Shoes","Running Shoes",65000,"running shoes");
+add("Shoes","Men Casual Shoes",55000,"men shoes");
+add("Shoes","Women Shoes",60000,"women shoes");
+add("Shoes","School Shoes",30000,"school shoes");
+add("Shoes","Leather Sneakers",70000,"leather sneakers");
+
+
+/* =====================================================
+   BOOTS
+===================================================== */
+
+add("Boots","Men Leather Boots",70000,"leather boots");
+add("Boots","Women Fashion Boots",65000,"fashion boots");
+add("Boots","Safety Boots",55000,"safety boots");
+add("Boots","Hiking Boots",80000,"hiking boots");
+add("Boots","Outdoor Boots",75000,"boots");
+
+
+/* =====================================================
+   MEN CLOTHING
+===================================================== */
+
+add("Men Fashion","Men T-Shirt",18000,"men fashion");
+add("Men Fashion","Men Jeans",30000,"men jeans");
+add("Men Fashion","Men Suit",95000,"men suit");
+add("Men Fashion","Men Jacket",50000,"men jacket");
+add("Men Fashion","Men Shorts",18000,"men shorts");
+add("Men Fashion","Men Shirt",25000,"men shirt");
+add("Men Fashion","Men Hoodie",35000,"men hoodie");
+
+
+/* =====================================================
+   WOMEN CLOTHING
+===================================================== */
+
+add("Women Fashion","Women Dress",45000,"women dress");
+add("Women Fashion","Women Jeans",35000,"women jeans");
+add("Women Fashion","Women Blouse",25000,"women fashion");
+add("Women Fashion","Women Jacket",55000,"women jacket");
+add("Women Fashion","Women Skirt",30000,"women skirt");
+add("Women Fashion","Women Hoodie",35000,"women hoodie");
+
+
+/* =====================================================
+   KIDS
+===================================================== */
+
+add("Kids Fashion","Kids T-Shirt",12000,"kids clothing");
+add("Kids Fashion","Kids Shoes",18000,"kids shoes");
+add("Kids Fashion","Kids Dress",20000,"kids dress");
+add("Kids Fashion","Kids Jacket",25000,"kids clothing");
+
+
+/* =====================================================
+   WIGS
+===================================================== */
+
+add("Wigs","Human Hair Wig",180000,"human hair wig");
+add("Wigs","Bob Wig",95000,"bob wig");
+add("Wigs","Curly Wig",110000,"curly wig");
+add("Wigs","Long Straight Wig",150000,"long wig");
+add("Wigs","Lace Front Wig",130000,"lace wig");
+add("Wigs","Short Wig",100000,"short wig");
+
+
+/* =====================================================
+   WEAVE-ON
+===================================================== */
+
+add("Weave-on","Human Hair Weave",120000,"human hair weave");
+add("Weave-on","Curly Weave",90000,"curly weave");
+add("Weave-on","Straight Weave",100000,"straight weave");
+add("Weave-on","Body Wave",110000,"body wave hair");
+
+
+/* =====================================================
+   NAILS
+===================================================== */
+
+add("Nails","Acrylic Nails",15000,"acrylic nails");
+add("Nails","Press On Nails",8000,"press on nails");
+add("Nails","Gel Nails",12000,"gel nails");
+add("Nails","Nail Kit",25000,"nail kit");
+
+
+/* =====================================================
+   GLOVES
+===================================================== */
+
+add("Hand Gloves","Work Gloves",8000,"work gloves");
+add("Hand Gloves","Sports Gloves",12000,"sports gloves");
+add("Hand Gloves","Protective Gloves",10000,"protective gloves");
+
+
+/* =====================================================
+   DRONES
+===================================================== */
+
+add("Drones","Camera Drone",350000,"camera drone");
+add("Drones","Mini Drone",120000,"mini drone");
+add("Drones","Professional Drone",850000,"professional drone");
+add("Drones","GPS Drone",450000,"gps drone");
+add("Drones","Toy Drone",45000,"toy drone");
+
+
+/* =====================================================
+   LIGHTS AND BULBS
+===================================================== */
+
+add("Lights","LED Ceiling Light",25000,"led light");
+add("Lights","Smart LED Light",30000,"smart led light");
+add("Lights","Solar Light",35000,"solar light");
+add("Lights","Flood Light",28000,"flood light");
+add("Lights","Decorative Light",18000,"decorative lights");
+
+add("Bulbs","LED Bulb",5000,"led bulb");
+add("Bulbs","Smart Bulb",12000,"smart bulb");
+add("Bulbs","Rechargeable Bulb",10000,"rechargeable bulb");
+add("Bulbs","Solar Bulb",9000,"solar bulb");
+add("Bulbs","Color LED Bulb",9000,"color bulb");
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+add("Home Appliances","Electric Iron",30000,"electric iron");
+add("Home Appliances","Blender",45000,"blender");
+add("Home Appliances","Electric Kettle",25000,"electric kettle");
+add("Home Appliances","Air Fryer",70000,"air fryer");
+
+add("Refrigerators","Double Door Refrigerator",650000,"refrigerator");
+add("Refrigerators","Mini Refrigerator",180000,"mini refrigerator");
+
+add("Air Conditioners","Split AC",550000,"air conditioner");
+add("Air Conditioners","Portable AC",400000,"portable air conditioner");
+
+add("Washing Machines","Front Load Washer",450000,"washing machine");
+add("Washing Machines","Top Load Washer",350000,"washing machine");
+
+add("Kitchen","Microwave Oven",120000,"microwave oven");
+add("Kitchen","Kitchen Storage Set",12000,"kitchen storage");
+
+
+/* =====================================================
+   AUDIO
+===================================================== */
+
+add("Speakers","Bluetooth Speaker",45000,"bluetooth speaker");
+add("Speakers","Party Speaker",150000,"party speaker");
+add("Speakers","Home Theater",250000,"home theater");
+
+add("Headphones","Wireless Headphones",55000,"wireless headphones");
+add("Headphones","Wireless Earbuds",35000,"wireless earbuds");
+add("Headphones","Gaming Headset",60000,"gaming headset");
+
+
+/* =====================================================
+   CAMERAS
+===================================================== */
+
+add("Cameras","Digital Camera",350000,"digital camera");
+add("Cameras","DSLR Camera",650000,"dslr camera");
+add("Cameras","Action Camera",180000,"action camera");
+add("Cameras","Security Camera",50000,"security camera");
+
+
+/* =====================================================
+   GAMING
+===================================================== */
+
+add("Gaming","PlayStation 5",850000,"gaming console");
+add("Gaming","Xbox",700000,"gaming console");
+add("Gaming","Gaming Controller",55000,"gaming controller");
+add("Gaming","Gaming Chair",180000,"gaming chair");
+
+
+/* =====================================================
+   TABLETS
+===================================================== */
+
+add("Tablets","iPad",500000,"ipad tablet");
+add("Tablets","Samsung Tablet",350000,"samsung tablet");
+add("Tablets","Android Tablet",180000,"android tablet");
+
+
+/* =====================================================
+   POWER
+===================================================== */
+
+add("Power Banks","Power Bank 10000mAh",18000,"power bank");
+add("Power Banks","Power Bank 20000mAh",30000,"power bank");
+add("Power Banks","Solar Power Bank",40000,"solar power bank");
+
+
+/* =====================================================
+   CHARGERS
+===================================================== */
+
+add("Chargers","USB-C Charger",15000,"phone charger");
+add("Chargers","Wireless Charger",25000,"wireless charger");
+add("Chargers","Fast Charger",18000,"fast charger");
+
+
+/* =====================================================
+   BAGS
+===================================================== */
+
+add("Bags","Backpack",25000,"backpack");
+add("Bags","Laptop Bag",30000,"laptop bag");
+add("Bags","Travel Bag",55000,"travel bag");
+add("Bags","Hand Bag",45000,"handbag");
+
+
+/* =====================================================
+   PERFUMES
+===================================================== */
+
+add("Perfumes","Men Perfume",35000,"perfume");
+add("Perfumes","Women Perfume",35000,"perfume");
+add("Perfumes","Luxury Perfume",85000,"luxury perfume");
+
+
+/* =====================================================
+   BEAUTY
+===================================================== */
+
+add("Beauty","Makeup Kit",45000,"makeup");
+add("Beauty","Foundation",18000,"makeup");
+add("Beauty","Lipstick Set",20000,"lipstick");
+add("Beauty","Hair Dryer",35000,"hair dryer");
+add("Beauty","Electric Shaver",35000,"electric shaver");
+
+
+/* =====================================================
+   SPORTS
+===================================================== */
+
+add("Sports","Football",15000,"football");
+add("Sports","Football Boots",45000,"football boots");
+add("Sports","Basketball",18000,"basketball");
+add("Sports","Gym Equipment",150000,"gym equipment");
+
+
+/* =====================================================
+   TOOLS
+===================================================== */
+
+add("Tools","Power Drill",60000,"power drill");
+add("Tools","Tool Box",85000,"tool box");
+add("Tools","Screwdriver Set",25000,"tools");
+add("Tools","Welding Machine",120000,"welding machine");
+
+
+/* =====================================================
+   SUPERMARKET
+===================================================== */
+
+add("Supermarket","Rice",45000,"rice bag");
+add("Supermarket","Cooking Oil",18000,"cooking oil");
+add("Supermarket","Cereal",8000,"cereal");
+add("Supermarket","Beverage",10000,"supermarket");
+add("Supermarket","Cleaning Products",15000,"cleaning products");
+
+
+/* =====================================================
+   APP ICON
+===================================================== */
+
+const iconSVG=`
+
+<svg xmlns="http://www.w3.org/2000/svg"
+width="512"
+height="512">
+
+<rect width="512"
+height="512"
+rx="100"
+fill="#111827"/>
+
+<rect x="45"
+y="45"
+width="422"
+height="422"
+rx="80"
+fill="#facc15"/>
+
+<text
+x="256"
+y="280"
+text-anchor="middle"
+font-family="Arial"
+font-size="150"
+font-weight="900"
+fill="#111827">
+C1
+</text>
+
+<text
+x="256"
+y="360"
+text-anchor="middle"
+font-family="Arial"
+font-size="40"
+font-weight="900"
+fill="#111827">
+MARKET
+</text>
+
+</svg>
+`;
+
+const iconURL=
+"data:image/svg+xml;charset=utf-8,"+
+encodeURIComponent(iconSVG);
+
+const icon=
+document.createElement("link");
+
+icon.rel="icon";
+icon.href=iconURL;
+
+document.head.appendChild(icon);
+
+
+/* =====================================================
+   BUILD CATEGORY UI
+===================================================== */
+
+function buildCategories(){
+
+const nav=document.getElementById("nav");
+
+const box=document.getElementById("categories");
+
+const filter=document.getElementById("categoryFilter");
+
+const sellFilter=document.getElementById("sellCategory");
+
+categories.forEach(c=>{
+
+let name=c[0];
+let emoji=c[1];
+
+let button=document.createElement("button");
+
+button.textContent=name;
+
+button.onclick=()=>selectCategory(name);
+
+nav.appendChild(button);
+
+
+let card=document.createElement("div");
+
+card.className="category";
+
+card.innerHTML=`
+
+<div class="emoji">${emoji}</div>
+
+<button>
+${name}
+</button>
+
+`;
+
+card.querySelector("button")
+.onclick=()=>selectCategory(name);
+
+box.appendChild(card);
+
+
+let option=document.createElement("option");
+
+option.value=name;
+option.textContent=name;
+
+filter.appendChild(option);
+
+let sellOption=option.cloneNode(true);
+
+sellFilter.appendChild(sellOption);
+
+});
+
+}
+
+
+/* =====================================================
+   DISPLAY
+===================================================== */
+
+function display(list){
+
+const box=document.getElementById("products");
+
+box.innerHTML="";
+
+if(!list.length){
+
+box.innerHTML=`
+
+<div style="
+grid-column:1/-1;
+background:white;
+padding:50px;
+text-align:center;
+border-radius:12px">
+
+<h2>No products found</h2>
+
+<p>Try another search.</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+list.forEach(p=>{
+
+let card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+
+<div class="pic">
+
+<img
+src="${p.image}"
+alt="${p.name}"
+loading="lazy"
+onerror="this.src='https://placehold.co/700x500?text=CHINOTECH+ONE'"
+>
+
+<div class="sale">
+LOW PRICE
+</div>
+
+</div>
+
+<div class="cardBody">
+
+<div class="cat">
+${p.category}
+</div>
+
+<div class="name">
+${p.name}
+</div>
+
+<div class="stars">
+⭐ ${p.rating}
+</div>
+
+<div class="price">
+₦${money(p.price)}
+<span class="old">
+₦${money(p.price*1.2)}
+</span>
+</div>
+
+<div class="cardBtns">
+
+<button
+class="cart"
+onclick="addCart(${p.id})"
+>
+🛒 CART
+</button>
+
+<button
+class="view"
+onclick="viewProduct(${p.id})"
+>
+VIEW
+</button>
+
+</div>
+
+</div>
+
+`;
+
+box.appendChild(card);
+
+});
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchProducts(){
+
+let a=document.getElementById("search")
+.value.toLowerCase();
+
+let b=document.getElementById("filterSearch")
+.value.toLowerCase();
+
+let q=(a+" "+b).trim();
+
+let list=products;
+
+if(q){
+
+list=products.filter(p=>
+
+p.name.toLowerCase().includes(q) ||
+
+p.category.toLowerCase().includes(q) ||
+
+p.description.toLowerCase().includes(q)
+
+);
+
+}
+
+display(list);
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+function filterProducts(){
+
+let category=
+document.getElementById("categoryFilter").value;
+
+let sort=
+document.getElementById("sort").value;
+
+let list=[...products];
+
+if(category!=="all"){
+
+list=list.filter(
+p=>p.category===category
+);
+
+}
+
+if(sort==="low"){
+
+list.sort(
+(a,b)=>a.price-b.price
+);
+
+}
+
+if(sort==="high"){
+
+list.sort(
+(a,b)=>b.price-a.price
+);
+
+}
+
+if(sort==="name"){
+
+list.sort(
+(a,b)=>a.name.localeCompare(b.name)
+);
+
+}
+
+display(list);
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+function selectCategory(category){
+
+document.getElementById("categoryFilter")
+.value=category;
+
+document.getElementById("heading")
+.textContent=category+" Products";
+
+filterProducts();
+
+scrollProducts();
+
+}
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+let cart=[];
+
+function addCart(id){
+
+let p=products.find(
+x=>x.id===id
+);
+
+if(!p)return;
+
+let found=cart.find(
+x=>x.id===id
+);
+
+if(found){
+
+found.qty++;
+
+}else{
+
+cart.push({
+...p,
+qty:1
+});
+
+}
+
+updateCart();
+
+toast(p.name+" added to cart");
+
+}
+
+
+function updateCart(){
+
+let count=cart.reduce(
+(a,b)=>a+b.qty,
+0
+);
+
+document.getElementById("cartCount")
+.textContent=count;
+
+document.getElementById("statCart")
+.textContent=count;
+
+let box=document.getElementById("cartItems");
+
+box.innerHTML="";
+
+cart.forEach(item=>{
+
+let div=document.createElement("div");
+
+div.className="cartItem";
+
+div.innerHTML=`
+
+<img src="${item.image}">
+
+<div class="cartInfo">
+
+<strong>${item.name}</strong>
+
+<div>
+₦${money(item.price)}
+</div>
+
+<div class="qty">
+
+<button
+onclick="changeQty(${item.id},-1)"
+>
+−
+</button>
+
+<span>${item.qty}</span>
+
+<button
+onclick="changeQty(${item.id},1)"
+>
++
+</button>
+
+<button
+onclick="removeCart(${item.id})"
+style="
+margin-left:auto;
+border:0;
+background:none;
+color:red"
+>
+Remove
+</button>
+
+</div>
+
+</div>
+
+`;
+
+box.appendChild(div);
+
+});
+
+let total=cart.reduce(
+(a,b)=>a+b.price*b.qty,
+0
+);
+
+document.getElementById("total")
+.textContent=money(total);
+
+}
+
+
+function changeQty(id,change){
+
+let item=cart.find(
+x=>x.id===id
+);
+
+if(!item)return;
+
+item.qty+=change;
+
+if(item.qty<=0){
+
+removeCart(id);
+
+return;
+
+}
+
+updateCart();
+
+}
+
+
+function removeCart(id){
+
+cart=cart.filter(
+x=>x.id!==id
+);
+
+updateCart();
+
+}
+
+
+function openCart(){
+
+document.getElementById("cartOverlay")
+.classList.add("show");
+
+}
+
+
+function closeCart(){
+
+document.getElementById("cartOverlay")
+.classList.remove("show");
+
+}
+
+
+/* =====================================================
+   PRODUCT DETAILS
+===================================================== */
+
+let selected=null;
+
+function viewProduct(id){
+
+selected=products.find(
+p=>p.id===id
+);
+
+if(!selected)return;
+
+document.getElementById("detailName")
+.textContent=selected.name;
+
+document.getElementById("detailImage")
+.src=selected.image;
+
+document.getElementById("detailDescription")
+.textContent=selected.description;
+
+document.getElementById("detailPrice")
+.textContent=money(selected.price);
+
+document.getElementById("productModal")
+.classList.add("show");
+
+}
+
+
+function closeProduct(){
+
+document.getElementById("productModal")
+.classList.remove("show");
+
+}
+
+
+function detailCart(){
+
+if(selected){
+
+addCart(selected.id);
+
+}
+
+}
+
+
+function detailPay(){
+
+if(selected){
+
+openPaystack();
+
+}
+
+}
+
+
+/* =====================================================
+   YOUR PAYSTACK CHECKOUT
+===================================================== */
+
+function checkout(){
+
+if(cart.length===0){
+
+toast("Your cart is empty");
+
+return;
+
+}
+
+openPaystack();
+
+}
+
+
+/*
+ This opens YOUR EXACT Paystack page.
+
+ It does not use a secret key.
+ It does not require Paystack API code.
+*/
+
+function openPaystack(){
+
+window.location.href=
+"https://paystack.shop/pay/-lx13gxkac";
+
+}
+
+
+/* =====================================================
+   SELL PRODUCT
+===================================================== */
+
+function openSell(){
+
+document.getElementById("sellModal")
+.classList.add("show");
+
+}
+
+
+function closeSell(){
+
+document.getElementById("sellModal")
+.classList.remove("show");
+
+}
+
+
+function sellProduct(e){
+
+e.preventDefault();
+
+let name=
+document.getElementById("sellName")
+.value;
+
+let category=
+document.getElementById("sellCategory")
+.value;
+
+let price=
+Number(document.getElementById("sellPrice")
+.value);
+
+let image=
+document.getElementById("sellImage")
+.value;
+
+let description=
+document.getElementById("sellDescription")
+.value;
+
+
+if(!image){
+
+image=
+"https://placehold.co/700x500?text="+
+encodeURIComponent(name);
+
+}
+
+
+products.unshift({
+
+id:Date.now(),
+
+category:category,
+
+name:name,
+
+price:price,
+
+image:image,
+
+description:
+description || name,
+
+rating:"5.0",
+
+stock:1
+
+});
+
+
+display(products);
+
+closeSell();
+
+e.target.reset();
+
+document.getElementById("statProducts")
+.textContent=products.length;
+
+toast("Product published successfully");
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function money(n){
+
+return Number(n)
+.toLocaleString("en-NG");
+
+}
+
+
+function toast(text){
+
+let t=
+document.getElementById("toast");
+
+t.textContent=text;
+
+t.classList.add("show");
+
+setTimeout(()=>{
+
+t.classList.remove("show");
+
+},2500);
+
+}
+
+
+function scrollProducts(){
+
+document.getElementById("productsSection")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+   START MARKETPLACE
+===================================================== */
+
+buildCategories();
+
+display(products);
+
+updateCart();
+
+document.getElementById("statProducts")
+.textContent=products.length;
+
+document.getElementById("statCategories")
+.textContent=categories.length;
+
+
+/* =====================================================
+   KEYBOARD SEARCH
+===================================================== */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="/"){
+
+e.preventDefault();
+
+document.getElementById("search")
+.focus();
+
+}
+
+}
+);
+
+</script>
+
+</body>
+</html>
