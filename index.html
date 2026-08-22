@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="CHINOTECH ONE MARKETPLACE">
+<link rel="manifest" id="manifest">
+<title>CHINOTECH ONE MARKETPLACE</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f3f4f6;
+color:#111827;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+/* HEADER */
+header{
+background:#111827;
+color:#fff;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 3px 15px rgba(0,0,0,.25)
+}
+.top{
+max-width:1450px;
+margin:auto;
+padding:11px 15px;
+display:flex;
+align-items:center;
+gap:12px
+}
+.logo{
+display:flex;
+align-items:center;
+gap:9px;
+min-width:190px
+}
+.logoIcon{
+width:45px;
+height:45px;
+border-radius:12px;
+background:linear-gradient(135deg,#facc15,#f97316,#ef4444);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:900;
+color:#111827
+}
+.logo b{font-size:19px}
+.logo small{
+display:block;
+font-size:8px;
+letter-spacing:2px;
+color:#facc15
+}
+.search{
+flex:1;
+display:flex;
+max-width:750px;
+margin:auto
+}
+.search input{
+width:100%;
+padding:13px;
+border:0;
+outline:0;
+border-radius:7px 0 0 7px
+}
+.search button{
+border:0;
+padding:0 18px;
+background:#facc15;
+font-weight:bold;
+border-radius:0 7px 7px 0
+}
+.topBtns{display:flex;gap:6px}
+.topBtns button{
+background:#1f2937;
+color:#fff;
+border:1px solid #374151;
+padding:10px;
+border-radius:7px
+}
+.nav{
+overflow-x:auto;
+background:#1f2937;
+white-space:nowrap
+}
+.navInner{
+max-width:1450px;
+margin:auto;
+display:flex
+}
+.nav button{
+background:none;
+border:0;
+color:#fff;
+padding:11px 13px;
+font-size:12px
+}
+.nav button:hover{background:#374151}
+
+/* HERO */
+.hero{
+max-width:1450px;
+margin:18px auto;
+padding:0 15px
+}
+.heroBox{
+min-height:320px;
+border-radius:18px;
+padding:40px;
+display:flex;
+align-items:center;
+color:white;
+background:
+linear-gradient(90deg,rgba(17,24,39,.96),rgba(17,24,39,.45)),
+url("https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1600&q=85")
+center/cover
+}
+.heroContent{max-width:700px}
+.hero h1{
+font-size:45px;
+line-height:1.05;
+margin-bottom:15px
+}
+.hero p{
+font-size:17px;
+line-height:1.6;
+color:#e5e7eb;
+margin-bottom:22px
+}
+.primary,.secondary{
+padding:13px 20px;
+border-radius:8px;
+font-weight:bold;
+border:0
+}
+.primary{background:#facc15;color:#111827}
+.secondary{background:#fff;color:#111827}
+.heroButtons{
+display:flex;
+gap:10px;
+flex-wrap:wrap
+}
+
+/* SECTIONS */
+.section{
+max-width:1450px;
+margin:25px auto;
+padding:0 15px
+}
+.title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px
+}
+.title h2{font-size:24px}
+
+/* CATEGORIES */
+.categories{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+gap:10px
+}
+.cat{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:14px 8px;
+text-align:center;
+transition:.2s
+}
+.cat:hover{
+transform:translateY(-3px);
+box-shadow:0 7px 20px rgba(0,0,0,.1)
+}
+.catIcon{font-size:30px;margin-bottom:7px}
+.cat button{
+background:none;
+border:0;
+font-weight:bold;
+font-size:12px
+}
+
+/* FILTER */
+.filters{
+background:#fff;
+padding:14px;
+border-radius:12px;
+display:flex;
+gap:9px;
+flex-wrap:wrap;
+border:1px solid #e5e7eb;
+margin-bottom:18px
+}
+.filters input,.filters select{
+padding:11px;
+border:1px solid #d1d5db;
+border-radius:7px;
+outline:none
+}
+.filters input{flex:1;min-width:180px}
+
+/* PRODUCTS */
+.grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:14px
+}
+.card{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:12px;
+overflow:hidden;
+transition:.2s
+}
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 9px 25px rgba(0,0,0,.12)
+}
+.pic{
+height:185px;
+position:relative;
+background:#f9fafb
+}
+.pic img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+.badge{
+position:absolute;
+top:8px;
+left:8px;
+background:#ef4444;
+color:#fff;
+font-size:10px;
+font-weight:bold;
+padding:5px 7px;
+border-radius:5px
+}
+.info{padding:12px}
+.category{
+font-size:11px;
+color:#6b7280;
+margin-bottom:5px
+}
+.name{
+font-size:14px;
+font-weight:bold;
+min-height:38px
+}
+.stars{
+font-size:12px;
+color:#f59e0b;
+margin:6px 0
+}
+.price{
+font-size:18px;
+font-weight:900
+}
+.old{
+font-size:10px;
+color:#9ca3af;
+text-decoration:line-through;
+margin-left:5px
+}
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px;
+margin-top:9px
+}
+.actions button{
+padding:9px 4px;
+border:0;
+border-radius:6px;
+font-size:12px;
+font-weight:bold
+}
+.cartBtn{background:#facc15}
+.viewBtn{background:#111827;color:#fff}
+
+/* FEATURES */
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px
+}
+.feature{
+background:#fff;
+border:1px solid #e5e7eb;
+padding:20px;
+border-radius:12px
+}
+.featureIcon{font-size:30px;margin-bottom:8px}
+.feature h3{margin-bottom:6px}
+.feature p{color:#6b7280;font-size:13px;line-height:1.5}
+
+/* CART */
+.overlay,.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.65);
+z-index:3000;
+display:none
+}
+.overlay.show,.modal.show{
+display:block
+}
+.drawer{
+position:absolute;
+right:0;
+top:0;
+height:100%;
+width:min(440px,96%);
+background:#fff;
+padding:20px;
+overflow:auto
+}
+.drawerHead,.modalHead{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #ddd;
+padding-bottom:13px;
+margin-bottom:14px
+}
+.close{
+border:0;
+background:#ef4444;
+color:#fff;
+width:32px;
+height:32px;
+border-radius:6px
+}
+.cartItem{
+display:flex;
+gap:9px;
+padding:12px 0;
+border-bottom:1px solid #eee
+}
+.cartItem img{
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:7px
+}
+.cartInfo{flex:1;font-size:13px}
+.qty{
+display:flex;
+align-items:center;
+gap:7px;
+margin-top:7px
+}
+.qty button{
+width:25px;
+height:25px;
+border:1px solid #ccc;
+background:#fff;
+border-radius:5px
+}
+.total{
+font-size:21px;
+font-weight:900;
+margin-top:20px
+}
+.pay{
+width:100%;
+border:0;
+padding:14px;
+margin-top:14px;
+border-radius:8px;
+background:#00c853;
+color:#fff;
+font-weight:900
+}
+
+/* MODAL */
+.modal{
+align-items:center;
+justify-content:center;
+padding:15px
+}
+.modal.show{display:flex}
+.modalBox{
+width:min(620px,100%);
+max-height:90vh;
+overflow:auto;
+background:#fff;
+border-radius:15px;
+padding:20px
+}
+.modalBox img{
+width:100%;
+height:300px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:15px
+}
+.formGroup{margin-bottom:13px}
+.formGroup label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-bottom:5px
+}
+.formGroup input,
+.formGroup textarea,
+.formGroup select{
+width:100%;
+padding:11px;
+border:1px solid #d1d5db;
+border-radius:7px
+}
+.formGroup textarea{min-height:90px}
+
+/* FOOTER */
+footer{
+background:#111827;
+color:#fff;
+padding:40px 15px;
+margin-top:40px
+}
+.footerGrid{
+max-width:1450px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px
+}
+footer h3{color:#facc15;margin-bottom:10px}
+footer p,footer li{
+font-size:13px;
+color:#d1d5db;
+line-height:1.8
+}
+footer ul{list-style:none}
+
+/* TOAST */
+.toast{
+position:fixed;
+left:50%;
+bottom:20px;
+transform:translate(-50%,100px);
+background:#111827;
+color:#fff;
+padding:13px 18px;
+border-radius:8px;
+z-index:5000;
+transition:.3s
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:1100px){
+.grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:800px){
+.top{flex-wrap:wrap}
+.logo{width:100%}
+.search{order:3;width:100%}
+.heroBox{padding:30px 20px}
+.hero h1{font-size:33px}
+.grid{grid-template-columns:repeat(3,1fr)}
+.features{grid-template-columns:repeat(2,1fr)}
+.footerGrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+.grid{grid-template-columns:repeat(2,1fr)}
+.pic{height:150px}
+.name{font-size:12px}
+.price{font-size:15px}
+.features{grid-template-columns:1fr}
+.footerGrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="top">
+
+<div class="logo">
+<div class="logoIcon">C1</div>
+<div>
+<b>CHINOTECH ONE</b>
+<small>MARKETPLACE</small>
+</div>
+</div>
+
+<div class="search">
+<input id="topSearch"
+placeholder="Search phones, cars, TVs, wigs, shoes..."
+oninput="runSearch()">
+<button onclick="runSearch()">🔍</button>
+</div>
+
+<div class="topBtns">
+<button onclick="openCart()">🛒 <span id="cartCount">0</span></button>
+<button onclick="openSell()">SELL</button>
+</div>
+
+</div>
+
+<div class="nav">
+<div class="navInner" id="nav"></div>
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="heroBox">
+
+<div class="heroContent">
+
+<h1>
+CHINOTECH ONE
+MARKETPLACE
+</h1>
+
+<p>
+Shop phones, televisions, fans, laptops, cars,
+watches, jewelry, shoes, wigs, weave-on, fashion,
+beauty products, drones, electronics, home appliances
+and thousands of everyday products.
+</p>
+
+<div class="heroButtons">
+<button class="primary" onclick="goProducts()">SHOP NOW</button>
+<button class="secondary" onclick="openSell()">SELL YOUR PRODUCT</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<div class="title">
+<h2>Browse Categories</h2>
+</div>
+
+<div class="categories" id="categories"></div>
+
+</section>
+
+
+<section class="section" id="productsSection">
+
+<div class="title">
+<h2 id="heading">All Products</h2>
+<span id="resultCount"></span>
+</div>
+
+<div class="filters">
+
+<input
+id="filterSearch"
+placeholder="Search the marketplace..."
+oninput="runSearch">
+
+<select id="categoryFilter" onchange="filterProducts()">
+<option value="all">All Categories</option>
+</select>
+
+<select id="sortFilter" onchange="filterProducts()">
+<option value="default">Recommended</option>
+<option value="low">Lowest Price</option>
+<option value="high">Highest Price</option>
+<option value="name">A-Z</option>
+</select>
+
+</div>
+
+<div class="grid" id="products"></div>
+
+</section>
+
+
+<section class="section">
+
+<div class="title">
+<h2>Why CHINOTECH ONE?</h2>
+</div>
+
+<div class="features">
+
+<div class="feature">
+<div class="featureIcon">💰</div>
+<h3>Affordable Prices</h3>
+<p>Browse products with low demo marketplace prices.</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">🛒</div>
+<h3>Easy Shopping</h3>
+<p>Search products, add them to your cart and checkout.</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">💳</div>
+<h3>Paystack</h3>
+<p>Checkout connects directly to your CHINOTECH ONE Paystack page.</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">📱</div>
+<h3>Mobile Ready</h3>
+<p>Designed for Android phones, tablets and computers.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<div class="overlay" id="cartOverlay">
+
+<div class="drawer">
+
+<div class="drawerHead">
+<h2>Shopping Cart</h2>
+<button class="close" onclick="closeCart()">×</button>
+</div>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Total: ₦<span id="cartTotal">0</span>
+</div>
+
+<button class="pay" onclick="checkout()">
+💳 PAY WITH PAYSTACK
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT MODAL -->
+
+<div class="modal" id="productModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+<h2 id="modalName"></h2>
+<button class="close" onclick="closeProduct()">×</button>
+</div>
+
+<img id="modalImage">
+
+<p id="modalDescription" style="line-height:1.6;margin-bottom:12px"></p>
+
+<h2>₦<span id="modalPrice"></span></h2>
+
+<button
+class="pay"
+onclick="buySelected()">
+💳 BUY NOW
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SELL MODAL -->
+
+<div class="modal" id="sellModal">
+
+<div class="modalBox">
+
+<div class="modalHead">
+<h2>Sell on CHINOTECH ONE</h2>
+<button class="close" onclick="closeSell()">×</button>
+</div>
+
+<form onsubmit="publishProduct(event)">
+
+<div class="formGroup">
+<label>Product Name</label>
+<input id="sellName" required>
+</div>
+
+<div class="formGroup">
+<label>Category</label>
+
+<select id="sellCategory">
+<option>Phones</option>
+<option>Televisions</option>
+<option>Fans</option>
+<option>Laptops</option>
+<option>Cars</option>
+<option>Clippers</option>
+<option>Watches</option>
+<option>Jewelry</option>
+<option>Shoes</option>
+<option>Men Fashion</option>
+<option>Women Fashion</option>
+<option>Wigs</option>
+<option>Weave-on</option>
+<option>Nails</option>
+<option>Drones</option>
+<option>Lights</option>
+<option>Bulbs</option>
+<option>Electronics</option>
+<option>Home Appliances</option>
+<option>Other</option>
+</select>
+
+</div>
+
+<div class="formGroup">
+<label>Price ₦</label>
+<input id="sellPrice" type="number" required>
+</div>
+
+<div class="formGroup">
+<label>Product Image URL</label>
+<input id="sellImage" placeholder="https://...">
+</div>
+
+<div class="formGroup">
+<label>Description</label>
+<textarea id="sellDescription"></textarea>
+</div>
+
+<button class="primary" type="submit">
+PUBLISH PRODUCT
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<footer>
+
+<div class="footerGrid">
+
+<div>
+<h3>CHINOTECH ONE</h3>
+<p>
+A large marketplace for electronics, vehicles,
+fashion, beauty, jewelry, home products and gadgets.
+</p>
+</div>
+
+<div>
+<h3>Popular</h3>
+<ul>
+<li>Phones</li>
+<li>Cars</li>
+<li>TVs</li>
+<li>Laptops</li>
+<li>Watches</li>
+<li>Jewelry</li>
+</ul>
+</div>
+
+<div>
+<h3>Fashion</h3>
+<ul>
+<li>Shoes</li>
+<li>Men Clothes</li>
+<li>Women Clothes</li>
+<li>Wigs</li>
+<li>Weave-on</li>
+<li>Nails</li>
+</ul>
+</div>
+
+<div>
+<h3>CHINOTECH1</h3>
+<p>© 2026 CHINOTECH ONE MARKETPLACE</p>
+<p>Built for mobile and web.</p>
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   YOUR EXACT PAYSTACK PAYMENT PAGE
+===================================================== */
+
+const PAYSTACK_LINK =
+"https://paystack.shop/pay/-lx13gxkac";
+
+
+/* =====================================================
+   CATEGORY LIST
+===================================================== */
+
+const categories = [
+
+["Phones","📱"],
+["Televisions","📺"],
+["Fans","🌀"],
+["Laptops","💻"],
+["Cars","🚗"],
+["Motorcycles","🏍️"],
+["Clippers","✂️"],
+["Watches","⌚"],
+["Smart Watches","⌚"],
+["Clock","🕐"],
+["Jewelry","💎"],
+["Gold","🥇"],
+["Silver","🥈"],
+["Diamond","💎"],
+["Beads","📿"],
+["Necklaces","📿"],
+["Eyeglasses","👓"],
+["Shoes","👟"],
+["Boots","🥾"],
+["Men Fashion","👔"],
+["Women Fashion","👗"],
+["Kids Fashion","🧒"],
+["Wigs","💇"],
+["Weave-on","💇"],
+["Nails","💅"],
+["Hand Gloves","🧤"],
+["Drones","🚁"],
+["Lights","💡"],
+["Bulbs","💡"],
+["Home Appliances","🏠"],
+["Refrigerators","❄️"],
+["Air Conditioners","❄️"],
+["Washing Machines","🧺"],
+["Kitchen","🍳"],
+["Speakers","🔊"],
+["Headphones","🎧"],
+["Cameras","📷"],
+["Gaming","🎮"],
+["Tablets","📱"],
+["Power Banks","🔋"],
+["Chargers","🔌"],
+["Bags","🎒"],
+["Perfumes","🌸"],
+["Beauty","💄"],
+["Sports","⚽"],
+["Tools","🔧"],
+["Supermarket","🛒"]
+
+];
+
+
+/* =====================================================
+   PRODUCT DATABASE
+===================================================== */
+
+const data = [
+
+/* PHONES */
+["Phones","iPhone 13","Apple smartphone",350000,"iphone"],
+["Phones","iPhone 14","Apple smartphone",420000,"iphone"],
+["Phones","iPhone 15","Apple smartphone",600000,"iphone"],
+["Phones","iPhone 16","Apple smartphone",780000,"iphone"],
+["Phones","iPhone 17","Apple smartphone",950000,"iphone"],
+["Phones","Samsung Galaxy S23","Samsung smartphone",520000,"samsung phone"],
+["Phones","Samsung Galaxy S24","Samsung smartphone",690000,"samsung phone"],
+["Phones","Samsung Galaxy S25","Samsung smartphone",850000,"samsung phone"],
+["Phones","Tecno Spark","Tecno smartphone",180000,"android phone"],
+["Phones","Tecno Camon","Tecno smartphone",240000,"android phone"],
+["Phones","Infinix Hot","Infinix smartphone",170000,"android phone"],
+["Phones","Infinix Note","Infinix smartphone",220000,"android phone"],
+["Phones","Redmi Note","Xiaomi smartphone",210000,"android phone"],
+["Phones","Google Pixel","Google smartphone",550000,"google pixel phone"],
+["Phones","OnePlus Phone","Android smartphone",450000,"android phone"],
+
+/* TV */
+["Televisions","Samsung 43-inch Smart TV","Smart television",480000,"smart tv"],
+["Televisions","Samsung 55-inch Smart TV","Smart television",720000,"smart tv"],
+["Televisions","LG 43-inch Smart TV","Smart television",450000,"smart tv"],
+["Televisions","LG 55-inch OLED TV","OLED television",1100000,"oled tv"],
+["Televisions","Hisense 43-inch TV","Smart television",380000,"smart tv"],
+["Televisions","TCL 50-inch TV","Smart television",460000,"smart tv"],
+["Televisions","Sony Bravia TV","Sony television",800000,"sony tv"],
+["Televisions","32-inch Smart TV","Compact smart television",250000,"smart tv"],
+
+/* FANS */
+["Fans","Standing Fan","Electric standing fan",55000,"standing fan"],
+["Fans","Rechargeable Fan","Rechargeable fan",65000,"electric fan"],
+["Fans","Ceiling Fan","Modern ceiling fan",80000,"ceiling fan"],
+["Fans","Wall Fan","Electric wall fan",60000,"wall fan"],
+["Fans","Industrial Fan","Heavy duty fan",150000,"industrial fan"],
+["Fans","Table Fan","Portable table fan",35000,"table fan"],
+["Fans","Mini USB Fan","Small USB fan",12000,"mini fan"],
+
+/* LAPTOPS */
+["Laptops","MacBook Air","Apple laptop",850000,"macbook"],
+["Laptops","MacBook Pro","Apple laptop",1300000,"macbook"],
+["Laptops","HP Laptop","HP computer",450000,"hp laptop"],
+["Laptops","Dell Inspiron","Dell computer",480000,"dell laptop"],
+["Laptops","Lenovo ThinkPad","Business laptop",500000,"lenovo laptop"],
+["Laptops","ASUS Laptop","ASUS laptop",520000,"asus laptop"],
+["Laptops","Acer Laptop","Acer laptop",430000,"acer laptop"],
+["Laptops","Gaming Laptop","Gaming computer",950000,"gaming laptop"],
+["Laptops","Chromebook","Affordable laptop",280000,"chromebook"],
+
+/* CARS */
+["Cars","Lamborghini Aventador","Luxury sports car",85000000,"lamborghini"],
+["Cars","Lamborghini Huracan","Luxury sports car",70000000,"lamborghini"],
+["Cars","Ferrari Roma","Luxury sports car",65000000,"ferrari"],
+["Cars","Ferrari 488","Luxury sports car",72000000,"ferrari"],
+["Cars","Lexus RX","Luxury SUV",30000000,"lexus suv"],
+["Cars","Lexus ES","Luxury sedan",28000000,"lexus car"],
+["Cars","Toyota Camry","Toyota sedan",18000000,"toyota car"],
+["Cars","Toyota Corolla","Toyota sedan",15000000,"toyota car"],
+["Cars","Toyota Hilux","Toyota pickup",28000000,"toyota pickup"],
+["Cars","Honda Accord","Honda sedan",17000000,"honda car"],
+["Cars","Honda CR-V","Honda SUV",22000000,"honda suv"],
+["Cars","Mercedes-Benz","Luxury car",45000000,"mercedes car"],
+["Cars","BMW Sedan","Luxury sedan",42000000,"bmw car"],
+["Cars","Family SUV","Modern SUV",25000000,"suv car"],
+
+/* MOTORCYCLES */
+["Motorcycles","Honda Motorcycle","Honda motorcycle",850000,"motorcycle"],
+["Motorcycles","Yamaha Motorcycle","Yamaha motorcycle",1200000,"motorcycle"],
+["Motorcycles","Sport Bike","Sport motorcycle",2500000,"sport motorcycle"],
+["Motorcycles","Electric Bike","Electric motorcycle",900000,"electric motorcycle"],
+
+/* CLIPPERS */
+["Clippers","Professional Clipper","Professional hair clipper",45000,"hair clipper"],
+["Clippers","Rechargeable Clipper","Rechargeable clipper",55000,"hair clipper"],
+["Clippers","Barber Clipper","Barber clipper",70000,"barber clipper"],
+["Clippers","Hair Trimmer","Hair trimmer",35000,"hair trimmer"],
+["Clippers","Cordless Clipper","Cordless clipper",50000,"hair clipper"],
+
+/* WATCHES */
+["Watches","Luxury Wrist Watch","Classic wrist watch",120000,"wrist watch"],
+["Watches","Men Watch","Men wrist watch",70000,"men watch"],
+["Watches","Women Watch","Women wrist watch",65000,"women watch"],
+["Smart Watches","Apple Watch","Smartwatch",550000,"smart watch"],
+["Smart Watches","Samsung Galaxy Watch","Smartwatch",400000,"smart watch"],
+["Smart Watches","Fitness Smart Watch","Fitness watch",85000,"smart watch"],
+["Smart Watches","Phone Watch","Smart phone watch",120000,"smart watch"],
+["Clock","Wall Clock","Home wall clock",25000,"wall clock"],
+["Clock","Digital Clock","Digital clock",18000,"digital clock"],
+["Clock","Alarm Clock","Alarm clock",12000,"alarm clock"],
+
+/* JEWELRY */
+["Jewelry","Gold Ring","Gold jewelry ring",250000,"gold ring"],
+["Jewelry","Gold Necklace","Gold necklace",600000,"gold necklace"],
+["Jewelry","Gold Bracelet","Gold bracelet",400000,"gold bracelet"],
+["Jewelry","Silver Ring","Silver jewelry",80000,"silver ring"],
+["Jewelry","Silver Necklace","Silver necklace",120000,"silver necklace"],
+["Jewelry","Diamond Ring","Diamond jewelry",1500000,"diamond ring"],
+["Jewelry","Diamond Necklace","Diamond necklace",2500000,"diamond necklace"],
+["Beads","African Beads","Bead jewelry",30000,"african beads"],
+["Beads","Fashion Beads","Fashion beads",20000,"beads"],
+["Necklaces","Beaded Necklace","Bead necklace",25000,"beaded necklace"],
+["Necklaces","Fashion Necklace","Fashion necklace",18000,"necklace"],
+
+/* GLASSES */
+["Eyeglasses","Fashion Glasses","Fashion eyewear",25000,"eyeglasses"],
+["Eyeglasses","Sun Glasses","Sunglasses",30000,"sunglasses"],
+["Eyeglasses","Designer Glasses","Designer eyewear",85000,"designer glasses"],
+["Eyeglasses","Reading Glasses","Reading glasses",18000,"reading glasses"],
+
+/* SHOES */
+["Shoes","Nike Sneakers","Sports sneakers",85000,"nike shoes"],
+["Shoes","Adidas Sneakers","Sports sneakers",80000,"adidas shoes"],
+["Shoes","Running Shoes","Running footwear",65000,"running shoes"],
+["Shoes","Men Casual Shoes","Men footwear",55000,"men shoes"],
+["Shoes","Women Shoes","Women footwear",60000,"women shoes"],
+["Shoes","School Shoes","School footwear",30000,"school shoes"],
+
+/* BOOTS */
+["Boots","Men Leather Boots","Leather boots",70000,"leather boots"],
+["Boots","Women Fashion Boots","Fashion boots",65000,"fashion boots"],
+["Boots","Safety Boots","Safety footwear",55000,"safety boots"],
+["Boots","Outdoor Boots","Outdoor boots",75000,"boots"],
+["Boots","Hiking Boots","Hiking footwear",80000,"hiking boots"],
+
+/* MEN */
+["Men Fashion","Men T-Shirt","Cotton T-shirt",18000,"men fashion"],
+["Men Fashion","Men Jeans","Denim trousers",30000,"men jeans"],
+["Men Fashion","Men Suit","Formal suit",95000,"men suit"],
+["Men Fashion","Men Jacket","Fashion jacket",50000,"men jacket"],
+["Men Fashion","Men Shorts","Men shorts",18000,"men shorts"],
+["Men Fashion","Men Shirt","Long sleeve shirt",25000,"men shirt"],
+
+/* WOMEN */
+["Women Fashion","Women Dress","Fashion dress",45000,"women dress"],
+["Women Fashion","Women Jeans","Women jeans",35000,"women jeans"],
+["Women Fashion","Women Blouse","Fashion blouse",25000,"women blouse"],
+["Women Fashion","Women Jacket","Fashion jacket",55000,"women jacket"],
+["Women Fashion","Skirt","Fashion skirt",30000,"women skirt"],
+
+/* KIDS */
+["Kids Fashion","Kids T-Shirt","Children clothing",12000,"kids clothing"],
+["Kids Fashion","Kids Shoes","Children shoes",18000,"kids shoes"],
+["Kids Fashion","Kids Dress","Children dress",20000,"kids dress"],
+
+/* WIGS */
+["Wigs","Human Hair Wig","Human hair wig",180000,"human hair wig"],
+["Wigs","Bob Wig","Fashion bob wig",95000,"bob wig"],
+["Wigs","Curly Wig","Curly wig",110000,"curly wig"],
+["Wigs","Long Straight Wig","Long wig",150000,"long wig"],
+["Wigs","Lace Front Wig","Lace wig",130000,"lace wig"],
+
+/* WEAVE */
+["Weave-on","Human Hair Weave","Human hair weave-on",120000,"human hair weave"],
+["Weave-on","Curly Weave","Curly weave",90000,"curly weave"],
+["Weave-on","Straight Weave","Straight weave",100000,"straight weave"],
+["Weave-on","Body Wave","Body wave hair",110000,"body wave hair"],
+
+/* NAILS */
+["Nails","Acrylic Nails","Artificial nails",15000,"acrylic nails"],
+["Nails","Press On Nails","Press-on nails",8000,"press on nails"],
+["Nails","Gel Nails","Gel nails",12000,"gel nails"],
+["Nails","Nail Kit","Manicure kit",25000,"nail kit"],
+
+/* GLOVES */
+["Hand Gloves","Work Gloves","Protective gloves",8000,"work gloves"],
+["Hand Gloves","Sports Gloves","Sports gloves",12000,"sports gloves"],
+["Hand Gloves","Fashion Gloves","Fashion gloves",10000,"gloves"],
+
+/* DRONES */
+["Drones","Camera Drone","Camera drone",350000,"camera drone"],
+["Drones","Mini Drone","Mini drone",120000,"mini drone"],
+["Drones","Professional Drone","Professional drone",850000,"professional drone"],
+["Drones","GPS Drone","GPS drone",450000,"gps drone"],
+
+/* LIGHTS */
+["Lights","LED Ceiling Light","LED ceiling light",25000,"led light"],
+["Lights","Smart LED Light","Smart lighting",30000,"smart led light"],
+["Lights","Solar Light","Solar light",35000,"solar light"],
+["Lights","Flood Light","LED flood light",28000,"flood light"],
+
+/* BULBS */
+["Bulbs","LED Bulb","Energy saving bulb",5000,"led bulb"],
+["Bulbs","Smart Bulb","Smart bulb",12000,"smart bulb"],
+["Bulbs","Rechargeable Bulb","Rechargeable bulb",10000,"rechargeable bulb"],
+["Bulbs","Solar Bulb","Solar bulb",9000,"solar bulb"],
+
+/* APPLIANCES */
+["Home Appliances","Electric Iron","Electric iron",30000,"electric iron"],
+["Home Appliances","Blender","Kitchen blender",45000,"blender"],
+["Home Appliances","Electric Kettle","Electric kettle",25000,"electric kettle"],
+["Home Appliances","Air Fryer","Air fryer",70000,"air fryer"],
+["Refrigerators","Double Door Refrigerator","Large refrigerator",650000,"refrigerator"],
+["Refrigerators","Mini Refrigerator","Small refrigerator",180000,"mini refrigerator"],
+["Air Conditioners","Split AC","Air conditioner",550000,"air conditioner"],
+["Air Conditioners","Portable AC","Portable AC",400000,"portable air conditioner"],
+["Washing Machines","Front Load Washer","Washing machine",450000,"washing machine"],
+["Washing Machines","Top Load Washer","Washing machine",350000,"washing machine"],
+["Kitchen","Microwave Oven","Microwave oven",120000,"microwave oven"],
+["Kitchen","Rice Cooker","Electric rice cooker",35000,"rice cooker"],
+["Kitchen","Toaster","Kitchen toaster",25000,"toaster"],
+
+/* AUDIO */
+["Speakers","Bluetooth Speaker","Portable speaker",45000,"bluetooth speaker"],
+["Speakers","Party Speaker","Party speaker",150000,"party speaker"],
+["Speakers","Home Theater","Home theater",250000,"home theater"],
+["Headphones","Wireless Headphones","Wireless headphones",55000,"wireless headphones"],
+["Headphones","Earbuds","Wireless earbuds",35000,"wireless earbuds"],
+
+/* CAMERAS */
+["Cameras","Digital Camera","Digital camera",350000,"digital camera"],
+["Cameras","DSLR Camera","Professional camera",650000,"dslr camera"],
+["Cameras","Action Camera","Action camera",180000,"action camera"],
+["Cameras","Security Camera","Security camera",50000,"security camera"],
+
+/* GAMING */
+["Gaming","PlayStation 5","Gaming console",850000,"gaming console"],
+["Gaming","Xbox","Gaming console",700000,"gaming console"],
+["Gaming","Gaming Controller","Game controller",55000,"gaming controller"],
+["Gaming","Gaming Chair","Gaming chair",180000,"gaming chair"],
+
+/* TABLETS */
+["Tablets","iPad","Apple tablet",500000,"ipad tablet"],
+["Tablets","Samsung Tablet","Samsung tablet",350000,"samsung tablet"],
+["Tablets","Android Tablet","Android tablet",180000,"android tablet"],
+
+/* POWER */
+["Power Banks","Power Bank 10000mAh","Portable power bank",18000,"power bank"],
+["Power Banks","Power Bank 20000mAh","Large power bank",30000,"power bank"],
+["Power Banks","Solar Power Bank","Solar power bank",40000,"solar power bank"],
+
+/* CHARGERS */
+["Chargers","USB-C Charger","Fast charger",15000,"phone charger"],
+["Chargers","Wireless Charger","Wireless charger",25000,"wireless charger"],
